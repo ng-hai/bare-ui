@@ -15,27 +15,27 @@
     {
       "path": "registry/bare/ui/dialog/dialog-root.tsx",
       "content": "import { Dialog as DialogPrimitive } from \"@base-ui/react/dialog\";\nimport { createStyleContext } from \"@/registry/bare/lib/create-style-context\";\nimport { createPropSplitter } from \"@/registry/bare/lib/split-variant-props\";\nimport { dialogStyles } from \"./styles\";\nimport type { VariantProps } from \"@/registry/bare/lib/tv.config\";\n\ntype DialogStyles = ReturnType<typeof dialogStyles>;\ntype DialogVariantProps = VariantProps<typeof dialogStyles>;\n\nconst { StyleContext, useStyles } =\n  createStyleContext<DialogStyles>(\"Dialog\");\nconst splitProps = createPropSplitter(dialogStyles);\n\nexport { useStyles as useDialogStyles };\n\ninterface DialogRootProps extends DialogPrimitive.Root.Props, DialogVariantProps {\n  styles?: DialogStyles;\n}\n\nexport function DialogRoot(props: DialogRootProps) {\n  const [variantProps, { styles, ...htmlProps }] = splitProps(\n    props as Record<string, any>,\n  );\n  const s = styles ?? dialogStyles(variantProps);\n  return (\n    <StyleContext value={s}>\n      <DialogPrimitive.Root {...htmlProps} />\n    </StyleContext>\n  );\n}\n",
-      "type": "registry:component"
+      "type": "registry:ui"
     },
     {
       "path": "registry/bare/ui/dialog/dialog-parts.tsx",
       "content": "import { Dialog as DialogPrimitive } from \"@base-ui/react/dialog\";\nimport { useDialogStyles } from \"./dialog-root\";\n\ninterface DialogTriggerProps extends DialogPrimitive.Trigger.Props {\n  className?: string;\n}\n\nexport function DialogTrigger({ className, ...props }: DialogTriggerProps) {\n  const styles = useDialogStyles();\n  return (\n    <DialogPrimitive.Trigger\n      {...props}\n      className={styles.trigger({ class: className })}\n      data-slot=\"dialog-trigger\"\n    />\n  );\n}\n\ninterface DialogPortalProps extends DialogPrimitive.Portal.Props {}\n\nexport function DialogPortal(props: DialogPortalProps) {\n  return <DialogPrimitive.Portal {...props} />;\n}\n\ninterface DialogBackdropProps extends DialogPrimitive.Backdrop.Props {\n  className?: string;\n}\n\nexport function DialogBackdrop({\n  className,\n  ...props\n}: DialogBackdropProps) {\n  const styles = useDialogStyles();\n  return (\n    <DialogPrimitive.Backdrop\n      {...props}\n      className={styles.backdrop({ class: className })}\n      data-slot=\"dialog-backdrop\"\n    />\n  );\n}\n\ninterface DialogPopupProps extends DialogPrimitive.Popup.Props {\n  className?: string;\n}\n\nexport function DialogPopup({ className, ...props }: DialogPopupProps) {\n  const styles = useDialogStyles();\n  return (\n    <DialogPrimitive.Popup\n      {...props}\n      className={styles.popup({ class: className })}\n      data-slot=\"dialog-popup\"\n    />\n  );\n}\n\ninterface DialogTitleProps extends DialogPrimitive.Title.Props {\n  className?: string;\n}\n\nexport function DialogTitle({ className, ...props }: DialogTitleProps) {\n  const styles = useDialogStyles();\n  return (\n    <DialogPrimitive.Title\n      {...props}\n      className={styles.title({ class: className })}\n      data-slot=\"dialog-title\"\n    />\n  );\n}\n\ninterface DialogDescriptionProps extends DialogPrimitive.Description.Props {\n  className?: string;\n}\n\nexport function DialogDescription({\n  className,\n  ...props\n}: DialogDescriptionProps) {\n  const styles = useDialogStyles();\n  return (\n    <DialogPrimitive.Description\n      {...props}\n      className={styles.description({ class: className })}\n      data-slot=\"dialog-description\"\n    />\n  );\n}\n\ninterface DialogCloseProps extends DialogPrimitive.Close.Props {\n  className?: string;\n}\n\nexport function DialogClose({ className, ...props }: DialogCloseProps) {\n  const styles = useDialogStyles();\n  return (\n    <DialogPrimitive.Close\n      {...props}\n      className={styles.close({ class: className })}\n      data-slot=\"dialog-close\"\n    />\n  );\n}\n",
-      "type": "registry:component"
+      "type": "registry:ui"
     },
     {
       "path": "registry/bare/ui/dialog/styles.ts",
       "content": "import { tv } from \"@/registry/bare/lib/tv.config\";\n\nexport const dialogStyles = tv({\n  slots: {\n    root: [\"\"],\n    trigger: [\"\"],\n    portal: [\"\"],\n    backdrop: [\"\"],\n    popup: [\"\"],\n    title: [\"\"],\n    description: [\"\"],\n    close: [\"\"],\n  },\n});\n",
-      "type": "registry:component"
+      "type": "registry:ui"
     },
     {
       "path": "registry/bare/ui/dialog/index.parts.ts",
       "content": "export { DialogRoot } from \"./dialog-root\";\nexport {\n  DialogTrigger,\n  DialogPortal,\n  DialogBackdrop,\n  DialogPopup,\n  DialogTitle,\n  DialogDescription,\n  DialogClose,\n} from \"./dialog-parts\";\n",
-      "type": "registry:component"
+      "type": "registry:ui"
     },
     {
       "path": "registry/bare/ui/dialog/index.ts",
       "content": "export { DialogRoot as Dialog } from \"./dialog-root\";\nexport {\n  DialogTrigger,\n  DialogPortal,\n  DialogBackdrop,\n  DialogPopup,\n  DialogTitle,\n  DialogDescription,\n  DialogClose,\n} from \"./dialog-parts\";\nexport { dialogStyles } from \"./styles\";\n",
-      "type": "registry:component"
+      "type": "registry:ui"
     }
   ],
   "type": "registry:ui"

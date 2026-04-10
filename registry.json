@@ -48,9 +48,9 @@
       "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/split-variant-props.json", "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/tv-config.json"],
       "dependencies": ["@base-ui/react"],
       "files": [
-        { "path": "registry/bare/ui/button/button-root.tsx", "type": "registry:component" },
-        { "path": "registry/bare/ui/button/styles.ts", "type": "registry:component" },
-        { "path": "registry/bare/ui/button/index.ts", "type": "registry:component" }
+        { "path": "registry/bare/ui/button/button-root.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/button/styles.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/button/index.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -61,9 +61,9 @@
       "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/split-variant-props.json", "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/tv-config.json"],
       "dependencies": ["@base-ui/react"],
       "files": [
-        { "path": "registry/bare/ui/input/input-root.tsx", "type": "registry:component" },
-        { "path": "registry/bare/ui/input/styles.ts", "type": "registry:component" },
-        { "path": "registry/bare/ui/input/index.ts", "type": "registry:component" }
+        { "path": "registry/bare/ui/input/input-root.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/input/styles.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/input/index.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -74,11 +74,11 @@
       "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/create-style-context.json", "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/split-variant-props.json", "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/tv-config.json"],
       "dependencies": ["@base-ui/react"],
       "files": [
-        { "path": "registry/bare/ui/checkbox/checkbox-root.tsx", "type": "registry:component" },
-        { "path": "registry/bare/ui/checkbox/checkbox-indicator.tsx", "type": "registry:component" },
-        { "path": "registry/bare/ui/checkbox/styles.ts", "type": "registry:component" },
-        { "path": "registry/bare/ui/checkbox/index.parts.ts", "type": "registry:component" },
-        { "path": "registry/bare/ui/checkbox/index.ts", "type": "registry:component" }
+        { "path": "registry/bare/ui/checkbox/checkbox-root.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/checkbox/checkbox-indicator.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/checkbox/styles.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/checkbox/index.parts.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/checkbox/index.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -89,12 +89,12 @@
       "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/create-style-context.json", "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/split-variant-props.json", "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/tv-config.json"],
       "dependencies": ["@base-ui/react"],
       "files": [
-        { "path": "registry/bare/ui/avatar/avatar-root.tsx", "type": "registry:component" },
-        { "path": "registry/bare/ui/avatar/avatar-image.tsx", "type": "registry:component" },
-        { "path": "registry/bare/ui/avatar/avatar-fallback.tsx", "type": "registry:component" },
-        { "path": "registry/bare/ui/avatar/styles.ts", "type": "registry:component" },
-        { "path": "registry/bare/ui/avatar/index.parts.ts", "type": "registry:component" },
-        { "path": "registry/bare/ui/avatar/index.ts", "type": "registry:component" }
+        { "path": "registry/bare/ui/avatar/avatar-root.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/avatar/avatar-image.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/avatar/avatar-fallback.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/avatar/styles.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/avatar/index.parts.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/avatar/index.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -105,11 +105,11 @@
       "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/create-style-context.json", "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/split-variant-props.json", "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/tv-config.json"],
       "dependencies": ["@base-ui/react"],
       "files": [
-        { "path": "registry/bare/ui/select/select-root.tsx", "type": "registry:component" },
-        { "path": "registry/bare/ui/select/select-parts.tsx", "type": "registry:component" },
-        { "path": "registry/bare/ui/select/styles.ts", "type": "registry:component" },
-        { "path": "registry/bare/ui/select/index.parts.ts", "type": "registry:component" },
-        { "path": "registry/bare/ui/select/index.ts", "type": "registry:component" }
+        { "path": "registry/bare/ui/select/select-root.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/select/select-parts.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/select/styles.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/select/index.parts.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/select/index.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -120,11 +120,11 @@
       "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/create-style-context.json", "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/split-variant-props.json", "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/tv-config.json"],
       "dependencies": ["@base-ui/react"],
       "files": [
-        { "path": "registry/bare/ui/dialog/dialog-root.tsx", "type": "registry:component" },
-        { "path": "registry/bare/ui/dialog/dialog-parts.tsx", "type": "registry:component" },
-        { "path": "registry/bare/ui/dialog/styles.ts", "type": "registry:component" },
-        { "path": "registry/bare/ui/dialog/index.parts.ts", "type": "registry:component" },
-        { "path": "registry/bare/ui/dialog/index.ts", "type": "registry:component" }
+        { "path": "registry/bare/ui/dialog/dialog-root.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/dialog/dialog-parts.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/dialog/styles.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/dialog/index.parts.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/dialog/index.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -135,11 +135,11 @@
       "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/create-style-context.json", "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/split-variant-props.json", "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/tv-config.json"],
       "dependencies": ["@base-ui/react"],
       "files": [
-        { "path": "registry/bare/ui/popover/popover-root.tsx", "type": "registry:component" },
-        { "path": "registry/bare/ui/popover/popover-parts.tsx", "type": "registry:component" },
-        { "path": "registry/bare/ui/popover/styles.ts", "type": "registry:component" },
-        { "path": "registry/bare/ui/popover/index.parts.ts", "type": "registry:component" },
-        { "path": "registry/bare/ui/popover/index.ts", "type": "registry:component" }
+        { "path": "registry/bare/ui/popover/popover-root.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/popover/popover-parts.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/popover/styles.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/popover/index.parts.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/popover/index.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -150,11 +150,11 @@
       "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/create-style-context.json", "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/split-variant-props.json", "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/tv-config.json"],
       "dependencies": ["@base-ui/react"],
       "files": [
-        { "path": "registry/bare/ui/tabs/tabs-root.tsx", "type": "registry:component" },
-        { "path": "registry/bare/ui/tabs/tabs-parts.tsx", "type": "registry:component" },
-        { "path": "registry/bare/ui/tabs/styles.ts", "type": "registry:component" },
-        { "path": "registry/bare/ui/tabs/index.parts.ts", "type": "registry:component" },
-        { "path": "registry/bare/ui/tabs/index.ts", "type": "registry:component" }
+        { "path": "registry/bare/ui/tabs/tabs-root.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/tabs/tabs-parts.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/tabs/styles.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/tabs/index.parts.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/tabs/index.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -165,11 +165,11 @@
       "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/create-style-context.json", "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/split-variant-props.json", "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/tv-config.json"],
       "dependencies": ["@base-ui/react"],
       "files": [
-        { "path": "registry/bare/ui/accordion/accordion-root.tsx", "type": "registry:component" },
-        { "path": "registry/bare/ui/accordion/accordion-parts.tsx", "type": "registry:component" },
-        { "path": "registry/bare/ui/accordion/styles.ts", "type": "registry:component" },
-        { "path": "registry/bare/ui/accordion/index.parts.ts", "type": "registry:component" },
-        { "path": "registry/bare/ui/accordion/index.ts", "type": "registry:component" }
+        { "path": "registry/bare/ui/accordion/accordion-root.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/accordion/accordion-parts.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/accordion/styles.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/accordion/index.parts.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/accordion/index.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -180,11 +180,11 @@
       "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/create-style-context.json", "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/split-variant-props.json", "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/tv-config.json"],
       "dependencies": ["@base-ui/react"],
       "files": [
-        { "path": "registry/bare/ui/tooltip/tooltip-root.tsx", "type": "registry:component" },
-        { "path": "registry/bare/ui/tooltip/tooltip-parts.tsx", "type": "registry:component" },
-        { "path": "registry/bare/ui/tooltip/styles.ts", "type": "registry:component" },
-        { "path": "registry/bare/ui/tooltip/index.parts.ts", "type": "registry:component" },
-        { "path": "registry/bare/ui/tooltip/index.ts", "type": "registry:component" }
+        { "path": "registry/bare/ui/tooltip/tooltip-root.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/tooltip/tooltip-parts.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/tooltip/styles.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/tooltip/index.parts.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/tooltip/index.ts", "type": "registry:ui" }
       ]
     }
   ]

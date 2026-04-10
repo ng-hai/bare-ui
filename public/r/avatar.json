@@ -15,32 +15,32 @@
     {
       "path": "registry/bare/ui/avatar/avatar-root.tsx",
       "content": "import { Avatar as AvatarPrimitive } from \"@base-ui/react/avatar\";\nimport { createStyleContext } from \"@/registry/bare/lib/create-style-context\";\nimport { createPropSplitter } from \"@/registry/bare/lib/split-variant-props\";\nimport { avatarStyles } from \"./styles\";\nimport type { VariantProps } from \"@/registry/bare/lib/tv.config\";\n\ntype AvatarStyles = ReturnType<typeof avatarStyles>;\ntype AvatarVariantProps = VariantProps<typeof avatarStyles>;\n\nconst { StyleContext, useStyles } =\n  createStyleContext<AvatarStyles>(\"Avatar\");\nconst splitProps = createPropSplitter(avatarStyles);\n\nexport { useStyles as useAvatarStyles };\n\ninterface AvatarRootProps\n  extends AvatarPrimitive.Root.Props,\n    AvatarVariantProps {\n  className?: string;\n  styles?: AvatarStyles;\n}\n\nexport function AvatarRoot(props: AvatarRootProps) {\n  const [variantProps, { className, styles, ...htmlProps }] = splitProps(\n    props as Record<string, any>,\n  );\n  const s = styles ?? avatarStyles(variantProps);\n  return (\n    <StyleContext value={s}>\n      <AvatarPrimitive.Root\n        {...htmlProps}\n        className={s.root({ class: className })}\n        data-slot=\"avatar\"\n      />\n    </StyleContext>\n  );\n}\n",
-      "type": "registry:component"
+      "type": "registry:ui"
     },
     {
       "path": "registry/bare/ui/avatar/avatar-image.tsx",
       "content": "import { Avatar as AvatarPrimitive } from \"@base-ui/react/avatar\";\nimport { useAvatarStyles } from \"./avatar-root\";\n\ninterface AvatarImageProps extends AvatarPrimitive.Image.Props {\n  className?: string;\n}\n\nexport function AvatarImage({ className, ...props }: AvatarImageProps) {\n  const styles = useAvatarStyles();\n  return (\n    <AvatarPrimitive.Image\n      {...props}\n      className={styles.image({ class: className })}\n      data-slot=\"avatar-image\"\n    />\n  );\n}\n",
-      "type": "registry:component"
+      "type": "registry:ui"
     },
     {
       "path": "registry/bare/ui/avatar/avatar-fallback.tsx",
       "content": "import { Avatar as AvatarPrimitive } from \"@base-ui/react/avatar\";\nimport { useAvatarStyles } from \"./avatar-root\";\n\ninterface AvatarFallbackProps extends AvatarPrimitive.Fallback.Props {\n  className?: string;\n}\n\nexport function AvatarFallback({\n  className,\n  ...props\n}: AvatarFallbackProps) {\n  const styles = useAvatarStyles();\n  return (\n    <AvatarPrimitive.Fallback\n      {...props}\n      className={styles.fallback({ class: className })}\n      data-slot=\"avatar-fallback\"\n    />\n  );\n}\n",
-      "type": "registry:component"
+      "type": "registry:ui"
     },
     {
       "path": "registry/bare/ui/avatar/styles.ts",
       "content": "import { tv } from \"@/registry/bare/lib/tv.config\";\n\nexport const avatarStyles = tv({\n  slots: {\n    root: [\"\"],\n    image: [\"\"],\n    fallback: [\"\"],\n  },\n});\n",
-      "type": "registry:component"
+      "type": "registry:ui"
     },
     {
       "path": "registry/bare/ui/avatar/index.parts.ts",
       "content": "export { AvatarRoot } from \"./avatar-root\";\nexport { AvatarImage } from \"./avatar-image\";\nexport { AvatarFallback } from \"./avatar-fallback\";\n",
-      "type": "registry:component"
+      "type": "registry:ui"
     },
     {
       "path": "registry/bare/ui/avatar/index.ts",
       "content": "export { AvatarRoot as Avatar } from \"./avatar-root\";\nexport { AvatarImage } from \"./avatar-image\";\nexport { AvatarFallback } from \"./avatar-fallback\";\nexport { avatarStyles } from \"./styles\";\n",
-      "type": "registry:component"
+      "type": "registry:ui"
     }
   ],
   "type": "registry:ui"
