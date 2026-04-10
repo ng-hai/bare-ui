@@ -1,0 +1,107 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "bare-ui-starter",
+  "homepage": "https://bare-ui.dev/presets/starter",
+  "items": [
+    {
+      "name": "button-styles",
+      "type": "registry:lib",
+      "title": "Button Styles (Starter)",
+      "description": "Starter preset styles for the Button component",
+      "registryDependencies": ["https://bare-ui.dev/r/button.json"],
+      "files": [
+        { "path": "presets/starter/registry/starter/ui/button/styles.ts", "type": "registry:lib" }
+      ]
+    },
+    {
+      "name": "input-styles",
+      "type": "registry:lib",
+      "title": "Input Styles (Starter)",
+      "description": "Starter preset styles for the Input component",
+      "registryDependencies": ["https://bare-ui.dev/r/input.json"],
+      "files": [
+        { "path": "presets/starter/registry/starter/ui/input/styles.ts", "type": "registry:lib" }
+      ]
+    },
+    {
+      "name": "checkbox-styles",
+      "type": "registry:lib",
+      "title": "Checkbox Styles (Starter)",
+      "description": "Starter preset styles for the Checkbox component",
+      "registryDependencies": ["https://bare-ui.dev/r/checkbox.json"],
+      "files": [
+        { "path": "presets/starter/registry/starter/ui/checkbox/styles.ts", "type": "registry:lib" }
+      ]
+    },
+    {
+      "name": "avatar-styles",
+      "type": "registry:lib",
+      "title": "Avatar Styles (Starter)",
+      "description": "Starter preset styles for the Avatar component",
+      "registryDependencies": ["https://bare-ui.dev/r/avatar.json"],
+      "files": [
+        { "path": "presets/starter/registry/starter/ui/avatar/styles.ts", "type": "registry:lib" }
+      ]
+    },
+    {
+      "name": "select-styles",
+      "type": "registry:lib",
+      "title": "Select Styles (Starter)",
+      "description": "Starter preset styles for the Select component",
+      "registryDependencies": ["https://bare-ui.dev/r/select.json"],
+      "files": [
+        { "path": "presets/starter/registry/starter/ui/select/styles.ts", "type": "registry:lib" }
+      ]
+    },
+    {
+      "name": "dialog-styles",
+      "type": "registry:lib",
+      "title": "Dialog Styles (Starter)",
+      "description": "Starter preset styles for the Dialog component",
+      "registryDependencies": ["https://bare-ui.dev/r/dialog.json"],
+      "files": [
+        { "path": "presets/starter/registry/starter/ui/dialog/styles.ts", "type": "registry:lib" }
+      ]
+    },
+    {
+      "name": "popover-styles",
+      "type": "registry:lib",
+      "title": "Popover Styles (Starter)",
+      "description": "Starter preset styles for the Popover component",
+      "registryDependencies": ["https://bare-ui.dev/r/popover.json"],
+      "files": [
+        { "path": "presets/starter/registry/starter/ui/popover/styles.ts", "type": "registry:lib" }
+      ]
+    },
+    {
+      "name": "tabs-styles",
+      "type": "registry:lib",
+      "title": "Tabs Styles (Starter)",
+      "description": "Starter preset styles for the Tabs component",
+      "registryDependencies": ["https://bare-ui.dev/r/tabs.json"],
+      "files": [
+        { "path": "presets/starter/registry/starter/ui/tabs/styles.ts", "type": "registry:lib" }
+      ]
+    },
+    {
+      "name": "accordion-styles",
+      "type": "registry:lib",
+      "title": "Accordion Styles (Starter)",
+      "description": "Starter preset styles for the Accordion component",
+      "registryDependencies": ["https://bare-ui.dev/r/accordion.json"],
+      "files": [
+        { "path": "presets/starter/registry/starter/ui/accordion/styles.ts", "type": "registry:lib" }
+      ]
+    },
+    {
+      "name": "tooltip-styles",
+      "type": "registry:lib",
+      "title": "Tooltip Styles (Starter)",
+      "description": "Starter preset styles for the Tooltip component",
+      "registryDependencies": ["https://bare-ui.dev/r/tooltip.json"],
+      "files": [
+        { "path": "presets/starter/registry/starter/ui/tooltip/styles.ts", "type": "registry:lib" }
+      ]
+    }
+  ]
+}
