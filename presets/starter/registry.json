@@ -1,14 +1,14 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "bare-ui-starter",
-  "homepage": "https://bare-ui.dev/presets/starter",
+  "homepage": "https://github.com/ng-hai/bare-ui/tree/main/presets/starter",
   "items": [
     {
       "name": "button-styles",
       "type": "registry:lib",
       "title": "Button Styles (Starter)",
       "description": "Starter preset styles for the Button component",
-      "registryDependencies": ["https://bare-ui.dev/r/button.json"],
+      "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/button.json"],
       "files": [
         { "path": "presets/starter/registry/starter/ui/button/styles.ts", "type": "registry:lib" }
       ]
@@ -18,7 +18,7 @@
       "type": "registry:lib",
       "title": "Input Styles (Starter)",
       "description": "Starter preset styles for the Input component",
-      "registryDependencies": ["https://bare-ui.dev/r/input.json"],
+      "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/input.json"],
       "files": [
         { "path": "presets/starter/registry/starter/ui/input/styles.ts", "type": "registry:lib" }
       ]
@@ -28,7 +28,7 @@
       "type": "registry:lib",
       "title": "Checkbox Styles (Starter)",
       "description": "Starter preset styles for the Checkbox component",
-      "registryDependencies": ["https://bare-ui.dev/r/checkbox.json"],
+      "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/checkbox.json"],
       "files": [
         { "path": "presets/starter/registry/starter/ui/checkbox/styles.ts", "type": "registry:lib" }
       ]
@@ -38,7 +38,7 @@
       "type": "registry:lib",
       "title": "Avatar Styles (Starter)",
       "description": "Starter preset styles for the Avatar component",
-      "registryDependencies": ["https://bare-ui.dev/r/avatar.json"],
+      "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/avatar.json"],
       "files": [
         { "path": "presets/starter/registry/starter/ui/avatar/styles.ts", "type": "registry:lib" }
       ]
@@ -48,7 +48,7 @@
       "type": "registry:lib",
       "title": "Select Styles (Starter)",
       "description": "Starter preset styles for the Select component",
-      "registryDependencies": ["https://bare-ui.dev/r/select.json"],
+      "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/select.json"],
       "files": [
         { "path": "presets/starter/registry/starter/ui/select/styles.ts", "type": "registry:lib" }
       ]
@@ -58,7 +58,7 @@
       "type": "registry:lib",
       "title": "Dialog Styles (Starter)",
       "description": "Starter preset styles for the Dialog component",
-      "registryDependencies": ["https://bare-ui.dev/r/dialog.json"],
+      "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/dialog.json"],
       "files": [
         { "path": "presets/starter/registry/starter/ui/dialog/styles.ts", "type": "registry:lib" }
       ]
@@ -68,7 +68,7 @@
       "type": "registry:lib",
       "title": "Popover Styles (Starter)",
       "description": "Starter preset styles for the Popover component",
-      "registryDependencies": ["https://bare-ui.dev/r/popover.json"],
+      "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/popover.json"],
       "files": [
         { "path": "presets/starter/registry/starter/ui/popover/styles.ts", "type": "registry:lib" }
       ]
@@ -78,7 +78,7 @@
       "type": "registry:lib",
       "title": "Tabs Styles (Starter)",
       "description": "Starter preset styles for the Tabs component",
-      "registryDependencies": ["https://bare-ui.dev/r/tabs.json"],
+      "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/tabs.json"],
       "files": [
         { "path": "presets/starter/registry/starter/ui/tabs/styles.ts", "type": "registry:lib" }
       ]
@@ -88,7 +88,7 @@
       "type": "registry:lib",
       "title": "Accordion Styles (Starter)",
       "description": "Starter preset styles for the Accordion component",
-      "registryDependencies": ["https://bare-ui.dev/r/accordion.json"],
+      "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/accordion.json"],
       "files": [
         { "path": "presets/starter/registry/starter/ui/accordion/styles.ts", "type": "registry:lib" }
       ]
@@ -98,7 +98,7 @@
       "type": "registry:lib",
       "title": "Tooltip Styles (Starter)",
       "description": "Starter preset styles for the Tooltip component",
-      "registryDependencies": ["https://bare-ui.dev/r/tooltip.json"],
+      "registryDependencies": ["https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/tooltip.json"],
       "files": [
         { "path": "presets/starter/registry/starter/ui/tooltip/styles.ts", "type": "registry:lib" }
       ]

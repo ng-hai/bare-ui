@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tv-config",
+  "title": "TV Config",
+  "description": "Shared Tailwind Variants configuration with twMerge and extensible classGroups",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge",
+    "tailwind-variants"
+  ],
+  "files": [
+    {
+      "path": "registry/bare/lib/tv.config.ts",
+      "content": "import { type ClassValue, clsx } from \"clsx\";\nimport { extendTailwindMerge } from \"tailwind-merge\";\nimport { createTV } from \"tailwind-variants\";\n\nconst twMergeConfig = {\n  extend: {\n    classGroups: {},\n  },\n};\n\nexport const tv = createTV({\n  twMerge: true,\n  twMergeConfig,\n});\n\nconst twMerge = extendTailwindMerge(twMergeConfig);\n\nexport function cx(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs));\n}\n\nexport type { VariantProps } from \"tailwind-variants\";\n",
+      "type": "registry:lib"
+    }
+  ],
+  "type": "registry:lib"
+}

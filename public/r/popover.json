@@ -1,0 +1,42 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "popover",
+  "title": "Popover",
+  "description": "Unstyled popover component with positioning and arrow, built on Base UI",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/create-style-context.json",
+    "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/split-variant-props.json",
+    "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/tv-config.json"
+  ],
+  "files": [
+    {
+      "path": "registry/bare/ui/popover/popover-root.tsx",
+      "content": "import { Popover as PopoverPrimitive } from \"@base-ui/react/popover\";\nimport { createStyleContext } from \"@/registry/bare/lib/create-style-context\";\nimport { createPropSplitter } from \"@/registry/bare/lib/split-variant-props\";\nimport { popoverStyles } from \"./styles\";\nimport type { VariantProps } from \"@/registry/bare/lib/tv.config\";\n\ntype PopoverStyles = ReturnType<typeof popoverStyles>;\ntype PopoverVariantProps = VariantProps<typeof popoverStyles>;\n\nconst { StyleContext, useStyles } =\n  createStyleContext<PopoverStyles>(\"Popover\");\nconst splitProps = createPropSplitter(popoverStyles);\n\nexport { useStyles as usePopoverStyles };\n\ninterface PopoverRootProps\n  extends PopoverPrimitive.Root.Props,\n    PopoverVariantProps {\n  styles?: PopoverStyles;\n}\n\nexport function PopoverRoot(props: PopoverRootProps) {\n  const [variantProps, { styles, ...htmlProps }] = splitProps(\n    props as Record<string, any>,\n  );\n  const s = styles ?? popoverStyles(variantProps);\n  return (\n    <StyleContext value={s}>\n      <PopoverPrimitive.Root {...htmlProps} />\n    </StyleContext>\n  );\n}\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "registry/bare/ui/popover/popover-parts.tsx",
+      "content": "import { Popover as PopoverPrimitive } from \"@base-ui/react/popover\";\nimport { usePopoverStyles } from \"./popover-root\";\n\ninterface PopoverTriggerProps extends PopoverPrimitive.Trigger.Props {\n  className?: string;\n}\n\nexport function PopoverTrigger({\n  className,\n  ...props\n}: PopoverTriggerProps) {\n  const styles = usePopoverStyles();\n  return (\n    <PopoverPrimitive.Trigger\n      {...props}\n      className={styles.trigger({ class: className })}\n      data-slot=\"popover-trigger\"\n    />\n  );\n}\n\ninterface PopoverPortalProps extends PopoverPrimitive.Portal.Props {}\n\nexport function PopoverPortal(props: PopoverPortalProps) {\n  return <PopoverPrimitive.Portal {...props} />;\n}\n\ninterface PopoverBackdropProps extends PopoverPrimitive.Backdrop.Props {\n  className?: string;\n}\n\nexport function PopoverBackdrop({\n  className,\n  ...props\n}: PopoverBackdropProps) {\n  const styles = usePopoverStyles();\n  return (\n    <PopoverPrimitive.Backdrop\n      {...props}\n      className={styles.backdrop({ class: className })}\n      data-slot=\"popover-backdrop\"\n    />\n  );\n}\n\ninterface PopoverPositionerProps extends PopoverPrimitive.Positioner.Props {\n  className?: string;\n}\n\nexport function PopoverPositioner({\n  className,\n  ...props\n}: PopoverPositionerProps) {\n  const styles = usePopoverStyles();\n  return (\n    <PopoverPrimitive.Positioner\n      {...props}\n      className={styles.positioner({ class: className })}\n      data-slot=\"popover-positioner\"\n    />\n  );\n}\n\ninterface PopoverPopupProps extends PopoverPrimitive.Popup.Props {\n  className?: string;\n}\n\nexport function PopoverPopup({ className, ...props }: PopoverPopupProps) {\n  const styles = usePopoverStyles();\n  return (\n    <PopoverPrimitive.Popup\n      {...props}\n      className={styles.popup({ class: className })}\n      data-slot=\"popover-popup\"\n    />\n  );\n}\n\ninterface PopoverArrowProps extends PopoverPrimitive.Arrow.Props {\n  className?: string;\n}\n\nexport function PopoverArrow({ className, ...props }: PopoverArrowProps) {\n  const styles = usePopoverStyles();\n  return (\n    <PopoverPrimitive.Arrow\n      {...props}\n      className={styles.arrow({ class: className })}\n      data-slot=\"popover-arrow\"\n    />\n  );\n}\n\ninterface PopoverTitleProps extends PopoverPrimitive.Title.Props {\n  className?: string;\n}\n\nexport function PopoverTitle({ className, ...props }: PopoverTitleProps) {\n  const styles = usePopoverStyles();\n  return (\n    <PopoverPrimitive.Title\n      {...props}\n      className={styles.title({ class: className })}\n      data-slot=\"popover-title\"\n    />\n  );\n}\n\ninterface PopoverDescriptionProps\n  extends PopoverPrimitive.Description.Props {\n  className?: string;\n}\n\nexport function PopoverDescription({\n  className,\n  ...props\n}: PopoverDescriptionProps) {\n  const styles = usePopoverStyles();\n  return (\n    <PopoverPrimitive.Description\n      {...props}\n      className={styles.description({ class: className })}\n      data-slot=\"popover-description\"\n    />\n  );\n}\n\ninterface PopoverCloseProps extends PopoverPrimitive.Close.Props {\n  className?: string;\n}\n\nexport function PopoverClose({ className, ...props }: PopoverCloseProps) {\n  const styles = usePopoverStyles();\n  return (\n    <PopoverPrimitive.Close\n      {...props}\n      className={styles.close({ class: className })}\n      data-slot=\"popover-close\"\n    />\n  );\n}\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "registry/bare/ui/popover/styles.ts",
+      "content": "import { tv } from \"@/registry/bare/lib/tv.config\";\n\nexport const popoverStyles = tv({\n  slots: {\n    root: [\"\"],\n    trigger: [\"\"],\n    portal: [\"\"],\n    backdrop: [\"\"],\n    positioner: [\"\"],\n    popup: [\"\"],\n    arrow: [\"\"],\n    title: [\"\"],\n    description: [\"\"],\n    close: [\"\"],\n  },\n});\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "registry/bare/ui/popover/index.parts.ts",
+      "content": "export { PopoverRoot } from \"./popover-root\";\nexport {\n  PopoverTrigger,\n  PopoverPortal,\n  PopoverBackdrop,\n  PopoverPositioner,\n  PopoverPopup,\n  PopoverArrow,\n  PopoverTitle,\n  PopoverDescription,\n  PopoverClose,\n} from \"./popover-parts\";\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "registry/bare/ui/popover/index.ts",
+      "content": "export { PopoverRoot as Popover } from \"./popover-root\";\nexport {\n  PopoverTrigger,\n  PopoverPortal,\n  PopoverBackdrop,\n  PopoverPositioner,\n  PopoverPopup,\n  PopoverArrow,\n  PopoverTitle,\n  PopoverDescription,\n  PopoverClose,\n} from \"./popover-parts\";\nexport { popoverStyles } from \"./styles\";\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:ui"
+}
