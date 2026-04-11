@@ -7,11 +7,5 @@ interface AvatarImageProps extends AvatarPrimitive.Image.Props {
 
 export function AvatarImage({ className, ...props }: AvatarImageProps) {
   const styles = useAvatarStyles();
-  return (
-    <AvatarPrimitive.Image
-      {...props}
-      className={styles.image({ class: className })}
-      data-slot="avatar-image"
-    />
-  );
+  return <AvatarPrimitive.Image {...props} className={styles.image({ class: className })} data-slot="avatar-image" />;
 }

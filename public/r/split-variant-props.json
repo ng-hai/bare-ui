@@ -6,7 +6,7 @@
   "files": [
     {
       "path": "registry/bare/lib/split-variant-props.ts",
-      "content": "export function createPropSplitter<T extends (...args: any[]) => any>(\n  styles: T,\n) {\n  const variantKeys = new Set((styles as any).variantKeys as string[]);\n\n  return function split(\n    // eslint-disable-next-line @typescript-eslint/no-explicit-any\n    props: Record<string, any>,\n    // eslint-disable-next-line @typescript-eslint/no-explicit-any\n  ): [Record<string, any>, Record<string, any>] {\n    // eslint-disable-next-line @typescript-eslint/no-explicit-any\n    const variantProps: Record<string, any> = {};\n    // eslint-disable-next-line @typescript-eslint/no-explicit-any\n    const rest: Record<string, any> = {};\n    for (const [key, val] of Object.entries(props)) {\n      if (variantKeys.has(key)) variantProps[key] = val;\n      else rest[key] = val;\n    }\n    return [variantProps, rest];\n  };\n}\n",
+      "content": "export function createPropSplitter<T extends (...args: any[]) => any>(styles: T) {\n  const variantKeys = new Set((styles as any).variantKeys as string[]);\n\n  return function split(props: Record<string, any>): [Record<string, any>, Record<string, any>] {\n    const variantProps: Record<string, any> = {};\n    const rest: Record<string, any> = {};\n    for (const [key, val] of Object.entries(props)) {\n      if (variantKeys.has(key)) variantProps[key] = val;\n      else rest[key] = val;\n    }\n    return [variantProps, rest];\n  };\n}\n",
       "type": "registry:lib"
     }
   ],

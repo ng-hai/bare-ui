@@ -7,19 +7,19 @@
     "@base-ui/react"
   ],
   "registryDependencies": [
-    "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/create-style-context.json",
-    "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/split-variant-props.json",
-    "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/tv-config.json"
+    "@bare-ui/create-style-context",
+    "@bare-ui/split-variant-props",
+    "@bare-ui/tv-config"
   ],
   "files": [
     {
       "path": "registry/bare/ui/checkbox/checkbox-root.tsx",
-      "content": "import { Checkbox as CheckboxPrimitive } from \"@base-ui/react/checkbox\";\nimport { createStyleContext } from \"@/registry/bare/lib/create-style-context\";\nimport { createPropSplitter } from \"@/registry/bare/lib/split-variant-props\";\nimport { checkboxStyles } from \"./styles\";\nimport type { VariantProps } from \"@/registry/bare/lib/tv.config\";\n\ntype CheckboxStyles = ReturnType<typeof checkboxStyles>;\ntype CheckboxVariantProps = VariantProps<typeof checkboxStyles>;\n\nconst { StyleContext, useStyles } = createStyleContext<CheckboxStyles>(\"Checkbox\");\nconst splitProps = createPropSplitter(checkboxStyles);\n\nexport { useStyles as useCheckboxStyles };\n\ninterface CheckboxRootProps\n  extends CheckboxPrimitive.Root.Props,\n    CheckboxVariantProps {\n  className?: string;\n  styles?: CheckboxStyles;\n}\n\nexport function CheckboxRoot(props: CheckboxRootProps) {\n  const [variantProps, { className, styles, ...htmlProps }] = splitProps(\n    props as Record<string, any>,\n  );\n  const s = styles ?? checkboxStyles(variantProps);\n  return (\n    <StyleContext value={s}>\n      <CheckboxPrimitive.Root\n        {...htmlProps}\n        className={s.root({ class: className })}\n        data-slot=\"checkbox\"\n      />\n    </StyleContext>\n  );\n}\n",
+      "content": "import { Checkbox as CheckboxPrimitive } from \"@base-ui/react/checkbox\";\nimport { createStyleContext } from \"@/registry/bare/lib/create-style-context\";\nimport { createPropSplitter } from \"@/registry/bare/lib/split-variant-props\";\nimport { checkboxStyles } from \"./styles\";\nimport type { VariantProps } from \"@/registry/bare/lib/tv.config\";\n\ntype CheckboxStyles = ReturnType<typeof checkboxStyles>;\ntype CheckboxVariantProps = VariantProps<typeof checkboxStyles>;\n\nconst { StyleContext, useStyles } = createStyleContext<CheckboxStyles>(\"Checkbox\");\nconst splitProps = createPropSplitter(checkboxStyles);\n\nexport { useStyles as useCheckboxStyles };\n\ninterface CheckboxRootProps extends CheckboxPrimitive.Root.Props, CheckboxVariantProps {\n  className?: string;\n  styles?: CheckboxStyles;\n}\n\nexport function CheckboxRoot(props: CheckboxRootProps) {\n  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);\n  const s = styles ?? checkboxStyles(variantProps);\n  return (\n    <StyleContext value={s}>\n      <CheckboxPrimitive.Root {...htmlProps} className={s.root({ class: className })} data-slot=\"checkbox\" />\n    </StyleContext>\n  );\n}\n",
       "type": "registry:ui"
     },
     {
       "path": "registry/bare/ui/checkbox/checkbox-indicator.tsx",
-      "content": "import { Checkbox as CheckboxPrimitive } from \"@base-ui/react/checkbox\";\nimport { useCheckboxStyles } from \"./checkbox-root\";\n\ninterface CheckboxIndicatorProps extends CheckboxPrimitive.Indicator.Props {\n  className?: string;\n}\n\nexport function CheckboxIndicator({\n  className,\n  ...props\n}: CheckboxIndicatorProps) {\n  const styles = useCheckboxStyles();\n  return (\n    <CheckboxPrimitive.Indicator\n      {...props}\n      className={styles.indicator({ class: className })}\n      data-slot=\"checkbox-indicator\"\n    />\n  );\n}\n",
+      "content": "import { Checkbox as CheckboxPrimitive } from \"@base-ui/react/checkbox\";\nimport { useCheckboxStyles } from \"./checkbox-root\";\n\ninterface CheckboxIndicatorProps extends CheckboxPrimitive.Indicator.Props {\n  className?: string;\n}\n\nexport function CheckboxIndicator({ className, ...props }: CheckboxIndicatorProps) {\n  const styles = useCheckboxStyles();\n  return (\n    <CheckboxPrimitive.Indicator\n      {...props}\n      className={styles.indicator({ class: className })}\n      data-slot=\"checkbox-indicator\"\n    />\n  );\n}\n",
       "type": "registry:ui"
     },
     {
@@ -29,14 +29,17 @@
     },
     {
       "path": "registry/bare/ui/checkbox/index.parts.ts",
-      "content": "export { CheckboxRoot } from \"./checkbox-root\";\nexport { CheckboxIndicator } from \"./checkbox-indicator\";\n",
+      "content": "export { CheckboxRoot as Root } from \"./checkbox-root\";\nexport { CheckboxIndicator as Indicator } from \"./checkbox-indicator\";\n",
       "type": "registry:ui"
     },
     {
       "path": "registry/bare/ui/checkbox/index.ts",
-      "content": "export { CheckboxRoot as Checkbox } from \"./checkbox-root\";\nexport { CheckboxIndicator } from \"./checkbox-indicator\";\nexport { checkboxStyles } from \"./styles\";\n",
+      "content": "export * as Checkbox from \"./index.parts\";\nexport { checkboxStyles } from \"./styles\";\n",
       "type": "registry:ui"
     }
+  ],
+  "categories": [
+    "form"
   ],
   "type": "registry:ui"
 }

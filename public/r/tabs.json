@@ -7,19 +7,34 @@
     "@base-ui/react"
   ],
   "registryDependencies": [
-    "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/create-style-context.json",
-    "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/split-variant-props.json",
-    "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/tv-config.json"
+    "@bare-ui/create-style-context",
+    "@bare-ui/split-variant-props",
+    "@bare-ui/tv-config"
   ],
   "files": [
     {
       "path": "registry/bare/ui/tabs/tabs-root.tsx",
-      "content": "import { Tabs as TabsPrimitive } from \"@base-ui/react/tabs\";\nimport { createStyleContext } from \"@/registry/bare/lib/create-style-context\";\nimport { createPropSplitter } from \"@/registry/bare/lib/split-variant-props\";\nimport { tabsStyles } from \"./styles\";\nimport type { VariantProps } from \"@/registry/bare/lib/tv.config\";\n\ntype TabsStyles = ReturnType<typeof tabsStyles>;\ntype TabsVariantProps = VariantProps<typeof tabsStyles>;\n\nconst { StyleContext, useStyles } =\n  createStyleContext<TabsStyles>(\"Tabs\");\nconst splitProps = createPropSplitter(tabsStyles);\n\nexport { useStyles as useTabsStyles };\n\ninterface TabsRootProps extends TabsPrimitive.Root.Props, TabsVariantProps {\n  className?: string;\n  styles?: TabsStyles;\n}\n\nexport function TabsRoot(props: TabsRootProps) {\n  const [variantProps, { className, styles, ...htmlProps }] = splitProps(\n    props as Record<string, any>,\n  );\n  const s = styles ?? tabsStyles(variantProps);\n  return (\n    <StyleContext value={s}>\n      <TabsPrimitive.Root\n        {...htmlProps}\n        className={s.root({ class: className })}\n        data-slot=\"tabs\"\n      />\n    </StyleContext>\n  );\n}\n",
+      "content": "import { Tabs as TabsPrimitive } from \"@base-ui/react/tabs\";\nimport { createStyleContext } from \"@/registry/bare/lib/create-style-context\";\nimport { createPropSplitter } from \"@/registry/bare/lib/split-variant-props\";\nimport { tabsStyles } from \"./styles\";\nimport type { VariantProps } from \"@/registry/bare/lib/tv.config\";\n\ntype TabsStyles = ReturnType<typeof tabsStyles>;\ntype TabsVariantProps = VariantProps<typeof tabsStyles>;\n\nconst { StyleContext, useStyles } = createStyleContext<TabsStyles>(\"Tabs\");\nconst splitProps = createPropSplitter(tabsStyles);\n\nexport { useStyles as useTabsStyles };\n\ninterface TabsRootProps extends TabsPrimitive.Root.Props, TabsVariantProps {\n  className?: string;\n  styles?: TabsStyles;\n}\n\nexport function TabsRoot(props: TabsRootProps) {\n  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);\n  const s = styles ?? tabsStyles(variantProps);\n  return (\n    <StyleContext value={s}>\n      <TabsPrimitive.Root {...htmlProps} className={s.root({ class: className })} data-slot=\"tabs\" />\n    </StyleContext>\n  );\n}\n",
       "type": "registry:ui"
     },
     {
-      "path": "registry/bare/ui/tabs/tabs-parts.tsx",
-      "content": "import { Tabs as TabsPrimitive } from \"@base-ui/react/tabs\";\nimport { useTabsStyles } from \"./tabs-root\";\n\ninterface TabsListProps extends TabsPrimitive.List.Props {\n  className?: string;\n}\n\nexport function TabsList({ className, ...props }: TabsListProps) {\n  const styles = useTabsStyles();\n  return (\n    <TabsPrimitive.List\n      {...props}\n      className={styles.list({ class: className })}\n      data-slot=\"tabs-list\"\n    />\n  );\n}\n\ninterface TabsTabProps extends TabsPrimitive.Tab.Props {\n  className?: string;\n}\n\nexport function TabsTab({ className, ...props }: TabsTabProps) {\n  const styles = useTabsStyles();\n  return (\n    <TabsPrimitive.Tab\n      {...props}\n      className={styles.tab({ class: className })}\n      data-slot=\"tabs-tab\"\n    />\n  );\n}\n\ninterface TabsIndicatorProps extends TabsPrimitive.Indicator.Props {\n  className?: string;\n}\n\nexport function TabsIndicator({\n  className,\n  ...props\n}: TabsIndicatorProps) {\n  const styles = useTabsStyles();\n  return (\n    <TabsPrimitive.Indicator\n      {...props}\n      className={styles.indicator({ class: className })}\n      data-slot=\"tabs-indicator\"\n    />\n  );\n}\n\ninterface TabsPanelProps extends TabsPrimitive.Panel.Props {\n  className?: string;\n}\n\nexport function TabsPanel({ className, ...props }: TabsPanelProps) {\n  const styles = useTabsStyles();\n  return (\n    <TabsPrimitive.Panel\n      {...props}\n      className={styles.panel({ class: className })}\n      data-slot=\"tabs-panel\"\n    />\n  );\n}\n",
+      "path": "registry/bare/ui/tabs/tabs-list.tsx",
+      "content": "import { Tabs as TabsPrimitive } from \"@base-ui/react/tabs\";\nimport { useTabsStyles } from \"./tabs-root\";\n\ninterface TabsListProps extends TabsPrimitive.List.Props {\n  className?: string;\n}\n\nexport function TabsList({ className, ...props }: TabsListProps) {\n  const styles = useTabsStyles();\n  return <TabsPrimitive.List {...props} className={styles.list({ class: className })} data-slot=\"tabs-list\" />;\n}\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "registry/bare/ui/tabs/tabs-tab.tsx",
+      "content": "import { Tabs as TabsPrimitive } from \"@base-ui/react/tabs\";\nimport { useTabsStyles } from \"./tabs-root\";\n\ninterface TabsTabProps extends TabsPrimitive.Tab.Props {\n  className?: string;\n}\n\nexport function TabsTab({ className, ...props }: TabsTabProps) {\n  const styles = useTabsStyles();\n  return <TabsPrimitive.Tab {...props} className={styles.tab({ class: className })} data-slot=\"tabs-tab\" />;\n}\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "registry/bare/ui/tabs/tabs-indicator.tsx",
+      "content": "import { Tabs as TabsPrimitive } from \"@base-ui/react/tabs\";\nimport { useTabsStyles } from \"./tabs-root\";\n\ninterface TabsIndicatorProps extends TabsPrimitive.Indicator.Props {\n  className?: string;\n}\n\nexport function TabsIndicator({ className, ...props }: TabsIndicatorProps) {\n  const styles = useTabsStyles();\n  return (\n    <TabsPrimitive.Indicator {...props} className={styles.indicator({ class: className })} data-slot=\"tabs-indicator\" />\n  );\n}\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "registry/bare/ui/tabs/tabs-panel.tsx",
+      "content": "import { Tabs as TabsPrimitive } from \"@base-ui/react/tabs\";\nimport { useTabsStyles } from \"./tabs-root\";\n\ninterface TabsPanelProps extends TabsPrimitive.Panel.Props {\n  className?: string;\n}\n\nexport function TabsPanel({ className, ...props }: TabsPanelProps) {\n  const styles = useTabsStyles();\n  return <TabsPrimitive.Panel {...props} className={styles.panel({ class: className })} data-slot=\"tabs-panel\" />;\n}\n",
       "type": "registry:ui"
     },
     {
@@ -29,14 +44,17 @@
     },
     {
       "path": "registry/bare/ui/tabs/index.parts.ts",
-      "content": "export { TabsRoot } from \"./tabs-root\";\nexport { TabsList, TabsTab, TabsIndicator, TabsPanel } from \"./tabs-parts\";\n",
+      "content": "export { TabsRoot as Root } from \"./tabs-root\";\nexport { TabsList as List } from \"./tabs-list\";\nexport { TabsTab as Tab } from \"./tabs-tab\";\nexport { TabsIndicator as Indicator } from \"./tabs-indicator\";\nexport { TabsPanel as Panel } from \"./tabs-panel\";\n",
       "type": "registry:ui"
     },
     {
       "path": "registry/bare/ui/tabs/index.ts",
-      "content": "export { TabsRoot as Tabs } from \"./tabs-root\";\nexport { TabsList, TabsTab, TabsIndicator, TabsPanel } from \"./tabs-parts\";\nexport { tabsStyles } from \"./styles\";\n",
+      "content": "export * as Tabs from \"./index.parts\";\nexport { tabsStyles } from \"./styles\";\n",
       "type": "registry:ui"
     }
+  ],
+  "categories": [
+    "navigation"
   ],
   "type": "registry:ui"
 }

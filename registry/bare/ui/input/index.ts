@@ -1,2 +1,2 @@
-export { InputRoot as Input } from "./input-root";
+export * as Input from "./index.parts";
 export { inputStyles } from "./styles";

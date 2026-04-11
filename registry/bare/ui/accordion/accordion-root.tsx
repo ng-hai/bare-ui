@@ -7,31 +7,22 @@ import type { VariantProps } from "@/registry/bare/lib/tv.config";
 type AccordionStyles = ReturnType<typeof accordionStyles>;
 type AccordionVariantProps = VariantProps<typeof accordionStyles>;
 
-const { StyleContext, useStyles } =
-  createStyleContext<AccordionStyles>("Accordion");
+const { StyleContext, useStyles } = createStyleContext<AccordionStyles>("Accordion");
 const splitProps = createPropSplitter(accordionStyles);
 
 export { useStyles as useAccordionStyles };
 
-interface AccordionRootProps
-  extends AccordionPrimitive.Root.Props,
-    AccordionVariantProps {
+interface AccordionRootProps extends AccordionPrimitive.Root.Props, AccordionVariantProps {
   className?: string;
   styles?: AccordionStyles;
 }
 
 export function AccordionRoot(props: AccordionRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(
-    props as Record<string, any>,
-  );
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
   const s = styles ?? accordionStyles(variantProps);
   return (
     <StyleContext value={s}>
-      <AccordionPrimitive.Root
-        {...htmlProps}
-        className={s.root({ class: className })}
-        data-slot="accordion"
-      />
+      <AccordionPrimitive.Root {...htmlProps} className={s.root({ class: className })} data-slot="accordion" />
     </StyleContext>
   );
 }

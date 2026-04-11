@@ -7,31 +7,22 @@ import type { VariantProps } from "@/registry/bare/lib/tv.config";
 type AvatarStyles = ReturnType<typeof avatarStyles>;
 type AvatarVariantProps = VariantProps<typeof avatarStyles>;
 
-const { StyleContext, useStyles } =
-  createStyleContext<AvatarStyles>("Avatar");
+const { StyleContext, useStyles } = createStyleContext<AvatarStyles>("Avatar");
 const splitProps = createPropSplitter(avatarStyles);
 
 export { useStyles as useAvatarStyles };
 
-interface AvatarRootProps
-  extends AvatarPrimitive.Root.Props,
-    AvatarVariantProps {
+interface AvatarRootProps extends AvatarPrimitive.Root.Props, AvatarVariantProps {
   className?: string;
   styles?: AvatarStyles;
 }
 
 export function AvatarRoot(props: AvatarRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(
-    props as Record<string, any>,
-  );
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
   const s = styles ?? avatarStyles(variantProps);
   return (
     <StyleContext value={s}>
-      <AvatarPrimitive.Root
-        {...htmlProps}
-        className={s.root({ class: className })}
-        data-slot="avatar"
-      />
+      <AvatarPrimitive.Root {...htmlProps} className={s.root({ class: className })} data-slot="avatar" />
     </StyleContext>
   );
 }

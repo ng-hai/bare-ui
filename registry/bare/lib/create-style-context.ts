@@ -6,9 +6,7 @@ export function createStyleContext<T>(componentName: string) {
   function useStyles(): T {
     const styles = use(Context);
     if (styles === null) {
-      throw new Error(
-        `${componentName} parts must be used within <${componentName}.Root>`,
-      );
+      throw new Error(`${componentName} parts must be used within <${componentName}.Root>`);
     }
     return styles;
   }

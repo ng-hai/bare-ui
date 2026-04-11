@@ -1,12 +1,10 @@
-export { PopoverRoot } from "./popover-root";
-export {
-  PopoverTrigger,
-  PopoverPortal,
-  PopoverBackdrop,
-  PopoverPositioner,
-  PopoverPopup,
-  PopoverArrow,
-  PopoverTitle,
-  PopoverDescription,
-  PopoverClose,
-} from "./popover-parts";
+export { PopoverRoot as Root } from "./popover-root";
+export { PopoverTrigger as Trigger } from "./popover-trigger";
+export { PopoverPortal as Portal } from "./popover-portal";
+export { PopoverBackdrop as Backdrop } from "./popover-backdrop";
+export { PopoverPositioner as Positioner } from "./popover-positioner";
+export { PopoverPopup as Popup } from "./popover-popup";
+export { PopoverArrow as Arrow } from "./popover-arrow";
+export { PopoverTitle as Title } from "./popover-title";
+export { PopoverDescription as Description } from "./popover-description";
+export { PopoverClose as Close } from "./popover-close";

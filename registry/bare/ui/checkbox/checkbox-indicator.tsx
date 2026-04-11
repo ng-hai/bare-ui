@@ -5,10 +5,7 @@ interface CheckboxIndicatorProps extends CheckboxPrimitive.Indicator.Props {
   className?: string;
 }
 
-export function CheckboxIndicator({
-  className,
-  ...props
-}: CheckboxIndicatorProps) {
+export function CheckboxIndicator({ className, ...props }: CheckboxIndicatorProps) {
   const styles = useCheckboxStyles();
   return (
     <CheckboxPrimitive.Indicator

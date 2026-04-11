@@ -7,8 +7,7 @@ import type { VariantProps } from "@/registry/bare/lib/tv.config";
 type SelectStyles = ReturnType<typeof selectStyles>;
 type SelectVariantProps = VariantProps<typeof selectStyles>;
 
-const { StyleContext, useStyles } =
-  createStyleContext<SelectStyles>("Select");
+const { StyleContext, useStyles } = createStyleContext<SelectStyles>("Select");
 const splitProps = createPropSplitter(selectStyles);
 
 export { useStyles as useSelectStyles };
@@ -19,9 +18,7 @@ interface SelectRootProps extends SelectPrimitive.Root.Props<string>, SelectVari
 }
 
 export function SelectRoot(props: SelectRootProps) {
-  const [variantProps, { styles, ...htmlProps }] = splitProps(
-    props as Record<string, any>,
-  );
+  const [variantProps, { styles, ...htmlProps }] = splitProps(props as Record<string, any>);
   const s = styles ?? selectStyles(variantProps);
   return (
     <StyleContext value={s}>

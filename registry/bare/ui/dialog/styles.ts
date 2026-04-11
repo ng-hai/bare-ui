@@ -7,6 +7,7 @@ export const dialogStyles = tv({
     portal: [""],
     backdrop: [""],
     popup: [""],
+    viewport: [""],
     title: [""],
     description: [""],
     close: [""],

@@ -7,13 +7,13 @@
     "@base-ui/react"
   ],
   "registryDependencies": [
-    "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/split-variant-props.json",
-    "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/tv-config.json"
+    "@bare-ui/split-variant-props",
+    "@bare-ui/tv-config"
   ],
   "files": [
     {
       "path": "registry/bare/ui/input/input-root.tsx",
-      "content": "import { Input as InputPrimitive } from \"@base-ui/react/input\";\nimport { createPropSplitter } from \"@/registry/bare/lib/split-variant-props\";\nimport { inputStyles } from \"./styles\";\nimport type { VariantProps } from \"@/registry/bare/lib/tv.config\";\n\ntype InputVariantProps = VariantProps<typeof inputStyles>;\nconst splitProps = createPropSplitter(inputStyles);\n\ninterface InputRootProps extends InputPrimitive.Props, InputVariantProps {\n  className?: string;\n  styles?: ReturnType<typeof inputStyles>;\n}\n\nexport function InputRoot(props: InputRootProps) {\n  const [variantProps, { className, styles, ...htmlProps }] = splitProps(\n    props as Record<string, any>,\n  );\n  const s = styles ?? inputStyles(variantProps);\n  return (\n    <InputPrimitive\n      {...htmlProps}\n      className={s.root({ class: className })}\n      data-slot=\"input\"\n    />\n  );\n}\n",
+      "content": "import { Input as InputPrimitive } from \"@base-ui/react/input\";\nimport { createPropSplitter } from \"@/registry/bare/lib/split-variant-props\";\nimport { inputStyles } from \"./styles\";\nimport type { VariantProps } from \"@/registry/bare/lib/tv.config\";\n\ntype InputVariantProps = VariantProps<typeof inputStyles>;\nconst splitProps = createPropSplitter(inputStyles);\n\ninterface InputRootProps extends InputPrimitive.Props, InputVariantProps {\n  className?: string;\n  styles?: ReturnType<typeof inputStyles>;\n}\n\nexport function InputRoot(props: InputRootProps) {\n  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);\n  const s = styles ?? inputStyles(variantProps);\n  return <InputPrimitive {...htmlProps} className={s.root({ class: className })} data-slot=\"input\" />;\n}\n",
       "type": "registry:ui"
     },
     {
@@ -22,10 +22,18 @@
       "type": "registry:ui"
     },
     {
+      "path": "registry/bare/ui/input/index.parts.ts",
+      "content": "export { InputRoot as Root } from \"./input-root\";\n",
+      "type": "registry:ui"
+    },
+    {
       "path": "registry/bare/ui/input/index.ts",
-      "content": "export { InputRoot as Input } from \"./input-root\";\nexport { inputStyles } from \"./styles\";\n",
+      "content": "export * as Input from \"./index.parts\";\nexport { inputStyles } from \"./styles\";\n",
       "type": "registry:ui"
     }
+  ],
+  "categories": [
+    "form"
   ],
   "type": "registry:ui"
 }

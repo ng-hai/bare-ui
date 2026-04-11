@@ -1,2 +1,2 @@
-export { CheckboxRoot } from "./checkbox-root";
-export { CheckboxIndicator } from "./checkbox-indicator";
+export { CheckboxRoot as Root } from "./checkbox-root";
+export { CheckboxIndicator as Indicator } from "./checkbox-indicator";

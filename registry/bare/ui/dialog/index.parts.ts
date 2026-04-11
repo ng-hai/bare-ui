@@ -1,10 +1,9 @@
-export { DialogRoot } from "./dialog-root";
-export {
-  DialogTrigger,
-  DialogPortal,
-  DialogBackdrop,
-  DialogPopup,
-  DialogTitle,
-  DialogDescription,
-  DialogClose,
-} from "./dialog-parts";
+export { DialogRoot as Root } from "./dialog-root";
+export { DialogTrigger as Trigger } from "./dialog-trigger";
+export { DialogPortal as Portal } from "./dialog-portal";
+export { DialogBackdrop as Backdrop } from "./dialog-backdrop";
+export { DialogPopup as Popup } from "./dialog-popup";
+export { DialogViewport as Viewport } from "./dialog-viewport";
+export { DialogTitle as Title } from "./dialog-title";
+export { DialogDescription as Description } from "./dialog-description";
+export { DialogClose as Close } from "./dialog-close";

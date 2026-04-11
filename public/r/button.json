@@ -7,13 +7,13 @@
     "@base-ui/react"
   ],
   "registryDependencies": [
-    "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/split-variant-props.json",
-    "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/tv-config.json"
+    "@bare-ui/split-variant-props",
+    "@bare-ui/tv-config"
   ],
   "files": [
     {
       "path": "registry/bare/ui/button/button-root.tsx",
-      "content": "import { Button as ButtonPrimitive } from \"@base-ui/react/button\";\nimport { createPropSplitter } from \"@/registry/bare/lib/split-variant-props\";\nimport { buttonStyles } from \"./styles\";\nimport type { VariantProps } from \"@/registry/bare/lib/tv.config\";\n\ntype ButtonVariantProps = VariantProps<typeof buttonStyles>;\nconst splitProps = createPropSplitter(buttonStyles);\n\ninterface ButtonRootProps extends ButtonPrimitive.Props, ButtonVariantProps {\n  className?: string;\n  styles?: ReturnType<typeof buttonStyles>;\n}\n\nexport function ButtonRoot(props: ButtonRootProps) {\n  const [variantProps, { className, styles, ...htmlProps }] = splitProps(\n    props as Record<string, any>,\n  );\n  const s = styles ?? buttonStyles(variantProps);\n  return (\n    <ButtonPrimitive\n      {...htmlProps}\n      className={s.root({ class: className })}\n      data-slot=\"button\"\n    />\n  );\n}\n",
+      "content": "import { useRender } from \"@base-ui/react/use-render\";\nimport { mergeProps } from \"@base-ui/react/merge-props\";\nimport { createPropSplitter } from \"@/registry/bare/lib/split-variant-props\";\nimport { buttonStyles } from \"./styles\";\nimport type { VariantProps } from \"@/registry/bare/lib/tv.config\";\n\ntype ButtonStyles = ReturnType<typeof buttonStyles>;\ntype ButtonVariantProps = VariantProps<typeof buttonStyles>;\nconst splitProps = createPropSplitter(buttonStyles);\n\ninterface ButtonRootProps extends useRender.ComponentProps<\"button\">, ButtonVariantProps {\n  styles?: ButtonStyles;\n}\n\nexport function ButtonRoot(props: ButtonRootProps) {\n  const [variantProps, { className, styles, render, ...htmlProps }] = splitProps(props as Record<string, any>);\n  const s = styles ?? buttonStyles(variantProps);\n\n  const defaultProps = {\n    type: render ? undefined : (\"button\" as const),\n    \"data-slot\": \"button\",\n    className: s.root({ class: className }),\n  };\n\n  return useRender({\n    render,\n    defaultTagName: \"button\",\n    props: mergeProps<\"button\">(defaultProps, htmlProps),\n  });\n}\n",
       "type": "registry:ui"
     },
     {
@@ -22,10 +22,18 @@
       "type": "registry:ui"
     },
     {
+      "path": "registry/bare/ui/button/index.parts.ts",
+      "content": "export { ButtonRoot as Root } from \"./button-root\";\n",
+      "type": "registry:ui"
+    },
+    {
       "path": "registry/bare/ui/button/index.ts",
-      "content": "export { ButtonRoot as Button } from \"./button-root\";\nexport { buttonStyles } from \"./styles\";\n",
+      "content": "export * as Button from \"./index.parts\";\nexport { buttonStyles } from \"./styles\";\n",
       "type": "registry:ui"
     }
+  ],
+  "categories": [
+    "form"
   ],
   "type": "registry:ui"
 }

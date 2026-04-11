@@ -7,8 +7,7 @@ import type { VariantProps } from "@/registry/bare/lib/tv.config";
 type TabsStyles = ReturnType<typeof tabsStyles>;
 type TabsVariantProps = VariantProps<typeof tabsStyles>;
 
-const { StyleContext, useStyles } =
-  createStyleContext<TabsStyles>("Tabs");
+const { StyleContext, useStyles } = createStyleContext<TabsStyles>("Tabs");
 const splitProps = createPropSplitter(tabsStyles);
 
 export { useStyles as useTabsStyles };
@@ -19,17 +18,11 @@ interface TabsRootProps extends TabsPrimitive.Root.Props, TabsVariantProps {
 }
 
 export function TabsRoot(props: TabsRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(
-    props as Record<string, any>,
-  );
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
   const s = styles ?? tabsStyles(variantProps);
   return (
     <StyleContext value={s}>
-      <TabsPrimitive.Root
-        {...htmlProps}
-        className={s.root({ class: className })}
-        data-slot="tabs"
-      />
+      <TabsPrimitive.Root {...htmlProps} className={s.root({ class: className })} data-slot="tabs" />
     </StyleContext>
   );
 }

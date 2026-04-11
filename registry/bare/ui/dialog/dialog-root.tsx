@@ -7,8 +7,7 @@ import type { VariantProps } from "@/registry/bare/lib/tv.config";
 type DialogStyles = ReturnType<typeof dialogStyles>;
 type DialogVariantProps = VariantProps<typeof dialogStyles>;
 
-const { StyleContext, useStyles } =
-  createStyleContext<DialogStyles>("Dialog");
+const { StyleContext, useStyles } = createStyleContext<DialogStyles>("Dialog");
 const splitProps = createPropSplitter(dialogStyles);
 
 export { useStyles as useDialogStyles };
@@ -18,9 +17,7 @@ interface DialogRootProps extends DialogPrimitive.Root.Props, DialogVariantProps
 }
 
 export function DialogRoot(props: DialogRootProps) {
-  const [variantProps, { styles, ...htmlProps }] = splitProps(
-    props as Record<string, any>,
-  );
+  const [variantProps, { styles, ...htmlProps }] = splitProps(props as Record<string, any>);
   const s = styles ?? dialogStyles(variantProps);
   return (
     <StyleContext value={s}>

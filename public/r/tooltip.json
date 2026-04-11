@@ -7,19 +7,39 @@
     "@base-ui/react"
   ],
   "registryDependencies": [
-    "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/create-style-context.json",
-    "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/split-variant-props.json",
-    "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/tv-config.json"
+    "@bare-ui/create-style-context",
+    "@bare-ui/split-variant-props",
+    "@bare-ui/tv-config"
   ],
   "files": [
     {
       "path": "registry/bare/ui/tooltip/tooltip-root.tsx",
-      "content": "import { Tooltip as TooltipPrimitive } from \"@base-ui/react/tooltip\";\nimport { createStyleContext } from \"@/registry/bare/lib/create-style-context\";\nimport { createPropSplitter } from \"@/registry/bare/lib/split-variant-props\";\nimport { tooltipStyles } from \"./styles\";\nimport type { VariantProps } from \"@/registry/bare/lib/tv.config\";\n\ntype TooltipStyles = ReturnType<typeof tooltipStyles>;\ntype TooltipVariantProps = VariantProps<typeof tooltipStyles>;\n\nconst { StyleContext, useStyles } =\n  createStyleContext<TooltipStyles>(\"Tooltip\");\nconst splitProps = createPropSplitter(tooltipStyles);\n\nexport { useStyles as useTooltipStyles };\n\ninterface TooltipRootProps\n  extends TooltipPrimitive.Root.Props,\n    TooltipVariantProps {\n  styles?: TooltipStyles;\n}\n\nexport function TooltipRoot(props: TooltipRootProps) {\n  const [variantProps, { styles, ...htmlProps }] = splitProps(\n    props as Record<string, any>,\n  );\n  const s = styles ?? tooltipStyles(variantProps);\n  return (\n    <StyleContext value={s}>\n      <TooltipPrimitive.Root {...htmlProps} />\n    </StyleContext>\n  );\n}\n",
+      "content": "import { Tooltip as TooltipPrimitive } from \"@base-ui/react/tooltip\";\nimport { createStyleContext } from \"@/registry/bare/lib/create-style-context\";\nimport { createPropSplitter } from \"@/registry/bare/lib/split-variant-props\";\nimport { tooltipStyles } from \"./styles\";\nimport type { VariantProps } from \"@/registry/bare/lib/tv.config\";\n\ntype TooltipStyles = ReturnType<typeof tooltipStyles>;\ntype TooltipVariantProps = VariantProps<typeof tooltipStyles>;\n\nconst { StyleContext, useStyles } = createStyleContext<TooltipStyles>(\"Tooltip\");\nconst splitProps = createPropSplitter(tooltipStyles);\n\nexport { useStyles as useTooltipStyles };\n\ninterface TooltipRootProps extends TooltipPrimitive.Root.Props, TooltipVariantProps {\n  styles?: TooltipStyles;\n}\n\nexport function TooltipRoot(props: TooltipRootProps) {\n  const [variantProps, { styles, ...htmlProps }] = splitProps(props as Record<string, any>);\n  const s = styles ?? tooltipStyles(variantProps);\n  return (\n    <StyleContext value={s}>\n      <TooltipPrimitive.Root {...htmlProps} />\n    </StyleContext>\n  );\n}\n",
       "type": "registry:ui"
     },
     {
-      "path": "registry/bare/ui/tooltip/tooltip-parts.tsx",
-      "content": "import { Tooltip as TooltipPrimitive } from \"@base-ui/react/tooltip\";\nimport { useTooltipStyles } from \"./tooltip-root\";\n\ninterface TooltipTriggerProps extends TooltipPrimitive.Trigger.Props {\n  className?: string;\n}\n\nexport function TooltipTrigger({\n  className,\n  ...props\n}: TooltipTriggerProps) {\n  const styles = useTooltipStyles();\n  return (\n    <TooltipPrimitive.Trigger\n      {...props}\n      className={styles.trigger({ class: className })}\n      data-slot=\"tooltip-trigger\"\n    />\n  );\n}\n\ninterface TooltipPortalProps extends TooltipPrimitive.Portal.Props {}\n\nexport function TooltipPortal(props: TooltipPortalProps) {\n  return <TooltipPrimitive.Portal {...props} />;\n}\n\ninterface TooltipPositionerProps extends TooltipPrimitive.Positioner.Props {\n  className?: string;\n}\n\nexport function TooltipPositioner({\n  className,\n  ...props\n}: TooltipPositionerProps) {\n  const styles = useTooltipStyles();\n  return (\n    <TooltipPrimitive.Positioner\n      {...props}\n      className={styles.positioner({ class: className })}\n      data-slot=\"tooltip-positioner\"\n    />\n  );\n}\n\ninterface TooltipPopupProps extends TooltipPrimitive.Popup.Props {\n  className?: string;\n}\n\nexport function TooltipPopup({ className, ...props }: TooltipPopupProps) {\n  const styles = useTooltipStyles();\n  return (\n    <TooltipPrimitive.Popup\n      {...props}\n      className={styles.popup({ class: className })}\n      data-slot=\"tooltip-popup\"\n    />\n  );\n}\n\ninterface TooltipArrowProps extends TooltipPrimitive.Arrow.Props {\n  className?: string;\n}\n\nexport function TooltipArrow({ className, ...props }: TooltipArrowProps) {\n  const styles = useTooltipStyles();\n  return (\n    <TooltipPrimitive.Arrow\n      {...props}\n      className={styles.arrow({ class: className })}\n      data-slot=\"tooltip-arrow\"\n    />\n  );\n}\n",
+      "path": "registry/bare/ui/tooltip/tooltip-trigger.tsx",
+      "content": "import { Tooltip as TooltipPrimitive } from \"@base-ui/react/tooltip\";\nimport { useTooltipStyles } from \"./tooltip-root\";\n\ninterface TooltipTriggerProps extends TooltipPrimitive.Trigger.Props {\n  className?: string;\n}\n\nexport function TooltipTrigger({ className, ...props }: TooltipTriggerProps) {\n  const styles = useTooltipStyles();\n  return (\n    <TooltipPrimitive.Trigger {...props} className={styles.trigger({ class: className })} data-slot=\"tooltip-trigger\" />\n  );\n}\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "registry/bare/ui/tooltip/tooltip-portal.tsx",
+      "content": "import { Tooltip as TooltipPrimitive } from \"@base-ui/react/tooltip\";\nimport { useTooltipStyles } from \"./tooltip-root\";\n\ninterface TooltipPortalProps extends TooltipPrimitive.Portal.Props {\n  className?: string;\n}\n\nexport function TooltipPortal({ className, ...props }: TooltipPortalProps) {\n  const styles = useTooltipStyles();\n  return (\n    <TooltipPrimitive.Portal {...props} className={styles.portal({ class: className })} data-slot=\"tooltip-portal\" />\n  );\n}\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "registry/bare/ui/tooltip/tooltip-positioner.tsx",
+      "content": "import { Tooltip as TooltipPrimitive } from \"@base-ui/react/tooltip\";\nimport { useTooltipStyles } from \"./tooltip-root\";\n\ninterface TooltipPositionerProps extends TooltipPrimitive.Positioner.Props {\n  className?: string;\n}\n\nexport function TooltipPositioner({ className, ...props }: TooltipPositionerProps) {\n  const styles = useTooltipStyles();\n  return (\n    <TooltipPrimitive.Positioner\n      {...props}\n      className={styles.positioner({ class: className })}\n      data-slot=\"tooltip-positioner\"\n    />\n  );\n}\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "registry/bare/ui/tooltip/tooltip-popup.tsx",
+      "content": "import { Tooltip as TooltipPrimitive } from \"@base-ui/react/tooltip\";\nimport { useTooltipStyles } from \"./tooltip-root\";\n\ninterface TooltipPopupProps extends TooltipPrimitive.Popup.Props {\n  className?: string;\n}\n\nexport function TooltipPopup({ className, ...props }: TooltipPopupProps) {\n  const styles = useTooltipStyles();\n  return <TooltipPrimitive.Popup {...props} className={styles.popup({ class: className })} data-slot=\"tooltip-popup\" />;\n}\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "registry/bare/ui/tooltip/tooltip-arrow.tsx",
+      "content": "import { Tooltip as TooltipPrimitive } from \"@base-ui/react/tooltip\";\nimport { useTooltipStyles } from \"./tooltip-root\";\n\ninterface TooltipArrowProps extends TooltipPrimitive.Arrow.Props {\n  className?: string;\n}\n\nexport function TooltipArrow({ className, ...props }: TooltipArrowProps) {\n  const styles = useTooltipStyles();\n  return <TooltipPrimitive.Arrow {...props} className={styles.arrow({ class: className })} data-slot=\"tooltip-arrow\" />;\n}\n",
       "type": "registry:ui"
     },
     {
@@ -29,14 +49,17 @@
     },
     {
       "path": "registry/bare/ui/tooltip/index.parts.ts",
-      "content": "export { TooltipRoot } from \"./tooltip-root\";\nexport {\n  TooltipTrigger,\n  TooltipPortal,\n  TooltipPositioner,\n  TooltipPopup,\n  TooltipArrow,\n} from \"./tooltip-parts\";\n",
+      "content": "export { TooltipRoot as Root } from \"./tooltip-root\";\nexport { TooltipTrigger as Trigger } from \"./tooltip-trigger\";\nexport { TooltipPortal as Portal } from \"./tooltip-portal\";\nexport { TooltipPositioner as Positioner } from \"./tooltip-positioner\";\nexport { TooltipPopup as Popup } from \"./tooltip-popup\";\nexport { TooltipArrow as Arrow } from \"./tooltip-arrow\";\n",
       "type": "registry:ui"
     },
     {
       "path": "registry/bare/ui/tooltip/index.ts",
-      "content": "export { TooltipRoot as Tooltip } from \"./tooltip-root\";\nexport {\n  TooltipTrigger,\n  TooltipPortal,\n  TooltipPositioner,\n  TooltipPopup,\n  TooltipArrow,\n} from \"./tooltip-parts\";\nexport { tooltipStyles } from \"./styles\";\n",
+      "content": "export * as Tooltip from \"./index.parts\";\nexport { tooltipStyles } from \"./styles\";\n",
       "type": "registry:ui"
     }
+  ],
+  "categories": [
+    "overlay"
   ],
   "type": "registry:ui"
 }

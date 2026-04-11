@@ -1,2 +1,2 @@
-export { ButtonRoot as Button } from "./button-root";
+export * as Button from "./index.parts";
 export { buttonStyles } from "./styles";

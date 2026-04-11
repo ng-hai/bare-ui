@@ -5,10 +5,7 @@ interface AvatarFallbackProps extends AvatarPrimitive.Fallback.Props {
   className?: string;
 }
 
-export function AvatarFallback({
-  className,
-  ...props
-}: AvatarFallbackProps) {
+export function AvatarFallback({ className, ...props }: AvatarFallbackProps) {
   const styles = useAvatarStyles();
   return (
     <AvatarPrimitive.Fallback

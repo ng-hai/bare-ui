@@ -7,19 +7,34 @@
     "@base-ui/react"
   ],
   "registryDependencies": [
-    "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/create-style-context.json",
-    "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/split-variant-props.json",
-    "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/tv-config.json"
+    "@bare-ui/create-style-context",
+    "@bare-ui/split-variant-props",
+    "@bare-ui/tv-config"
   ],
   "files": [
     {
       "path": "registry/bare/ui/accordion/accordion-root.tsx",
-      "content": "import { Accordion as AccordionPrimitive } from \"@base-ui/react/accordion\";\nimport { createStyleContext } from \"@/registry/bare/lib/create-style-context\";\nimport { createPropSplitter } from \"@/registry/bare/lib/split-variant-props\";\nimport { accordionStyles } from \"./styles\";\nimport type { VariantProps } from \"@/registry/bare/lib/tv.config\";\n\ntype AccordionStyles = ReturnType<typeof accordionStyles>;\ntype AccordionVariantProps = VariantProps<typeof accordionStyles>;\n\nconst { StyleContext, useStyles } =\n  createStyleContext<AccordionStyles>(\"Accordion\");\nconst splitProps = createPropSplitter(accordionStyles);\n\nexport { useStyles as useAccordionStyles };\n\ninterface AccordionRootProps\n  extends AccordionPrimitive.Root.Props,\n    AccordionVariantProps {\n  className?: string;\n  styles?: AccordionStyles;\n}\n\nexport function AccordionRoot(props: AccordionRootProps) {\n  const [variantProps, { className, styles, ...htmlProps }] = splitProps(\n    props as Record<string, any>,\n  );\n  const s = styles ?? accordionStyles(variantProps);\n  return (\n    <StyleContext value={s}>\n      <AccordionPrimitive.Root\n        {...htmlProps}\n        className={s.root({ class: className })}\n        data-slot=\"accordion\"\n      />\n    </StyleContext>\n  );\n}\n",
+      "content": "import { Accordion as AccordionPrimitive } from \"@base-ui/react/accordion\";\nimport { createStyleContext } from \"@/registry/bare/lib/create-style-context\";\nimport { createPropSplitter } from \"@/registry/bare/lib/split-variant-props\";\nimport { accordionStyles } from \"./styles\";\nimport type { VariantProps } from \"@/registry/bare/lib/tv.config\";\n\ntype AccordionStyles = ReturnType<typeof accordionStyles>;\ntype AccordionVariantProps = VariantProps<typeof accordionStyles>;\n\nconst { StyleContext, useStyles } = createStyleContext<AccordionStyles>(\"Accordion\");\nconst splitProps = createPropSplitter(accordionStyles);\n\nexport { useStyles as useAccordionStyles };\n\ninterface AccordionRootProps extends AccordionPrimitive.Root.Props, AccordionVariantProps {\n  className?: string;\n  styles?: AccordionStyles;\n}\n\nexport function AccordionRoot(props: AccordionRootProps) {\n  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);\n  const s = styles ?? accordionStyles(variantProps);\n  return (\n    <StyleContext value={s}>\n      <AccordionPrimitive.Root {...htmlProps} className={s.root({ class: className })} data-slot=\"accordion\" />\n    </StyleContext>\n  );\n}\n",
       "type": "registry:ui"
     },
     {
-      "path": "registry/bare/ui/accordion/accordion-parts.tsx",
-      "content": "import { Accordion as AccordionPrimitive } from \"@base-ui/react/accordion\";\nimport { useAccordionStyles } from \"./accordion-root\";\n\ninterface AccordionItemProps extends AccordionPrimitive.Item.Props {\n  className?: string;\n}\n\nexport function AccordionItem({ className, ...props }: AccordionItemProps) {\n  const styles = useAccordionStyles();\n  return (\n    <AccordionPrimitive.Item\n      {...props}\n      className={styles.item({ class: className })}\n      data-slot=\"accordion-item\"\n    />\n  );\n}\n\ninterface AccordionHeaderProps extends AccordionPrimitive.Header.Props {\n  className?: string;\n}\n\nexport function AccordionHeader({\n  className,\n  ...props\n}: AccordionHeaderProps) {\n  const styles = useAccordionStyles();\n  return (\n    <AccordionPrimitive.Header\n      {...props}\n      className={styles.header({ class: className })}\n      data-slot=\"accordion-header\"\n    />\n  );\n}\n\ninterface AccordionTriggerProps extends AccordionPrimitive.Trigger.Props {\n  className?: string;\n}\n\nexport function AccordionTrigger({\n  className,\n  ...props\n}: AccordionTriggerProps) {\n  const styles = useAccordionStyles();\n  return (\n    <AccordionPrimitive.Trigger\n      {...props}\n      className={styles.trigger({ class: className })}\n      data-slot=\"accordion-trigger\"\n    />\n  );\n}\n\ninterface AccordionPanelProps extends AccordionPrimitive.Panel.Props {\n  className?: string;\n}\n\nexport function AccordionPanel({\n  className,\n  ...props\n}: AccordionPanelProps) {\n  const styles = useAccordionStyles();\n  return (\n    <AccordionPrimitive.Panel\n      {...props}\n      className={styles.panel({ class: className })}\n      data-slot=\"accordion-panel\"\n    />\n  );\n}\n",
+      "path": "registry/bare/ui/accordion/accordion-item.tsx",
+      "content": "import { Accordion as AccordionPrimitive } from \"@base-ui/react/accordion\";\nimport { useAccordionStyles } from \"./accordion-root\";\n\ninterface AccordionItemProps extends AccordionPrimitive.Item.Props {\n  className?: string;\n}\n\nexport function AccordionItem({ className, ...props }: AccordionItemProps) {\n  const styles = useAccordionStyles();\n  return (\n    <AccordionPrimitive.Item {...props} className={styles.item({ class: className })} data-slot=\"accordion-item\" />\n  );\n}\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "registry/bare/ui/accordion/accordion-header.tsx",
+      "content": "import { Accordion as AccordionPrimitive } from \"@base-ui/react/accordion\";\nimport { useAccordionStyles } from \"./accordion-root\";\n\ninterface AccordionHeaderProps extends AccordionPrimitive.Header.Props {\n  className?: string;\n}\n\nexport function AccordionHeader({ className, ...props }: AccordionHeaderProps) {\n  const styles = useAccordionStyles();\n  return (\n    <AccordionPrimitive.Header\n      {...props}\n      className={styles.header({ class: className })}\n      data-slot=\"accordion-header\"\n    />\n  );\n}\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "registry/bare/ui/accordion/accordion-trigger.tsx",
+      "content": "import { Accordion as AccordionPrimitive } from \"@base-ui/react/accordion\";\nimport { useAccordionStyles } from \"./accordion-root\";\n\ninterface AccordionTriggerProps extends AccordionPrimitive.Trigger.Props {\n  className?: string;\n}\n\nexport function AccordionTrigger({ className, ...props }: AccordionTriggerProps) {\n  const styles = useAccordionStyles();\n  return (\n    <AccordionPrimitive.Trigger\n      {...props}\n      className={styles.trigger({ class: className })}\n      data-slot=\"accordion-trigger\"\n    />\n  );\n}\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "registry/bare/ui/accordion/accordion-panel.tsx",
+      "content": "import { Accordion as AccordionPrimitive } from \"@base-ui/react/accordion\";\nimport { useAccordionStyles } from \"./accordion-root\";\n\ninterface AccordionPanelProps extends AccordionPrimitive.Panel.Props {\n  className?: string;\n}\n\nexport function AccordionPanel({ className, ...props }: AccordionPanelProps) {\n  const styles = useAccordionStyles();\n  return (\n    <AccordionPrimitive.Panel {...props} className={styles.panel({ class: className })} data-slot=\"accordion-panel\" />\n  );\n}\n",
       "type": "registry:ui"
     },
     {
@@ -29,14 +44,17 @@
     },
     {
       "path": "registry/bare/ui/accordion/index.parts.ts",
-      "content": "export { AccordionRoot } from \"./accordion-root\";\nexport {\n  AccordionItem,\n  AccordionHeader,\n  AccordionTrigger,\n  AccordionPanel,\n} from \"./accordion-parts\";\n",
+      "content": "export { AccordionRoot as Root } from \"./accordion-root\";\nexport { AccordionItem as Item } from \"./accordion-item\";\nexport { AccordionHeader as Header } from \"./accordion-header\";\nexport { AccordionTrigger as Trigger } from \"./accordion-trigger\";\nexport { AccordionPanel as Panel } from \"./accordion-panel\";\n",
       "type": "registry:ui"
     },
     {
       "path": "registry/bare/ui/accordion/index.ts",
-      "content": "export { AccordionRoot as Accordion } from \"./accordion-root\";\nexport {\n  AccordionItem,\n  AccordionHeader,\n  AccordionTrigger,\n  AccordionPanel,\n} from \"./accordion-parts\";\nexport { accordionStyles } from \"./styles\";\n",
+      "content": "export * as Accordion from \"./index.parts\";\nexport { accordionStyles } from \"./styles\";\n",
       "type": "registry:ui"
     }
+  ],
+  "categories": [
+    "disclosure"
   ],
   "type": "registry:ui"
 }

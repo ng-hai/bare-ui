@@ -7,22 +7,17 @@ import type { VariantProps } from "@/registry/bare/lib/tv.config";
 type TooltipStyles = ReturnType<typeof tooltipStyles>;
 type TooltipVariantProps = VariantProps<typeof tooltipStyles>;
 
-const { StyleContext, useStyles } =
-  createStyleContext<TooltipStyles>("Tooltip");
+const { StyleContext, useStyles } = createStyleContext<TooltipStyles>("Tooltip");
 const splitProps = createPropSplitter(tooltipStyles);
 
 export { useStyles as useTooltipStyles };
 
-interface TooltipRootProps
-  extends TooltipPrimitive.Root.Props,
-    TooltipVariantProps {
+interface TooltipRootProps extends TooltipPrimitive.Root.Props, TooltipVariantProps {
   styles?: TooltipStyles;
 }
 
 export function TooltipRoot(props: TooltipRootProps) {
-  const [variantProps, { styles, ...htmlProps }] = splitProps(
-    props as Record<string, any>,
-  );
+  const [variantProps, { styles, ...htmlProps }] = splitProps(props as Record<string, any>);
   const s = styles ?? tooltipStyles(variantProps);
   return (
     <StyleContext value={s}>

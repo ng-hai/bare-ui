@@ -12,25 +12,17 @@ const splitProps = createPropSplitter(checkboxStyles);
 
 export { useStyles as useCheckboxStyles };
 
-interface CheckboxRootProps
-  extends CheckboxPrimitive.Root.Props,
-    CheckboxVariantProps {
+interface CheckboxRootProps extends CheckboxPrimitive.Root.Props, CheckboxVariantProps {
   className?: string;
   styles?: CheckboxStyles;
 }
 
 export function CheckboxRoot(props: CheckboxRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(
-    props as Record<string, any>,
-  );
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
   const s = styles ?? checkboxStyles(variantProps);
   return (
     <StyleContext value={s}>
-      <CheckboxPrimitive.Root
-        {...htmlProps}
-        className={s.root({ class: className })}
-        data-slot="checkbox"
-      />
+      <CheckboxPrimitive.Root {...htmlProps} className={s.root({ class: className })} data-slot="checkbox" />
     </StyleContext>
   );
 }
