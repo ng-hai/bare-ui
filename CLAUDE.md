@@ -20,6 +20,18 @@ pnpm registry:build    # shadcn build → public/r/*.json
 
 There are no tests, no lint script, and no dev server. `tsc --noEmit` is the only typecheck path (TS is set to `noEmit: true`). Run `pnpm registry:build` any time `registry.json` or any file it references changes, and commit the regenerated `public/r/*.json`.
 
+## Release process
+
+There is no npm release — consumers fetch `public/r/*.json` directly from `raw.githubusercontent.com/ng-hai/bare-ui/main/...`, so **anything merged to `main` is live**. To ship a change:
+
+1. Edit the component source and/or `registry.json`.
+2. `pnpm registry:build` to regenerate `public/r/*.json`.
+3. `pnpm tsc --noEmit` to typecheck.
+4. Commit both the source changes **and** the regenerated `public/r/*.json` in the same commit (the built JSON is the published artifact).
+5. Push to `main`. The new version is immediately available via `pnpm dlx shadcn@latest add @bare-ui/<name>`.
+
+Because `main` is the release channel, never push a commit where `public/r/*.json` is out of sync with source — consumers will install broken components. If you forget to rebuild, the fix is another commit, not a force-push.
+
 ## Component architecture
 
 Every component follows the same layering, and Claude should preserve it when adding new components:
