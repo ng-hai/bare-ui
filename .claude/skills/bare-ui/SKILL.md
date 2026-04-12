@@ -1,0 +1,1 @@
+../../../skills/bare-ui/SKILL.md
