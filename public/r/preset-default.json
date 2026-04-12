@@ -1,0 +1,55 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "preset-default",
+  "title": "Default Preset",
+  "description": "Pre-styled theme preset for button and dialog with design tokens, filled-in styles, and a new DialogCloseButton part",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "@bare-ui/button",
+    "@bare-ui/dialog"
+  ],
+  "files": [
+    {
+      "path": "registry/bare/preset/default/theme.css",
+      "content": "@theme {\n  --color-primary: oklch(0.55 0.25 262);\n  --color-primary-foreground: oklch(0.97 0.01 255);\n  --color-muted: oklch(0.55 0.02 286);\n  --color-muted-foreground: oklch(0.45 0.02 286);\n  --color-destructive: oklch(0.58 0.22 29);\n  --color-destructive-foreground: oklch(0.97 0.01 29);\n  --color-surface: oklch(1 0 0);\n  --color-surface-foreground: oklch(0.15 0.01 286);\n  --color-overlay: oklch(0 0 0 / 50%);\n  --color-border: oklch(0.9 0.01 262);\n  --color-ring: oklch(0.7 0.16 262);\n\n  --radius-sm: 0.25rem;\n  --radius-default: 0.5rem;\n  --radius-lg: 0.75rem;\n\n  --shadow-sm: 0 1px 2px 0 oklch(0 0 0 / 5%);\n  --shadow-lg: 0 10px 15px -3px oklch(0 0 0 / 10%), 0 4px 6px -4px oklch(0 0 0 / 10%);\n}\n",
+      "type": "registry:file",
+      "target": "styles/bare-ui-theme.css"
+    },
+    {
+      "path": "registry/bare/preset/default/button/styles.ts",
+      "content": "import { tv } from \"@/registry/bare/lib/tv.config\";\n\nexport const buttonStyles = tv({\n  slots: {\n    root: [\n      \"inline-flex items-center justify-center gap-2 rounded-default font-medium\",\n      \"transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring\",\n      \"disabled:pointer-events-none disabled:opacity-50\",\n    ],\n  },\n  variants: {\n    variant: {\n      solid: {\n        root: \"bg-primary text-primary-foreground shadow-sm hover:bg-primary/90\",\n      },\n      outline: {\n        root: \"border border-border text-primary hover:bg-primary/10\",\n      },\n      ghost: {\n        root: \"text-primary hover:bg-primary/10\",\n      },\n      destructive: {\n        root: \"bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90\",\n      },\n    },\n    size: {\n      sm: { root: \"h-8 px-3 text-xs\" },\n      md: { root: \"h-10 px-4 text-sm\" },\n      lg: { root: \"h-12 px-6 text-base\" },\n    },\n  },\n  defaultVariants: {\n    variant: \"solid\",\n    size: \"md\",\n  },\n});\n",
+      "type": "registry:ui",
+      "target": "components/ui/button/styles.ts"
+    },
+    {
+      "path": "registry/bare/preset/default/dialog/styles.ts",
+      "content": "import { tv } from \"@/registry/bare/lib/tv.config\";\n\nexport const dialogStyles = tv({\n  slots: {\n    root: [\"\"],\n    trigger: [\"\"],\n    portal: [\"\"],\n    backdrop: [\"fixed inset-0 bg-overlay transition-opacity\"],\n    popup: [\n      \"fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2\",\n      \"bg-surface text-surface-foreground rounded-lg shadow-lg\",\n      \"w-full max-w-md p-6\",\n    ],\n    viewport: [\"\"],\n    title: [\"text-lg font-semibold text-surface-foreground\"],\n    description: [\"mt-2 text-sm text-muted-foreground\"],\n    close: [\"\"],\n    closeButton: [\n      \"absolute top-4 right-4 inline-flex items-center justify-center\",\n      \"rounded-sm size-6 text-muted-foreground hover:text-surface-foreground\",\n      \"transition-colors\",\n    ],\n  },\n});\n",
+      "type": "registry:ui",
+      "target": "components/ui/dialog/styles.ts"
+    },
+    {
+      "path": "registry/bare/preset/default/dialog/dialog-close-button.tsx",
+      "content": "import { Dialog as DialogPrimitive } from \"@base-ui/react/dialog\";\nimport { useDialogStyles } from \"@/registry/bare/ui/dialog/dialog-root\";\nimport type { dialogStyles } from \"./styles\";\n\ntype PresetDialogStyles = ReturnType<typeof dialogStyles>;\n\ninterface DialogCloseButtonProps extends DialogPrimitive.Close.Props {\n  className?: string;\n}\n\nexport function DialogCloseButton({\n  className,\n  children,\n  ...props\n}: DialogCloseButtonProps) {\n  const styles = useDialogStyles() as PresetDialogStyles;\n  return (\n    <DialogPrimitive.Close\n      {...props}\n      className={styles.closeButton({ class: className })}\n      data-slot=\"dialog-close-button\"\n    >\n      {children ?? (\n        <svg\n          xmlns=\"http://www.w3.org/2000/svg\"\n          width=\"16\"\n          height=\"16\"\n          viewBox=\"0 0 24 24\"\n          fill=\"none\"\n          stroke=\"currentColor\"\n          strokeWidth=\"2\"\n          strokeLinecap=\"round\"\n          strokeLinejoin=\"round\"\n        >\n          <line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\" />\n          <line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\" />\n        </svg>\n      )}\n    </DialogPrimitive.Close>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/dialog/dialog-close-button.tsx"
+    },
+    {
+      "path": "registry/bare/preset/default/dialog/index.parts.ts",
+      "content": "export { DialogRoot as Root } from \"@/registry/bare/ui/dialog/dialog-root\";\nexport { DialogTrigger as Trigger } from \"@/registry/bare/ui/dialog/dialog-trigger\";\nexport { DialogPortal as Portal } from \"@/registry/bare/ui/dialog/dialog-portal\";\nexport { DialogBackdrop as Backdrop } from \"@/registry/bare/ui/dialog/dialog-backdrop\";\nexport { DialogPopup as Popup } from \"@/registry/bare/ui/dialog/dialog-popup\";\nexport { DialogViewport as Viewport } from \"@/registry/bare/ui/dialog/dialog-viewport\";\nexport { DialogTitle as Title } from \"@/registry/bare/ui/dialog/dialog-title\";\nexport { DialogDescription as Description } from \"@/registry/bare/ui/dialog/dialog-description\";\nexport { DialogClose as Close } from \"@/registry/bare/ui/dialog/dialog-close\";\nexport { DialogCloseButton as CloseButton } from \"./dialog-close-button\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/dialog/index.parts.ts"
+    },
+    {
+      "path": "registry/bare/preset/default/dialog/index.ts",
+      "content": "export * as Dialog from \"./index.parts\";\nexport { dialogStyles } from \"./styles\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/dialog/index.ts"
+    }
+  ],
+  "categories": [
+    "preset"
+  ],
+  "type": "registry:ui"
+}
