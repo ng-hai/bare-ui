@@ -120,7 +120,7 @@ export const buttonStyles = tv({
 
 ### Add variants
 
-Add a `variants` block and `defaultVariants` to the `tv()` call. `createPropSplitter` in the root component discovers new variant keys at runtime — no changes to `.tsx` files needed. Variant props become available on the root component automatically:
+Add a `variants` block and `defaultVariants` to the `tv()` call. `createPropSplitter` in the root component discovers new variant keys at runtime — no changes to `.tsx` files needed. Variant props become available on the root component automatically. Use `VariantProps<typeof componentStyles>` from `@/lib/tv.config` to type variant props in root components:
 
 ```tsx
 <Button.Root variant="outline" size="lg">Click me</Button.Root>
@@ -135,14 +135,20 @@ Create a CSS file with a Tailwind `@theme` block and `@import` it in your `globa
 @theme {
   --color-primary: oklch(0.55 0.25 262);
   --color-primary-foreground: oklch(0.97 0.01 255);
+  --color-muted: oklch(0.55 0.02 286);
+  --color-muted-foreground: oklch(0.45 0.02 286);
   --color-destructive: oklch(0.58 0.22 29);
   --color-destructive-foreground: oklch(0.97 0.01 29);
   --color-surface: oklch(1 0 0);
   --color-surface-foreground: oklch(0.15 0.01 286);
+  --color-overlay: oklch(0 0 0 / 50%);
   --color-border: oklch(0.9 0.01 262);
   --color-ring: oklch(0.7 0.16 262);
+  --radius-sm: 0.25rem;
   --radius-default: 0.5rem;
+  --radius-lg: 0.75rem;
   --shadow-sm: 0 1px 2px 0 oklch(0 0 0 / 5%);
+  --shadow-lg: 0 10px 15px -3px oklch(0 0 0 / 10%), 0 4px 6px -4px oklch(0 0 0 / 10%);
 }
 ```
 
