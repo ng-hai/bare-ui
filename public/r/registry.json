@@ -794,26 +794,6 @@
         { "path": "registry/bare/ui/autocomplete/index.parts.ts", "type": "registry:ui" },
         { "path": "registry/bare/ui/autocomplete/index.ts", "type": "registry:ui" }
       ]
-    },
-    {
-      "name": "preset-default",
-      "type": "registry:ui",
-      "title": "Default Preset",
-      "description": "Pre-styled theme preset for button and dialog with design tokens, filled-in styles, and a new DialogCloseButton part",
-      "categories": ["preset"],
-      "registryDependencies": [
-        "@bare-ui/button",
-        "@bare-ui/dialog"
-      ],
-      "dependencies": ["@base-ui/react"],
-      "files": [
-        { "path": "registry/bare/preset/default/theme.css", "type": "registry:file", "target": "styles/bare-ui-theme.css" },
-        { "path": "registry/bare/preset/default/button/styles.ts", "type": "registry:ui", "target": "components/ui/button/styles.ts" },
-        { "path": "registry/bare/preset/default/dialog/styles.ts", "type": "registry:ui", "target": "components/ui/dialog/styles.ts" },
-        { "path": "registry/bare/preset/default/dialog/dialog-close-button.tsx", "type": "registry:ui", "target": "components/ui/dialog/dialog-close-button.tsx" },
-        { "path": "registry/bare/preset/default/dialog/index.parts.ts", "type": "registry:ui", "target": "components/ui/dialog/index.parts.ts" },
-        { "path": "registry/bare/preset/default/dialog/index.ts", "type": "registry:ui", "target": "components/ui/dialog/index.ts" }
-      ]
     }
   ]
 }
