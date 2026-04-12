@@ -12,6 +12,26 @@ The repo ships a single registry:
 
 Built registry JSON lives under `public/r/*.json`, consumed over `https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/<name>.json`.
 
+## Presets and theme files
+
+Default Tailwind `@theme` CSS files are shipped as `registry:file` items with an explicit `target` path (e.g. `target: "styles/bare-ui-theme.css"`). This is the correct type for plain CSS files that have no `@/` imports to rewrite. Example registry entry:
+
+```json
+{
+  "name": "theme",
+  "type": "registry:file",
+  "files": [
+    {
+      "path": "registry/bare/theme/default.css",
+      "type": "registry:file",
+      "target": "styles/bare-ui-theme.css"
+    }
+  ]
+}
+```
+
+Theme CSS files live under `registry/bare/theme/`. Consumers install via `shadcn add @bare-ui/theme` and then `@import` the file in their `globals.css`. They can replace it with their own `@theme` — the separation between tokens (CSS) and styles (`styles.ts`) is intentional.
+
 ## Commands
 
 ```bash
