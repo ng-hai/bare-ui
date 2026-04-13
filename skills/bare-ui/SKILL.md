@@ -247,3 +247,71 @@ These are invariants. Never break them when modifying bare-ui components.
 - **Keep barrel exports in sync.** If you add or remove a part, update `index.parts.ts`. The `index.ts` file re-exports from `index.parts.ts` and rarely needs changes.
 - **Don't modify shared libs.** `lib/tv.config.ts`, `lib/create-style-context.ts`, and `lib/split-variant-props.ts` are shared infrastructure. Don't edit them when working on a specific component.
 - **Use Base UI primitives.** Components wrap `@base-ui/react` primitives for behavior and ARIA. Refer to [base-ui.com](https://base-ui.com) for the primitive API.
+
+## Private registry setup
+
+When the registry repo is private, `raw.githubusercontent.com` requires authentication. shadcn CLI supports native token-based auth via headers in `components.json`.
+
+### Consumer configuration
+
+```json
+{
+  "registries": {
+    "bare-ui": {
+      "url": "https://raw.githubusercontent.com/<org>/bare-ui/main/public/r",
+      "headers": {
+        "Authorization": "token ${REGISTRY_TOKEN}"
+      }
+    }
+  }
+}
+```
+
+**Use `token` prefix for `raw.githubusercontent.com`.** `Bearer` is only for `api.github.com`.
+
+Set the env var in `.env.local` (gitignored, never commit):
+
+```bash
+REGISTRY_TOKEN=ghp_xxxxxxxxxxxx
+```
+
+### GitHub API endpoint (alternative)
+
+```json
+{
+  "headers": {
+    "Authorization": "Bearer ${REGISTRY_TOKEN}",
+    "Accept": "application/vnd.github.raw+json"
+  }
+}
+```
+
+The `Accept` header is required to get raw content instead of JSON-wrapped response.
+
+### CI/CD authentication
+
+| Method | When to use | Token prefix |
+|---|---|---|
+| `GITHUB_TOKEN` | GitHub Actions, registry in same repo | `token` |
+| Fine-grained PAT | Cross-repo access | `token` |
+| GitHub App installation token | Production orgs, no human account | `Bearer` |
+
+GitHub Actions example (same repo):
+
+```yaml
+- name: Install components
+  run: pnpm dlx shadcn@latest add bare-ui/button
+  env:
+    REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+For production orgs, prefer a GitHub App over PATs — not tied to a person, short-lived tokens, fine-grained permissions.
+
+### Common issues
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| 404 from raw.githubusercontent.com | Missing or expired token | Check `REGISTRY_TOKEN` is set and valid |
+| 401 Unauthorized | Wrong prefix (`Bearer` vs `token`) | Use `token` for raw.githubusercontent.com |
+| Works locally, fails in CI | Token not in CI secrets | Add `REGISTRY_TOKEN` to pipeline env vars |
+| Token stops working | PAT expired or person left org | Switch to GitHub App for CI |
