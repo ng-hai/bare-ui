@@ -16,7 +16,7 @@ describe("Collapsible", () => {
     });
   });
 
-  describeSlots("collapsible", Collapsible, {
+  describeSlots(Collapsible, {
     Root: { slot: "collapsible", skipRender: true },
     Trigger: { slot: "collapsible-trigger" },
     Panel: { slot: "collapsible-panel" },

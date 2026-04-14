@@ -36,7 +36,7 @@ describe("Accordion", () => {
     });
   });
 
-  describeSlots("accordion", Accordion, {
+  describeSlots(Accordion, {
     Root: { slot: "accordion", skipRender: true },
     Item: { slot: "accordion-item", skipRender: true },
     Header: { slot: "accordion-header" },

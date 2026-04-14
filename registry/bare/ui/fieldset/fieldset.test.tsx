@@ -16,7 +16,7 @@ describe("Fieldset", () => {
     });
   });
 
-  describeSlots("fieldset", Fieldset, {
+  describeSlots(Fieldset, {
     Root: { slot: "fieldset", skipRender: true },
     Legend: { slot: "fieldset-legend" },
   }, {

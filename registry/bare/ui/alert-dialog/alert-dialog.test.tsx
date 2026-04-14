@@ -3,13 +3,27 @@ import { AlertDialog } from "./index";
 import { describeSlots } from "@/registry/bare/lib/testing-utils";
 
 describe("AlertDialog", () => {
-  describeSlots("alert-dialog", AlertDialog, {
+  describeSlots(AlertDialog, {
     Root: { slot: "alert-dialog", skipRender: true },
     Trigger: { slot: "alert-dialog-trigger" },
-    Portal: { slot: "alert-dialog-portal", skipRender: true },
+    Portal: { slot: "alert-dialog-portal" },
     Backdrop: { slot: "alert-dialog-backdrop" },
-    Popup: { slot: "alert-dialog-popup", skipRender: true },
-    Viewport: { slot: "alert-dialog-viewport", skipRender: true },
+    Popup: {
+      slot: "alert-dialog-popup",
+      wrapper: (children) => (
+        <AlertDialog.Root open>
+          <AlertDialog.Portal>{children}</AlertDialog.Portal>
+        </AlertDialog.Root>
+      ),
+    },
+    Viewport: {
+      slot: "alert-dialog-viewport",
+      wrapper: (children) => (
+        <AlertDialog.Root open>
+          <AlertDialog.Portal>{children}</AlertDialog.Portal>
+        </AlertDialog.Root>
+      ),
+    },
     Title: { slot: "alert-dialog-title" },
     Description: { slot: "alert-dialog-description" },
     Close: { slot: "alert-dialog-close" },

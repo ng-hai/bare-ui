@@ -16,7 +16,7 @@ describe("Switch", () => {
     });
   });
 
-  describeSlots("switch", Switch, {
+  describeSlots(Switch, {
     Root: { slot: "switch", skipRender: true },
     Thumb: { slot: "switch-thumb" },
   }, {

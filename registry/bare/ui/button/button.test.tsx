@@ -3,7 +3,7 @@ import { Button } from "./index";
 import { describeSlots } from "@/registry/bare/lib/testing-utils";
 
 describe("Button", () => {
-  describeSlots("button", Button, {
+  describeSlots(Button, {
     Root: { slot: "button" },
   });
 });

@@ -60,20 +60,92 @@ describe("NavigationMenu", () => {
     });
   });
 
-  describeSlots("navigation-menu", NavigationMenu, {
+  describeSlots(NavigationMenu, {
     Root: { slot: "navigation-menu", skipRender: true },
-    List: { slot: "navigation-menu-list", skipRender: true },
-    Item: { slot: "navigation-menu-item", skipRender: true },
+    List: {
+      slot: "navigation-menu-list",
+      wrapper: (children) => (
+        <NavigationMenu.Root>{children}</NavigationMenu.Root>
+      ),
+    },
+    Item: {
+      slot: "navigation-menu-item",
+      wrapper: (children) => (
+        <NavigationMenu.Root>
+          <NavigationMenu.List>{children}</NavigationMenu.List>
+        </NavigationMenu.Root>
+      ),
+    },
     Trigger: { slot: "navigation-menu-trigger" },
     Icon: { slot: "navigation-menu-icon" },
-    Content: { slot: "navigation-menu-content", skipRender: true },
+    Content: {
+      slot: "navigation-menu-content",
+      wrapper: (children) => (
+        <NavigationMenu.Root value="test">
+          <NavigationMenu.List>
+            <NavigationMenu.Item value="test">
+              {children}
+            </NavigationMenu.Item>
+          </NavigationMenu.List>
+          <NavigationMenu.Viewport />
+        </NavigationMenu.Root>
+      ),
+    },
     Link: { slot: "navigation-menu-link" },
-    Portal: { slot: "navigation-menu-portal", skipRender: true },
+    Portal: {
+      slot: "navigation-menu-portal",
+      wrapper: (children) => (
+        <NavigationMenu.Root value="test">
+          <NavigationMenu.List>
+            <NavigationMenu.Item value="test">
+              {children}
+            </NavigationMenu.Item>
+          </NavigationMenu.List>
+        </NavigationMenu.Root>
+      ),
+    },
     Backdrop: { slot: "navigation-menu-backdrop" },
-    Positioner: { slot: "navigation-menu-positioner", skipRender: true },
-    Popup: { slot: "navigation-menu-popup", skipRender: true },
+    Positioner: {
+      slot: "navigation-menu-positioner",
+      wrapper: (children) => (
+        <NavigationMenu.Root value="test">
+          <NavigationMenu.List>
+            <NavigationMenu.Item value="test">
+              <NavigationMenu.Portal>{children}</NavigationMenu.Portal>
+            </NavigationMenu.Item>
+          </NavigationMenu.List>
+        </NavigationMenu.Root>
+      ),
+    },
+    Popup: {
+      slot: "navigation-menu-popup",
+      wrapper: (children) => (
+        <NavigationMenu.Root value="test">
+          <NavigationMenu.List>
+            <NavigationMenu.Item value="test">
+              <NavigationMenu.Portal>
+                <NavigationMenu.Positioner>{children}</NavigationMenu.Positioner>
+              </NavigationMenu.Portal>
+            </NavigationMenu.Item>
+          </NavigationMenu.List>
+        </NavigationMenu.Root>
+      ),
+    },
     Viewport: { slot: "navigation-menu-viewport" },
-    Arrow: { slot: "navigation-menu-arrow", skipRender: true },
+    Arrow: {
+      slot: "navigation-menu-arrow",
+      wrapper: (children) => (
+        <NavigationMenu.Root value="test">
+          <NavigationMenu.List>
+            <NavigationMenu.Item value="test">
+              <NavigationMenu.Portal>
+                <NavigationMenu.Positioner>{children}</NavigationMenu.Positioner>
+              </NavigationMenu.Portal>
+            </NavigationMenu.Item>
+          </NavigationMenu.List>
+        </NavigationMenu.Root>
+      ),
+    },
   }, {
     wrapper: (children) => (
       <NavigationMenu.Root>

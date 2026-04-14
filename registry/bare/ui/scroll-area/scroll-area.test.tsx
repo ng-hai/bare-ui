@@ -40,13 +40,32 @@ describe("ScrollArea", () => {
     });
   });
 
-  describeSlots("scroll-area", ScrollArea, {
+  describeSlots(ScrollArea, {
     Root: { slot: "scroll-area", skipRender: true },
     Viewport: { slot: "scroll-area-viewport" },
-    Scrollbar: { slot: "scroll-area-scrollbar", skipRender: true },
-    Content: { slot: "scroll-area-content", skipRender: true },
-    Thumb: { slot: "scroll-area-thumb", skipRender: true },
-    Corner: { slot: "scroll-area-corner", skipRender: true },
+    Scrollbar: {
+      slot: "scroll-area-scrollbar",
+      // Scrollbar only renders when content overflows; jsdom has no layout engine.
+      skipRender: true,
+    },
+    Content: {
+      slot: "scroll-area-content",
+      wrapper: (children) => (
+        <ScrollArea.Root>
+          <ScrollArea.Viewport>{children}</ScrollArea.Viewport>
+        </ScrollArea.Root>
+      ),
+    },
+    Thumb: {
+      slot: "scroll-area-thumb",
+      // Thumb only renders inside a visible Scrollbar; jsdom has no layout engine.
+      skipRender: true,
+    },
+    Corner: {
+      slot: "scroll-area-corner",
+      // Corner only renders when both scrollbars are visible; jsdom has no layout engine.
+      skipRender: true,
+    },
   }, {
     wrapper: (children) => (
       <ScrollArea.Root>{children}</ScrollArea.Root>

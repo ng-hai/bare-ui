@@ -16,14 +16,18 @@ describe("NumberField", () => {
     });
   });
 
-  describeSlots("number-field", NumberField, {
+  describeSlots(NumberField, {
     Root: { slot: "number-field", skipRender: true },
     Group: { slot: "number-field-group" },
     Increment: { slot: "number-field-increment" },
     Decrement: { slot: "number-field-decrement" },
     Input: { slot: "number-field-input" },
     ScrubArea: { slot: "number-field-scrub-area" },
-    ScrubAreaCursor: { slot: "number-field-scrub-area-cursor", skipRender: true },
+    ScrubAreaCursor: {
+      slot: "number-field-scrub-area-cursor",
+      // ScrubAreaCursor only renders during an active pointer scrub interaction.
+      skipRender: true,
+    },
   }, {
     wrapper: (children) => (
       <NumberField.Root>{children}</NumberField.Root>

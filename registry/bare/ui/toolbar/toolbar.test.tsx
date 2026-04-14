@@ -16,7 +16,7 @@ describe("Toolbar", () => {
     });
   });
 
-  describeSlots("toolbar", Toolbar, {
+  describeSlots(Toolbar, {
     Root: { slot: "toolbar", skipRender: true },
     Group: { slot: "toolbar-group" },
     Button: { slot: "toolbar-button" },

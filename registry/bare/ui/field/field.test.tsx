@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { render } from "@testing-library/react";
+import { render, cleanup } from "@testing-library/react";
 import { Field } from "./index";
 import { describeSlots } from "@/registry/bare/lib/testing-utils";
 
@@ -16,10 +16,39 @@ describe("Field", () => {
     });
   });
 
-  describeSlots("field", Field, {
+  describe("Error", () => {
+    it('renders with data-slot="field-error" when match={true}', () => {
+      cleanup();
+      render(
+        <Field.Root invalid>
+          <Field.Error match={true} />
+        </Field.Root>,
+      );
+      const el = document.querySelector('[data-slot="field-error"]');
+      expect(el).toBeInTheDocument();
+    });
+
+    it("merges className into slot", () => {
+      cleanup();
+      render(
+        <Field.Root invalid>
+          <Field.Error match={true} className="__test-class__" />
+        </Field.Root>,
+      );
+      const el = document.querySelector('[data-slot="field-error"]');
+      expect(el).toHaveClass("__test-class__");
+    });
+  });
+
+  describeSlots(Field, {
     Root: { slot: "field", skipRender: true },
     Label: { slot: "field-label" },
-    Error: { slot: "field-error", skipRender: true },
+    Error: {
+      slot: "field-error",
+      // Field.Error requires match={true} or actual validation failure to render.
+      // describeSlots cannot pass the match prop, so tested manually below.
+      skipRender: true,
+    },
     Description: { slot: "field-description" },
     Control: { slot: "field-control" },
     Validity: { slot: "field-validity", skipRender: true },

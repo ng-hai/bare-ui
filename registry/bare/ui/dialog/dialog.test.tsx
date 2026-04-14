@@ -3,13 +3,27 @@ import { Dialog } from "./index";
 import { describeSlots } from "@/registry/bare/lib/testing-utils";
 
 describe("Dialog", () => {
-  describeSlots("dialog", Dialog, {
+  describeSlots(Dialog, {
     Root: { slot: "dialog", skipRender: true },
     Trigger: { slot: "dialog-trigger" },
-    Portal: { slot: "dialog-portal", skipRender: true },
+    Portal: { slot: "dialog-portal" },
     Backdrop: { slot: "dialog-backdrop" },
-    Popup: { slot: "dialog-popup", skipRender: true },
-    Viewport: { slot: "dialog-viewport", skipRender: true },
+    Popup: {
+      slot: "dialog-popup",
+      wrapper: (children) => (
+        <Dialog.Root open>
+          <Dialog.Portal>{children}</Dialog.Portal>
+        </Dialog.Root>
+      ),
+    },
+    Viewport: {
+      slot: "dialog-viewport",
+      wrapper: (children) => (
+        <Dialog.Root open>
+          <Dialog.Portal>{children}</Dialog.Portal>
+        </Dialog.Root>
+      ),
+    },
     Title: { slot: "dialog-title" },
     Description: { slot: "dialog-description" },
     Close: { slot: "dialog-close" },

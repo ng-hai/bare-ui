@@ -16,7 +16,7 @@ describe("Checkbox", () => {
     });
   });
 
-  describeSlots("checkbox", Checkbox, {
+  describeSlots(Checkbox, {
     Root: { slot: "checkbox", skipRender: true },
     Indicator: { slot: "checkbox-indicator" },
   }, {

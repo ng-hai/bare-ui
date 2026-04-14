@@ -16,7 +16,7 @@ describe("Meter", () => {
     });
   });
 
-  describeSlots("meter", Meter, {
+  describeSlots(Meter, {
     Root: { slot: "meter", skipRender: true },
     Track: { slot: "meter-track" },
     Indicator: { slot: "meter-indicator" },

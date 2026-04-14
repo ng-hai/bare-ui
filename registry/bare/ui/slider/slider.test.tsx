@@ -16,7 +16,7 @@ describe("Slider", () => {
     });
   });
 
-  describeSlots("slider", Slider, {
+  describeSlots(Slider, {
     Root: { slot: "slider", skipRender: true },
     Label: { slot: "slider-label" },
     Value: { slot: "slider-value" },

@@ -3,7 +3,7 @@ import { ToggleGroup } from "./index";
 import { describeSlots } from "@/registry/bare/lib/testing-utils";
 
 describe("ToggleGroup", () => {
-  describeSlots("toggle-group", ToggleGroup, {
+  describeSlots(ToggleGroup, {
     Root: { slot: "toggle-group" },
   });
 });

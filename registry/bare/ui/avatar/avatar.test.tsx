@@ -16,9 +16,13 @@ describe("Avatar", () => {
     });
   });
 
-  describeSlots("avatar", Avatar, {
+  describeSlots(Avatar, {
     Root: { slot: "avatar", skipRender: true },
-    Image: { slot: "avatar-image", skipRender: true },
+    Image: {
+      slot: "avatar-image",
+      // Image only renders after the src loads successfully; jsdom has no image loading.
+      skipRender: true,
+    },
     Fallback: { slot: "avatar-fallback" },
   }, {
     wrapper: (children) => (

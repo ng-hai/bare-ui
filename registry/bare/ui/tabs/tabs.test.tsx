@@ -16,12 +16,34 @@ describe("Tabs", () => {
     });
   });
 
-  describeSlots("tabs", Tabs, {
+  describeSlots(Tabs, {
     Root: { slot: "tabs", skipRender: true },
     List: { slot: "tabs-list" },
-    Tab: { slot: "tabs-tab", skipRender: true },
-    Indicator: { slot: "tabs-indicator", skipRender: true },
-    Panel: { slot: "tabs-panel", skipRender: true },
+    Tab: {
+      slot: "tabs-tab",
+      wrapper: (children) => (
+        <Tabs.Root defaultValue="a">
+          <Tabs.List>{children}</Tabs.List>
+        </Tabs.Root>
+      ),
+    },
+    Indicator: {
+      slot: "tabs-indicator",
+      wrapper: (children) => (
+        <Tabs.Root defaultValue="a">
+          <Tabs.List>
+            <Tabs.Tab value="a">A</Tabs.Tab>
+            {children}
+          </Tabs.List>
+        </Tabs.Root>
+      ),
+    },
+    Panel: {
+      slot: "tabs-panel",
+      // Panel only renders when its value matches the active tab.
+      // describeSlots can't pass value prop, so tested manually below.
+      skipRender: true,
+    },
   }, {
     wrapper: (children) => (
       <Tabs.Root defaultValue="a">{children}</Tabs.Root>

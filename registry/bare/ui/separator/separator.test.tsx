@@ -3,7 +3,7 @@ import { Separator } from "./index";
 import { describeSlots } from "@/registry/bare/lib/testing-utils";
 
 describe("Separator", () => {
-  describeSlots("separator", Separator, {
+  describeSlots(Separator, {
     Root: { slot: "separator" },
   });
 });

@@ -36,7 +36,7 @@ describe("Radio", () => {
     });
   });
 
-  describeSlots("radio", Radio, {
+  describeSlots(Radio, {
     Root: { slot: "radio", skipRender: true },
     Item: { slot: "radio-item", skipRender: true },
     Indicator: { slot: "radio-indicator" },

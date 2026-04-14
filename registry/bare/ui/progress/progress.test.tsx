@@ -16,7 +16,7 @@ describe("Progress", () => {
     });
   });
 
-  describeSlots("progress", Progress, {
+  describeSlots(Progress, {
     Root: { slot: "progress", skipRender: true },
     Track: { slot: "progress-track" },
     Indicator: { slot: "progress-indicator" },

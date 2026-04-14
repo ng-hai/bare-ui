@@ -10,7 +10,7 @@ const FakeComponent = { Root: FakeRoot };
 describe("describeSlots helper", () => {
   it("throws if a part name does not exist on the component", () => {
     expect(() => {
-      describeSlots("fake", FakeComponent, {
+      describeSlots(FakeComponent, {
         NonExistent: { slot: "nope" },
       });
     }).toThrow("Component.NonExistent is undefined");
