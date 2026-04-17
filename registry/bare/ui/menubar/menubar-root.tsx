@@ -12,7 +12,7 @@ interface MenubarRootProps extends MenubarPrimitive.Props, MenubarVariantProps {
 }
 
 export function MenubarRoot(props: MenubarRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? menubarStyles(variantProps);
   return <MenubarPrimitive {...htmlProps} className={s.root({ class: className })} data-slot="menubar" />;
 }

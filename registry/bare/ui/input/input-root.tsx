@@ -12,7 +12,7 @@ interface InputRootProps extends InputPrimitive.Props, InputVariantProps {
 }
 
 export function InputRoot(props: InputRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? inputStyles(variantProps);
   return <InputPrimitive {...htmlProps} className={s.root({ class: className })} data-slot="input" />;
 }

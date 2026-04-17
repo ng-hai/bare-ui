@@ -18,7 +18,7 @@ interface AvatarRootProps extends AvatarPrimitive.Root.Props, AvatarVariantProps
 }
 
 export function AvatarRoot(props: AvatarRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? avatarStyles(variantProps);
   return (
     <StyleContext value={s}>

@@ -12,7 +12,7 @@ interface SeparatorRootProps extends SeparatorPrimitive.Props, SeparatorVariantP
 }
 
 export function SeparatorRoot(props: SeparatorRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? separatorStyles(variantProps);
   return <SeparatorPrimitive {...htmlProps} className={s.root({ class: className })} data-slot="separator" />;
 }

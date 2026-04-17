@@ -17,7 +17,7 @@ interface DrawerRootProps extends DrawerPrimitive.Root.Props, DrawerVariantProps
 }
 
 export function DrawerRoot(props: DrawerRootProps) {
-  const [variantProps, { styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? drawerStyles(variantProps);
   return (
     <StyleContext value={s}>

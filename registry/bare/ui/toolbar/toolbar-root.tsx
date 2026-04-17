@@ -18,7 +18,7 @@ interface ToolbarRootProps extends ToolbarPrimitive.Root.Props, ToolbarVariantPr
 }
 
 export function ToolbarRoot(props: ToolbarRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? toolbarStyles(variantProps);
   return (
     <StyleContext value={s}>

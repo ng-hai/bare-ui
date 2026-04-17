@@ -18,7 +18,7 @@ interface SliderRootProps extends SliderPrimitive.Root.Props, SliderVariantProps
 }
 
 export function SliderRoot(props: SliderRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? sliderStyles(variantProps);
   return (
     <StyleContext value={s}>

@@ -18,7 +18,7 @@ interface CheckboxRootProps extends CheckboxPrimitive.Root.Props, CheckboxVarian
 }
 
 export function CheckboxRoot(props: CheckboxRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? checkboxStyles(variantProps);
   return (
     <StyleContext value={s}>

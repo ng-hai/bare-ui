@@ -17,7 +17,7 @@ interface DialogRootProps extends DialogPrimitive.Root.Props, DialogVariantProps
 }
 
 export function DialogRoot(props: DialogRootProps) {
-  const [variantProps, { styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? dialogStyles(variantProps);
   return (
     <StyleContext value={s}>

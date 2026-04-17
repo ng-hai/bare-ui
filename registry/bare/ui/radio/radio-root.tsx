@@ -18,7 +18,7 @@ interface RadioRootProps extends RadioGroupPrimitive.Props, RadioVariantProps {
 }
 
 export function RadioRoot(props: RadioRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? radioStyles(variantProps);
   return (
     <StyleContext value={s}>

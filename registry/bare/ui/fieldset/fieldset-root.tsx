@@ -18,7 +18,7 @@ interface FieldsetRootProps extends FieldsetPrimitive.Root.Props, FieldsetVarian
 }
 
 export function FieldsetRoot(props: FieldsetRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? fieldsetStyles(variantProps);
   return (
     <StyleContext value={s}>

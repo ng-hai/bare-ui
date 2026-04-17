@@ -23,7 +23,7 @@ type ComboboxRootProps<Value, Multiple extends boolean | undefined = false> = Co
 export function ComboboxRoot<Value, Multiple extends boolean | undefined = false>(
   props: ComboboxRootProps<Value, Multiple>,
 ) {
-  const [variantProps, { styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? comboboxStyles(variantProps);
   return (
     <StyleContext value={s}>

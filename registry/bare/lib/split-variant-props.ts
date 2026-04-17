@@ -1,13 +1,15 @@
-export function createPropSplitter<T extends (...args: any[]) => any>(styles: T) {
-  const variantKeys = new Set((styles as any).variantKeys as string[]);
+type StylesWithVariantKeys = { variantKeys?: readonly PropertyKey[] };
 
-  return function split(props: Record<string, any>): [Record<string, any>, Record<string, any>] {
-    const variantProps: Record<string, any> = {};
-    const rest: Record<string, any> = {};
+export function createPropSplitter(styles: StylesWithVariantKeys) {
+  const variantKeys = new Set<PropertyKey>(styles.variantKeys ?? []);
+
+  return function split<P extends object>(props: P): [Partial<P>, Partial<P>] {
+    const variantProps: Record<string, unknown> = {};
+    const rest: Record<string, unknown> = {};
     for (const [key, val] of Object.entries(props)) {
       if (variantKeys.has(key)) variantProps[key] = val;
       else rest[key] = val;
     }
-    return [variantProps, rest];
+    return [variantProps as Partial<P>, rest as Partial<P>];
   };
 }

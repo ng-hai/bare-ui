@@ -18,7 +18,7 @@ interface NumberFieldRootProps extends NumberFieldPrimitive.Root.Props, NumberFi
 }
 
 export function NumberFieldRoot(props: NumberFieldRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? numberFieldStyles(variantProps);
   return (
     <StyleContext value={s}>

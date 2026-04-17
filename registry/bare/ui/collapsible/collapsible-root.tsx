@@ -18,7 +18,7 @@ interface CollapsibleRootProps extends CollapsiblePrimitive.Root.Props, Collapsi
 }
 
 export function CollapsibleRoot(props: CollapsibleRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? collapsibleStyles(variantProps);
   return (
     <StyleContext value={s}>

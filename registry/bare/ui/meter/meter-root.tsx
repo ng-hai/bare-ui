@@ -18,7 +18,7 @@ interface MeterRootProps extends MeterPrimitive.Root.Props, MeterVariantProps {
 }
 
 export function MeterRoot(props: MeterRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? meterStyles(variantProps);
   return (
     <StyleContext value={s}>

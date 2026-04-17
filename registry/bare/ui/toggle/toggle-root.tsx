@@ -12,7 +12,7 @@ interface ToggleRootProps extends TogglePrimitive.Props, ToggleVariantProps {
 }
 
 export function ToggleRoot(props: ToggleRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? toggleStyles(variantProps);
   return <TogglePrimitive {...htmlProps} className={s.root({ class: className })} data-slot="toggle" />;
 }

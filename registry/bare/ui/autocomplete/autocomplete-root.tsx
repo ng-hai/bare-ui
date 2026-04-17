@@ -18,7 +18,7 @@ type AutocompleteRootProps<ItemValue> = AutocompletePrimitive.Root.Props<ItemVal
   };
 
 export function AutocompleteRoot<ItemValue>(props: AutocompleteRootProps<ItemValue>) {
-  const [variantProps, { styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? autocompleteStyles(variantProps);
   return (
     <StyleContext value={s}>

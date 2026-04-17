@@ -6,7 +6,7 @@
   "files": [
     {
       "path": "registry/bare/lib/split-variant-props.ts",
-      "content": "export function createPropSplitter<T extends (...args: any[]) => any>(styles: T) {\n  const variantKeys = new Set((styles as any).variantKeys as string[]);\n\n  return function split(props: Record<string, any>): [Record<string, any>, Record<string, any>] {\n    const variantProps: Record<string, any> = {};\n    const rest: Record<string, any> = {};\n    for (const [key, val] of Object.entries(props)) {\n      if (variantKeys.has(key)) variantProps[key] = val;\n      else rest[key] = val;\n    }\n    return [variantProps, rest];\n  };\n}\n",
+      "content": "type StylesWithVariantKeys = { variantKeys?: readonly PropertyKey[] };\n\nexport function createPropSplitter(styles: StylesWithVariantKeys) {\n  const variantKeys = new Set<PropertyKey>(styles.variantKeys ?? []);\n\n  return function split<P extends object>(props: P): [Partial<P>, Partial<P>] {\n    const variantProps: Record<string, unknown> = {};\n    const rest: Record<string, unknown> = {};\n    for (const [key, val] of Object.entries(props)) {\n      if (variantKeys.has(key)) variantProps[key] = val;\n      else rest[key] = val;\n    }\n    return [variantProps as Partial<P>, rest as Partial<P>];\n  };\n}\n",
       "type": "registry:lib"
     }
   ],

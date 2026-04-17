@@ -13,7 +13,7 @@ interface ButtonRootProps extends useRender.ComponentProps<"button">, ButtonVari
 }
 
 export function ButtonRoot(props: ButtonRootProps) {
-  const [variantProps, { className, styles, render, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, render, ...htmlProps }] = splitProps(props);
   const s = styles ?? buttonStyles(variantProps);
 
   const defaultProps = {

@@ -18,7 +18,7 @@ interface ToastRootProps extends ToastPrimitive.Root.Props, ToastVariantProps {
 }
 
 export function ToastRoot(props: ToastRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? toastStyles(variantProps);
   return (
     <StyleContext value={s}>

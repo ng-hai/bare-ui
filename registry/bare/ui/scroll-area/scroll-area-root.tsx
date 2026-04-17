@@ -18,7 +18,7 @@ interface ScrollAreaRootProps extends ScrollAreaPrimitive.Root.Props, ScrollArea
 }
 
 export function ScrollAreaRoot(props: ScrollAreaRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? scrollAreaStyles(variantProps);
   return (
     <StyleContext value={s}>

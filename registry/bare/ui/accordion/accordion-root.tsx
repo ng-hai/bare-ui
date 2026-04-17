@@ -18,7 +18,7 @@ interface AccordionRootProps extends AccordionPrimitive.Root.Props, AccordionVar
 }
 
 export function AccordionRoot(props: AccordionRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? accordionStyles(variantProps);
   return (
     <StyleContext value={s}>

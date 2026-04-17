@@ -18,7 +18,7 @@ interface NavigationMenuRootProps extends NavigationMenuPrimitive.Root.Props, Na
 }
 
 export function NavigationMenuRoot(props: NavigationMenuRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? navigationMenuStyles(variantProps);
   return (
     <StyleContext value={s}>

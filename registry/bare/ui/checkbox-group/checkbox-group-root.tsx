@@ -12,7 +12,7 @@ interface CheckboxGroupRootProps extends CheckboxGroupPrimitive.Props, CheckboxG
 }
 
 export function CheckboxGroupRoot(props: CheckboxGroupRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? checkboxGroupStyles(variantProps);
   return <CheckboxGroupPrimitive {...htmlProps} className={s.root({ class: className })} data-slot="checkbox-group" />;
 }

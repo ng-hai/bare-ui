@@ -17,7 +17,7 @@ interface PreviewCardRootProps extends PreviewCardPrimitive.Root.Props, PreviewC
 }
 
 export function PreviewCardRoot(props: PreviewCardRootProps) {
-  const [variantProps, { styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? previewCardStyles(variantProps);
   return (
     <StyleContext value={s}>

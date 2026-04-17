@@ -18,7 +18,7 @@ interface FieldRootProps extends FieldPrimitive.Root.Props, FieldVariantProps {
 }
 
 export function FieldRoot(props: FieldRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? fieldStyles(variantProps);
   return (
     <StyleContext value={s}>

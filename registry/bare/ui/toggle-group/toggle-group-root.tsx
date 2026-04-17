@@ -12,7 +12,7 @@ interface ToggleGroupRootProps extends ToggleGroupPrimitive.Props, ToggleGroupVa
 }
 
 export function ToggleGroupRoot(props: ToggleGroupRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? toggleGroupStyles(variantProps);
   return <ToggleGroupPrimitive {...htmlProps} className={s.root({ class: className })} data-slot="toggle-group" />;
 }

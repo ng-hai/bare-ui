@@ -18,7 +18,7 @@ interface ProgressRootProps extends ProgressPrimitive.Root.Props, ProgressVarian
 }
 
 export function ProgressRoot(props: ProgressRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? progressStyles(variantProps);
   return (
     <StyleContext value={s}>

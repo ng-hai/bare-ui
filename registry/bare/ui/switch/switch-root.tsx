@@ -18,7 +18,7 @@ interface SwitchRootProps extends SwitchPrimitive.Root.Props, SwitchVariantProps
 }
 
 export function SwitchRoot(props: SwitchRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? switchStyles(variantProps);
   return (
     <StyleContext value={s}>

@@ -17,7 +17,7 @@ interface ContextMenuRootProps extends ContextMenuPrimitive.Root.Props, ContextM
 }
 
 export function ContextMenuRoot(props: ContextMenuRootProps) {
-  const [variantProps, { styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? contextMenuStyles(variantProps);
   return (
     <StyleContext value={s}>

@@ -17,7 +17,7 @@ interface PopoverRootProps extends PopoverPrimitive.Root.Props, PopoverVariantPr
 }
 
 export function PopoverRoot(props: PopoverRootProps) {
-  const [variantProps, { styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? popoverStyles(variantProps);
   return (
     <StyleContext value={s}>

@@ -18,7 +18,7 @@ interface SelectRootProps extends SelectPrimitive.Root.Props<string>, SelectVari
 }
 
 export function SelectRoot(props: SelectRootProps) {
-  const [variantProps, { styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? selectStyles(variantProps);
   return (
     <StyleContext value={s}>

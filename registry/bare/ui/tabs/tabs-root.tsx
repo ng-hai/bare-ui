@@ -18,7 +18,7 @@ interface TabsRootProps extends TabsPrimitive.Root.Props, TabsVariantProps {
 }
 
 export function TabsRoot(props: TabsRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? tabsStyles(variantProps);
   return (
     <StyleContext value={s}>

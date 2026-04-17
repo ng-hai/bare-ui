@@ -17,7 +17,7 @@ interface MenuRootProps extends MenuPrimitive.Root.Props, MenuVariantProps {
 }
 
 export function MenuRoot(props: MenuRootProps) {
-  const [variantProps, { styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? menuStyles(variantProps);
   return (
     <StyleContext value={s}>

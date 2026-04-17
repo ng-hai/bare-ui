@@ -17,7 +17,7 @@ interface AlertDialogRootProps extends AlertDialogPrimitive.Root.Props, AlertDia
 }
 
 export function AlertDialogRoot(props: AlertDialogRootProps) {
-  const [variantProps, { styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? alertDialogStyles(variantProps);
   return (
     <StyleContext value={s}>

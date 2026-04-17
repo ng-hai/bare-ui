@@ -17,7 +17,7 @@ interface TooltipRootProps extends TooltipPrimitive.Root.Props, TooltipVariantPr
 }
 
 export function TooltipRoot(props: TooltipRootProps) {
-  const [variantProps, { styles, ...htmlProps }] = splitProps(props as Record<string, any>);
+  const [variantProps, { styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? tooltipStyles(variantProps);
   return (
     <StyleContext value={s}>
