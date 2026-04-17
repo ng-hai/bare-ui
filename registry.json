@@ -794,6 +794,23 @@
         { "path": "registry/bare/ui/autocomplete/index.parts.ts", "type": "registry:ui" },
         { "path": "registry/bare/ui/autocomplete/index.ts", "type": "registry:ui" }
       ]
+    },
+    {
+      "name": "otp-field",
+      "type": "registry:ui",
+      "title": "OTP Field",
+      "description": "Unstyled OTP field component with root, input, separator for one-time password entry, built on Base UI",
+      "categories": ["form"],
+      "registryDependencies": ["@bare-ui/create-style-context", "@bare-ui/split-variant-props", "@bare-ui/tv-config"],
+      "dependencies": ["@base-ui/react"],
+      "files": [
+        { "path": "registry/bare/ui/otp-field/otp-field-root.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/otp-field/otp-field-input.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/otp-field/otp-field-separator.tsx", "type": "registry:ui" },
+        { "path": "registry/bare/ui/otp-field/styles.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/otp-field/index.parts.ts", "type": "registry:ui" },
+        { "path": "registry/bare/ui/otp-field/index.ts", "type": "registry:ui" }
+      ]
     }
   ]
 }

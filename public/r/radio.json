@@ -4,7 +4,7 @@
   "title": "Radio",
   "description": "Unstyled radio group with item and indicator, built on Base UI",
   "dependencies": [
-    "@base-ui/react"
+    "@base-ui/react@^1.4.0"
   ],
   "registryDependencies": [
     "@bare-ui/create-style-context",

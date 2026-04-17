@@ -4,7 +4,7 @@
   "title": "Collapsible",
   "description": "Unstyled collapsible component with trigger and panel, built on Base UI",
   "dependencies": [
-    "@base-ui/react"
+    "@base-ui/react@^1.4.0"
   ],
   "registryDependencies": [
     "@bare-ui/create-style-context",

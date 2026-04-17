@@ -4,7 +4,7 @@
   "title": "Form",
   "description": "Form wrapper with validation support, built on Base UI",
   "dependencies": [
-    "@base-ui/react"
+    "@base-ui/react@^1.4.0"
   ],
   "files": [
     {
