@@ -208,12 +208,7 @@ export function DialogCloseButton({ className, children, ...props }: DialogClose
       className={styles.closeButton({ class: className })}
       data-slot="dialog-close-button"
     >
-      {children ?? (
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18" />
-          <line x1="6" y1="6" x2="18" y2="18" />
-        </svg>
-      )}
+      {children}
     </DialogPrimitive.Close>
   );
 }
@@ -234,6 +229,84 @@ The pattern for every new part:
 - Apply the matching slot: `className={styles.<slotName>({ class: className })}`
 - Set `data-slot="<component>-<part>"`
 - Export from `index.parts.ts` under a short name
+
+## Icon distribution
+
+Some components need glyphs — a chevron for `<Select.Icon>`, an X for `<Dialog.Close>`, a check for `<Checkbox.Indicator>`. Bare-ui itself ships no glyphs and declares no icon library as a dependency. This is intentional — icons are a design choice, not a behavior choice, and consumers should own that choice.
+
+There are two supported approaches. Components that need a glyph render `children` if provided and fall back to a default (null, or an inline SVG) otherwise. The consumer picks one of:
+
+### Approach 1 — peer-dep an icon library
+
+Consumer installs something like `lucide-react`, `@heroicons/react`, or `@radix-ui/react-icons` and passes icons as children at the call site:
+
+```tsx
+import { X, ChevronDown, Check } from "lucide-react";
+import { Dialog } from "@/components/ui/dialog";
+import { Select } from "@/components/ui/select";
+
+<Dialog.Close><X /></Dialog.Close>
+
+<Select.Icon><ChevronDown /></Select.Icon>
+```
+
+**When to choose this.** The consumer already has an icon library, wants a consistent set across their app, and doesn't need to edit individual glyphs. Zero friction at install time — bare-ui has nothing to copy for icons.
+
+**Registry implications.** No `dependencies` entry for the icon library in `registry.json` — bare-ui stays library-agnostic. Document the convention in the component's README or example block, not in the component code.
+
+### Approach 2 — copy-in icon registry
+
+Ship raw SVG files as `registry:file` items and let consumers process them with their own toolchain ([SVGR](https://react-svgr.com), [unplugin-icons](https://github.com/unplugin/unplugin-icons), [vite-plugin-svgr](https://github.com/pd4d10/vite-plugin-svgr)). Each SVG lives in `registry/bare/icons/<name>.svg` and lands in the consumer project at a predictable path:
+
+```json
+{
+  "name": "icon-chevron-down",
+  "type": "registry:file",
+  "title": "Chevron Down Icon",
+  "description": "Raw SVG for chevron-down glyph",
+  "categories": ["icons"],
+  "files": [
+    {
+      "path": "registry/bare/icons/chevron-down.svg",
+      "type": "registry:file",
+      "target": "assets/icons/chevron-down.svg"
+    }
+  ]
+}
+```
+
+Consumers install with `shadcn add @bare-ui/icon-chevron-down`, then process via their bundler. Example consumer setup with SVGR + Vite:
+
+```tsx
+// svgr turns the SVG import into a React component
+import ChevronDown from "@/assets/icons/chevron-down.svg?react";
+
+<Select.Icon><ChevronDown /></Select.Icon>
+```
+
+Or with unplugin-icons (works with any icon set, including local SVGs):
+
+```tsx
+import ChevronDown from "~icons/bare-ui/chevron-down";
+```
+
+**When to choose this.** The consumer wants editable glyphs (path tweaks, custom strokes) without pulling a whole icon library, or wants SVGs as first-class assets (sprite sheets, inline components, both).
+
+**Registry implications.**
+- SVGs must use `currentColor` for stroke/fill so Tailwind text colors apply.
+- `type: "registry:file"` (not `registry:ui`) — these are raw assets, no TSX wrappers, no `@/` imports to rewrite.
+- Use an explicit `target` path so consumers know where the files land.
+- Group related icons under a shared `categories: ["icons"]` for discoverability.
+- Don't hardcode SVGs inside component `.tsx` files — keep glyphs in the icon registry so consumers can swap them independently.
+
+### Which to recommend
+
+Neither is universally right. Document both in the component's example block so consumers can pick:
+- **Starting a new project with an existing design system** → peer-dep (fastest).
+- **Tight visual control, custom strokes, or no icon library** → copy-in SVGs.
+- **Mixed** → peer-dep for most, copy-in for the 3–5 icons that need custom geometry.
+
+What bare-ui must not do: bundle glyphs inside component `.tsx` files as hardcoded inline SVGs. That locks aesthetic decisions into behavior code and breaks both approaches above.
 
 ## Rules
 
