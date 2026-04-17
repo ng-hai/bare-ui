@@ -16,6 +16,55 @@ Add `@bare-ui` to your project's `components.json`:
 }
 ```
 
+## Set up the Claude Code skill (optional)
+
+bare-ui ships a [Claude Code skill](https://docs.claude.com/en/docs/claude-code/skills) — `skills/bare-ui/SKILL.md` — that teaches Claude the conventions of this registry: the root/parts layering, `createPropSplitter`, `StyleContext`, the `styles` prop escape hatch, private-registry auth, and common pitfalls. With it installed, Claude Code can add, extend, and style bare-ui components idiomatically without you pasting context every time.
+
+### Install
+
+Drop the skill into your project's `.claude/skills/` directory. It's picked up automatically on the next Claude Code session.
+
+```bash
+mkdir -p .claude/skills/bare-ui
+curl -fsSL https://raw.githubusercontent.com/ng-hai/bare-ui/main/skills/bare-ui/SKILL.md \
+  -o .claude/skills/bare-ui/SKILL.md
+```
+
+Commit the file so your whole team gets it:
+
+```bash
+git add .claude/skills/bare-ui/SKILL.md
+git commit -m "chore: add bare-ui Claude Code skill"
+```
+
+### Private registry repo
+
+If `ng-hai/bare-ui` is a fork in a private org, `curl` needs an auth token. Use the GitHub CLI:
+
+```bash
+gh api repos/<org>/bare-ui/contents/skills/bare-ui/SKILL.md \
+  -H "Accept: application/vnd.github.raw" \
+  > .claude/skills/bare-ui/SKILL.md
+```
+
+### Stay in sync (optional)
+
+If you want updates to flow automatically, add the upstream as a sparse git subtree instead of a one-time copy:
+
+```bash
+git subtree add --prefix=.claude/skills/bare-ui \
+  https://github.com/ng-hai/bare-ui.git main --squash
+# later, to pull updates:
+git subtree pull --prefix=.claude/skills/bare-ui \
+  https://github.com/ng-hai/bare-ui.git main --squash
+```
+
+Subtree pulls the whole repo under the prefix, so pair it with a sparse-checkout or prefer the `curl` route if you only want the single `SKILL.md`.
+
+### Verify
+
+Open Claude Code in your project and run `/skills` — you should see `bare-ui` in the list with the description `Rules for working with bare-ui unstyled components …`. Next time you ask Claude to add or style a bare-ui component, it will invoke the skill automatically.
+
 ## Install a component
 
 ```bash
