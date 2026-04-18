@@ -22,7 +22,9 @@ bare-ui ships a [Claude Code skill](https://docs.claude.com/en/docs/claude-code/
 
 ### Install
 
-Drop the skill into your project's `.claude/skills/` directory. It's picked up automatically on the next Claude Code session.
+> You only need `.claude/skills/bare-ui/SKILL.md` in your project — don't recreate the `skills/` directory you see in this repo. That's bare-ui's internal layout, kept so the file is browsable on GitHub; the consumer-side path is dictated by Claude Code, not by us.
+
+Drop the skill into your project's [`.claude/skills/`](https://docs.claude.com/en/docs/claude-code/skills) directory — that's the path Claude Code scans for project-scoped skills. It's picked up automatically on the next session.
 
 ```bash
 mkdir -p .claude/skills/bare-ui
