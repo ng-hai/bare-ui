@@ -1,6 +1,6 @@
 ---
 name: bare-ui
-description: Rules for working with bare-ui unstyled components — styling, extending, theming, and troubleshooting
+description: Use when installing, styling, or extending bare-ui components. Triggers: `shadcn add @bare-ui/<name>`; `components/ui/<name>/` with `<name>-root.tsx` + per-part files + `styles.ts` (`tv({ slots })`) + `index.parts.ts`; imports from `@/lib/tv.config`, `@/lib/create-style-context`, or `@/lib/split-variant-props`; `data-slot`/`useStyles`/`StyleContext` usage; preset injection via `styles` prop; bare-ui registry auth (`raw.githubusercontent.com` + token).
 ---
 
 # bare-ui

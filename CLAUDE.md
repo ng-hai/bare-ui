@@ -36,9 +36,10 @@ Theme CSS files live under `registry/bare/theme/`. Consumers install via `shadcn
 
 ```bash
 pnpm registry:build    # shadcn build → public/r/*.json
+pnpm typecheck         # tsc --noEmit (uses the local tsc, not PATH)
 ```
 
-There are no tests, no lint script, and no dev server. `tsc --noEmit` is the only typecheck path (TS is set to `noEmit: true`). Run `pnpm registry:build` any time `registry.json` or any file it references changes, and commit the regenerated `public/r/*.json`.
+There is no lint script and no dev server. Run `pnpm registry:build` any time `registry.json` or any file it references changes, and commit the regenerated `public/r/*.json`. Always run `pnpm typecheck`, not `pnpm tsc …` — the latter falls back to whatever `tsc` is on `PATH` (often an older global install) and will report phantom errors.
 
 ## Release process
 
@@ -46,11 +47,15 @@ There is no npm release — consumers fetch `public/r/*.json` directly from `raw
 
 1. Edit the component source and/or `registry.json`.
 2. `pnpm registry:build` to regenerate `public/r/*.json`.
-3. `pnpm tsc --noEmit` to typecheck.
+3. `pnpm typecheck` to typecheck.
 4. Commit both the source changes **and** the regenerated `public/r/*.json` in the same commit (the built JSON is the published artifact).
 5. Push to `main`. The new version is immediately available via `pnpm dlx shadcn@latest add @bare-ui/<name>`.
 
 Because `main` is the release channel, never push a commit where `public/r/*.json` is out of sync with source — consumers will install broken components. If you forget to rebuild, the fix is another commit, not a force-push.
+
+### Tagging
+
+Consumers who want reproducibility pin to a tag (`v<major>.<minor>.<patch>`) in the registry URL. After merging to `main`, classify the change and cut a tag per the runbook in **`CONTRIBUTING.md`** — it's written as an executable procedure (classification rules, version-bump table, copy-pasteable commands, AI guardrails). Follow it verbatim; don't skip the pre-flight or post-flight checks.
 
 ## Component architecture
 

@@ -16,6 +16,47 @@ Add `@bare-ui` to your project's `components.json`:
 }
 ```
 
+This tracks `main` — every merge is immediately installable. For a reproducible pin, use a release tag instead (see below).
+
+## Pin to a release (optional)
+
+Releases are tagged `v<major>.<minor>.<patch>` (see [`CHANGELOG.md`](./CHANGELOG.md) for the list). Swap `main` in the registry URL for a tag to lock every install to that version:
+
+```json
+{
+  "registries": {
+    "@bare-ui": "https://raw.githubusercontent.com/ng-hai/bare-ui/v0.1.0/public/r/{name}.json"
+  }
+}
+```
+
+Commit `components.json` so the whole team installs the same version. To upgrade, bump the tag string and re-run `shadcn add` for the components you want to refresh.
+
+### Mix pinned and bleeding-edge channels
+
+Register both under different namespaces:
+
+```json
+{
+  "registries": {
+    "@bare-ui": "https://raw.githubusercontent.com/ng-hai/bare-ui/v0.1.0/public/r/{name}.json",
+    "@bare-ui-next": "https://raw.githubusercontent.com/ng-hai/bare-ui/main/public/r/{name}.json"
+  }
+}
+```
+
+Then `shadcn add @bare-ui-next/dialog` pulls `dialog` from `main` while the rest of the project stays on `v0.1.0`.
+
+### One-off install via raw URL
+
+Skip `components.json` entirely and point at a tagged JSON directly — useful for scripts or when you want one component from a different version than the rest:
+
+```bash
+pnpm dlx shadcn@latest add https://raw.githubusercontent.com/ng-hai/bare-ui/v0.1.0/public/r/button.json
+```
+
+**Heads up:** `shadcn` resolves `registryDependencies` from the same registry URL it was invoked with, so transitive deps (`tv-config`, `create-style-context`, etc.) are always version-consistent with the component you installed. Tags are immutable; `main` is not — if you mix pinned and floating channels, the floating one can drift between installs.
+
 ## Set up the Claude Code skill (optional)
 
 bare-ui ships a [Claude Code skill](https://docs.claude.com/en/docs/claude-code/skills) — `skills/bare-ui/SKILL.md` — that teaches Claude the conventions of this registry: the root/parts layering, `createPropSplitter`, `StyleContext`, the `styles` prop escape hatch, private-registry auth, and common pitfalls. With it installed, Claude Code can add, extend, and style bare-ui components idiomatically without you pasting context every time.
