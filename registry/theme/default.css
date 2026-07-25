@@ -230,8 +230,6 @@
   --white-a10: oklch(1 0 0 / 0.8);
   --white-a11: oklch(1 0 0 / 0.9);
   --white-a12: oklch(1 0 0 / 0.95);
-
-  --radius: 0.625rem;
 }
 
 .dark {
@@ -581,9 +579,4 @@
   --color-white-a11: var(--white-a11);
   --color-white-a12: var(--white-a12);
   --color-background: var(--background);
-
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
 }

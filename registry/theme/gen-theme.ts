@@ -171,7 +171,7 @@ const SCALE_SUFFIXES = [
 // Pool / role names become CSS vars (--<name>-9) and Tailwind utilities
 // (bg-<name>-9), so keep them kebab-safe and away from the contract's own names.
 const NAME_RE = /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/;
-const RESERVED = new Set(["gray", "accent", "background", "radius", "black", "white"]);
+const RESERVED = new Set(["gray", "accent", "background", "black", "white"]);
 
 type Roles = {
   aliased: Map<string, string>; // role -> pool name
@@ -425,11 +425,6 @@ function themeInline(built: BuiltTheme): string {
   return names.map((name) => `  --color-${name}: var(--${name});`).join("\n");
 }
 
-const RADIUS_BLOCK = `  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);`;
-
 // One standalone stylesheet (same shape as the neutral default.css, plus the
 // accent pool and its data-accent-color swap blocks).
 export function renderCss(built: BuiltTheme, header?: string): string {
@@ -453,8 +448,6 @@ ${declarations(built, "light")}
   /* black/white alpha ramps — Radix blackA/whiteA, mode-independent */
 ${bwDeclarations()}
 
-  --radius: 0.625rem;
-
   /* role pointers — mode-independent; they re-resolve under .dark and data-accent-color */
 ${rolePointers(built)}
 }
@@ -468,15 +461,13 @@ ${swapBlocks(built)}
 
 @theme inline {
 ${themeInline(built)}
-
-${RADIUS_BLOCK}
 }
 `;
 }
 
 // Combined render-blocking stylesheet for the whole (fixed) tenant set, scoped by
-// [data-tenant]. theme-brand sets <html data-tenant> from the URL. Radius + the
-// contract's @theme inline mapping come from the neutral default.css; the delta
+// [data-tenant]. theme-brand sets <html data-tenant> from the URL. The
+// contract's @theme inline mapping comes from the neutral default.css; the delta
 // @theme inline here registers only what the neutral contract doesn't cover
 // (pool scales + custom roles).
 export function renderTenantsCss(builtAll: BuiltTheme[]): string {

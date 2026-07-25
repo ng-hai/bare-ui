@@ -133,10 +133,11 @@ describe("renderCss", () => {
       "--color-danger-9: var(--danger-9);",
       "--color-premium-9: var(--premium-9);",
       "--color-background: var(--background);",
-      "--radius-lg: var(--radius);",
     ]) {
       expect(theme).toContain(line);
     }
+    // The radius scale left the contract — apps own their own radii.
+    expect(theme).not.toContain("--radius");
   });
 });
 
@@ -192,7 +193,7 @@ describe("renderTenantsCss", () => {
     const theme = block(tenants, "@theme inline");
     expect(theme).toContain("--color-jade-9: var(--jade-9);");
     expect(theme).toContain("--color-premium-9: var(--premium-9);");
-    // Contract tokens (accent, default roles, radius) come from default.css.
+    // Contract tokens (accent, default roles) come from default.css.
     expect(theme).not.toContain("--color-accent-9");
     expect(theme).not.toContain("--color-danger-9");
     expect(tenants).not.toContain("--radius-sm");
