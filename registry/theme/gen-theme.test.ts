@@ -120,8 +120,10 @@ describe("renderCss", () => {
     expect(css).not.toContain('[data-accent-color="premium"]');
   });
 
-  it("keeps the .dark block values-only (pointers are mode-independent)", () => {
-    expect(block(css, ".dark")).not.toContain("var(--");
+  it("keeps role pointers out of .dark (they are mode-independent)", () => {
+    const dark = block(css, ".dark");
+    expect(dark).not.toContain("--accent-9: var(");
+    expect(dark).not.toContain("--danger-9: var(");
   });
 
   it("maps pool scales, roles, and specials in @theme inline", () => {
@@ -146,8 +148,8 @@ describe("black/white alpha ramps", () => {
     const root = block(css, ":root");
     expect(root).toContain("--black-a1: oklch(0 0 0 / 0.05);");
     expect(root).toContain("--white-a12: oklch(1 0 0 / 0.95);");
-    expect(block(css, ".dark")).not.toContain("--black-a");
-    expect(block(css, ".dark")).not.toContain("--white-a");
+    // No ramp *declarations* in .dark — references like var(--black-a8) are fine.
+    expect(block(css, ".dark")).not.toMatch(/--(?:black|white)-a\d+:/);
   });
 
   it("registers black/white utilities in @theme inline", () => {
@@ -161,16 +163,57 @@ describe("black/white alpha ramps", () => {
     expect(tenants).not.toContain("--white-a");
   });
 
-  it("ships no --overlay token (scrims use the black ramp directly)", () => {
-    expect(built.valueNames).not.toContain("overlay");
-    expect(css).not.toContain("--overlay");
-    expect(tenants).not.toContain("--overlay");
-  });
-
   it("reserves black/white as pool and role names", () => {
     expect(() => buildTheme({ name: "t", accents: { black: "#000000" } })).toThrow(/reserved/);
     expect(() =>
       buildTheme({ name: "t", accents: { blue: "#2563eb" }, semantics: { white: "#ffffff" } }),
+    ).toThrow(/reserved/);
+  });
+});
+
+describe("panel & scrim specials", () => {
+  it("emits gray-contrast as a per-mode value", () => {
+    expect(built.valueNames).toContain("gray-contrast");
+    expect(block(css, ":root")).toContain("--gray-contrast: oklch");
+    expect(block(css, ".dark")).toContain("--gray-contrast: oklch");
+  });
+
+  it("emits the specials as per-mode pointers (Radix Themes recipe)", () => {
+    const root = block(css, ":root");
+    expect(root).toContain("--panel-solid: oklch(1 0 0);");
+    expect(root).toContain("--panel-translucent: var(--white-a9);");
+    expect(root).toContain("--surface: var(--white-a11);");
+    expect(root).toContain("--overlay: var(--black-a6);");
+    const dark = block(css, ".dark");
+    expect(dark).toContain("--panel-solid: var(--gray-2);");
+    expect(dark).toContain("--panel-translucent: var(--gray-a2);");
+    expect(dark).toContain("--surface: var(--black-a4);");
+    expect(dark).toContain("--overlay: var(--black-a8);");
+  });
+
+  it("registers the special utilities in @theme inline", () => {
+    const theme = block(css, "@theme inline");
+    for (const line of [
+      "--color-gray-contrast: var(--gray-contrast);",
+      "--color-panel-solid: var(--panel-solid);",
+      "--color-panel-translucent: var(--panel-translucent);",
+      "--color-surface: var(--surface);",
+      "--color-overlay: var(--overlay);",
+    ]) {
+      expect(theme).toContain(line);
+    }
+  });
+
+  it("leaves the pointers out of tenants.css (they re-resolve through tenant values)", () => {
+    expect(tenants).not.toContain("--panel-");
+    expect(tenants).not.toContain("--overlay");
+    expect(tenants).not.toMatch(/--surface:/);
+  });
+
+  it("reserves the special names as pool and role names", () => {
+    expect(() => buildTheme({ name: "t", accents: { overlay: "#000000" } })).toThrow(/reserved/);
+    expect(() =>
+      buildTheme({ name: "t", accents: { blue: "#2563eb" }, semantics: { surface: "#ffffff" } }),
     ).toThrow(/reserved/);
   });
 });

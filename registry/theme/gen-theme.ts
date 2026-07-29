@@ -34,8 +34,12 @@
  *
  * Every theme also carries the contract's fixed `--black-a1..12` /
  * `--white-a1..12` ramps (Radix blackA/whiteA) — mode-independent tints for
- * imagery, scrims, and text/icons on colored solids. `black` and `white` are
- * therefore reserved names.
+ * imagery, scrims, and text/icons on colored solids — plus the chrome
+ * specials: `--gray-contrast` (text on the gray-9 solid) and the panel/scrim
+ * pointers `--panel-solid` / `--panel-translucent` / `--surface` / `--overlay`
+ * (Radix Themes' recipe: white/whiteA in light; gray-2/gray-a2 + blackA in
+ * dark, so dark panels re-tint with the theme gray). `black`, `white`, and the
+ * special names are therefore reserved.
  *
  * `semantics` maps role names to either an `accents` KEY (alias — the role's
  * tokens become pointers to that pool scale; zero extra generation) or a color
@@ -171,7 +175,10 @@ const SCALE_SUFFIXES = [
 // Pool / role names become CSS vars (--<name>-9) and Tailwind utilities
 // (bg-<name>-9), so keep them kebab-safe and away from the contract's own names.
 const NAME_RE = /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/;
-const RESERVED = new Set(["gray", "accent", "background", "black", "white"]);
+const RESERVED = new Set([
+  "gray", "accent", "background", "black", "white",
+  "overlay", "surface", "panel", "panel-solid", "panel-translucent",
+]);
 
 type Roles = {
   aliased: Map<string, string>; // role -> pool name
@@ -312,9 +319,12 @@ function buildModeTokens(cfg: ThemeConfig, roles: Roles, appearance: Appearance)
     t.set(`${name}-contrast`, r.accentContrast); // legible text/icon on the solid step
     t.set(`${name}-surface`, r.accentSurface); // translucent panel fill
   };
-  // gray (chrome): the gray side of the main run — no contrast token.
+  // gray (chrome): the gray side of the main run. Its contrast (text on the
+  // gray-9 solid) takes one extra run with gray in the accent seat — the
+  // engine only computes a contrast color for its accent.
   main.grayScale.forEach((hex, i) => t.set(`gray-${i + 1}`, hex));
   main.grayScaleAlpha.forEach((hex, i) => t.set(`gray-a${i + 1}`, hex));
+  t.set("gray-contrast", run(gray).accentContrast);
   t.set("gray-surface", main.graySurface);
   // the pool: default accent from the main run, the rest one run each.
   emit(poolNames[0], main);
@@ -372,6 +382,29 @@ function bwDeclarations(indent = "  "): string {
   }).join("\n\n");
 }
 
+// Panel & scrim specials — Radix Themes' recipe (radix-ui/themes color.css),
+// expressed as per-mode POINTERS: light panels are paper-white constants, dark
+// panels ride the theme gray (a panel must sit lighter than the near-black page
+// and carry its tint), scrims stay black and never flip with the palette.
+// Pointers re-resolve wherever the target values change, so tenants.css never
+// re-emits them — they layer in from the neutral default.css.
+const SPECIALS: Record<Appearance, [name: string, value: string][]> = {
+  light: [
+    ["panel-solid", "oklch(1 0 0)"],
+    ["panel-translucent", "var(--white-a9)"],
+    ["surface", "var(--white-a11)"],
+    ["overlay", "var(--black-a6)"],
+  ],
+  dark: [
+    ["panel-solid", "var(--gray-2)"],
+    ["panel-translucent", "var(--gray-a2)"],
+    ["surface", "var(--black-a4)"],
+    ["overlay", "var(--black-a8)"],
+  ],
+};
+const specialLines = (a: Appearance, indent = "  ") =>
+  SPECIALS[a].map(([name, value]) => `${indent}--${name}: ${value};`).join("\n");
+
 // ── CSS rendering ────────────────────────────────────────────────────────────
 function declarations(built: BuiltTheme, mode: Appearance, indent = "  "): string {
   const tokens = built[mode];
@@ -420,6 +453,7 @@ function themeInline(built: BuiltTheme): string {
     ...built.valueNames.filter((n) => n !== "background"),
     ...[...built.aliases.keys()].flatMap((role) => SCALE_SUFFIXES.map((s) => `${role}-${s}`)),
     ...bwNames,
+    ...SPECIALS.light.map(([name]) => name),
     "background",
   ];
   return names.map((name) => `  --color-${name}: var(--${name});`).join("\n");
@@ -450,11 +484,16 @@ ${bwDeclarations()}
 
   /* role pointers — mode-independent; they re-resolve under .dark and data-accent-color */
 ${rolePointers(built)}
+
+  /* panel & scrim specials — Radix Themes recipe; the dark side rides the theme gray */
+${specialLines("light")}
 }
 
 .dark {
   color-scheme: dark;
 ${declarations(built, "dark")}
+
+${specialLines("dark")}
 }
 
 ${swapBlocks(built)}

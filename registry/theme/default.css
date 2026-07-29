@@ -65,6 +65,7 @@
   --gray-a10: oklch(0.126 0.053 260.54 / 0.498);
   --gray-a11: oklch(0.097 0.0447 261.94 / 0.6157);
   --gray-a12: oklch(0.0733 0.0304 260.32 / 0.8824);
+  --gray-contrast: oklch(1 0 0);
   --gray-surface: oklch(1 0 0 / 0.8);
 
   --accent-1: oklch(0.9911 0 0);
@@ -204,6 +205,12 @@
 
   --background: oklch(1 0 0);
 
+  /* panel & scrim specials — Radix Themes recipe; the dark side rides the theme gray */
+  --panel-solid: oklch(1 0 0);
+  --panel-translucent: var(--white-a9);
+  --surface: var(--white-a11);
+  --overlay: var(--black-a6);
+
   /* black/white alpha ramps — Radix blackA/whiteA, mode-independent */
   --black-a1: oklch(0 0 0 / 0.05);
   --black-a2: oklch(0 0 0 / 0.1);
@@ -258,6 +265,7 @@
   --gray-a10: oklch(0.9315 0.0301 277.59 / 0.4941);
   --gray-a11: oklch(0.9585 0.0187 282.77 / 0.7255);
   --gray-a12: oklch(0.9946 0.0026 286.35 / 0.9373);
+  --gray-contrast: oklch(1 0 0);
   --gray-surface: oklch(0 0 0 / 0.05);
 
   --accent-1: oklch(0.1776 0 0);
@@ -396,6 +404,11 @@
   --info-surface: oklch(0.246 0.0566 255.05 / 0.502);
 
   --background: oklch(0.1776 0 0);
+
+  --panel-solid: var(--gray-2);
+  --panel-translucent: var(--gray-a2);
+  --surface: var(--black-a4);
+  --overlay: var(--black-a8);
 }
 
 @theme inline {
@@ -423,6 +436,7 @@
   --color-gray-a10: var(--gray-a10);
   --color-gray-a11: var(--gray-a11);
   --color-gray-a12: var(--gray-a12);
+  --color-gray-contrast: var(--gray-contrast);
   --color-gray-surface: var(--gray-surface);
   --color-accent-1: var(--accent-1);
   --color-accent-2: var(--accent-2);
@@ -578,5 +592,9 @@
   --color-white-a10: var(--white-a10);
   --color-white-a11: var(--white-a11);
   --color-white-a12: var(--white-a12);
+  --color-panel-solid: var(--panel-solid);
+  --color-panel-translucent: var(--panel-translucent);
+  --color-surface: var(--surface);
+  --color-overlay: var(--overlay);
   --color-background: var(--background);
 }
