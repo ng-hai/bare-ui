@@ -32,6 +32,13 @@
  * mode-independent: scrims and tints that must NOT flip with `.dark`, e.g. a
  * dialog backdrop, or text/icons over a colored solid or a photo.
  *
+ * `data-accent-color="gray"` (always available — see the swap block below)
+ * re-points every accent-* token at the gray scale, Radix Themes style, so an
+ * accent-built slot renders neutral. Gray-9 solids are deliberately muted —
+ * give solid fills the high-contrast treatment (`bg-accent-12 text-gray-1`).
+ * Focus rings use `--focus-8` (`outline-focus-8`), which follows the accent but
+ * is NOT re-pointed by the gray swap: neutral subtrees keep the brand ring.
+ *
  * This default is intentionally neutral (hueless gray chrome + a dark gray accent). Replace the values with
  * your brand via `shadcn add ng-hai/ui/theme-generator` — keep the token
  * *names* (the contract) stable so components never need to change. Mode is
@@ -210,6 +217,10 @@
   --panel-translucent: var(--white-a9);
   --surface: var(--white-a11);
   --overlay: var(--black-a6);
+
+  /* focus ring — follows the accent; the gray swap below does NOT re-point it
+     (Radix Themes' exception: a neutralized subtree keeps the brand focus ring) */
+  --focus-8: var(--accent-8);
 
   /* black/white alpha ramps — Radix blackA/whiteA, mode-independent */
   --black-a1: oklch(0 0 0 / 0.05);
@@ -409,6 +420,42 @@
   --panel-translucent: var(--gray-a2);
   --surface: var(--black-a4);
   --overlay: var(--black-a8);
+
+  --focus-8: var(--accent-8);
+}
+
+/* Gray as accent — Radix Themes' [data-accent-color='gray'] remap, 1:1 onto the
+   gray scale (styles/tokens/color.css). Always available: every theme carries
+   gray/*. Solids land on the deliberately muted gray-9 — pair them with a
+   high-contrast treatment (bg-accent-12 + text-gray-1). No --focus-8 re-point
+   here, so a gray subtree keeps the surrounding accent's focus ring. */
+[data-accent-color="gray"] {
+  --accent-1: var(--gray-1);
+  --accent-2: var(--gray-2);
+  --accent-3: var(--gray-3);
+  --accent-4: var(--gray-4);
+  --accent-5: var(--gray-5);
+  --accent-6: var(--gray-6);
+  --accent-7: var(--gray-7);
+  --accent-8: var(--gray-8);
+  --accent-9: var(--gray-9);
+  --accent-10: var(--gray-10);
+  --accent-11: var(--gray-11);
+  --accent-12: var(--gray-12);
+  --accent-a1: var(--gray-a1);
+  --accent-a2: var(--gray-a2);
+  --accent-a3: var(--gray-a3);
+  --accent-a4: var(--gray-a4);
+  --accent-a5: var(--gray-a5);
+  --accent-a6: var(--gray-a6);
+  --accent-a7: var(--gray-a7);
+  --accent-a8: var(--gray-a8);
+  --accent-a9: var(--gray-a9);
+  --accent-a10: var(--gray-a10);
+  --accent-a11: var(--gray-a11);
+  --accent-a12: var(--gray-a12);
+  --accent-contrast: var(--gray-contrast);
+  --accent-surface: var(--gray-surface);
 }
 
 @theme inline {
@@ -596,5 +643,6 @@
   --color-panel-translucent: var(--panel-translucent);
   --color-surface: var(--surface);
   --color-overlay: var(--overlay);
+  --color-focus-8: var(--focus-8);
   --color-background: var(--background);
 }

@@ -41,6 +41,11 @@
  * dark, so dark panels re-tint with the theme gray). `black`, `white`, and the
  * special names are therefore reserved.
  *
+ * Every theme also emits Radix Themes' `[data-accent-color="gray"]` remap —
+ * gray-as-accent, 1:1 onto the theme's gray ramp — and a `--focus-8` focus
+ * token that follows the accent: pool swap blocks re-point it, the gray block
+ * deliberately does not (a neutral subtree keeps the brand focus ring).
+ *
  * `semantics` maps role names to either an `accents` KEY (alias — the role's
  * tokens become pointers to that pool scale; zero extra generation) or a color
  * seed (a private scale — values only: no swap block, no named utilities). A
@@ -177,7 +182,7 @@ const SCALE_SUFFIXES = [
 const NAME_RE = /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/;
 const RESERVED = new Set([
   "gray", "accent", "background", "black", "white",
-  "overlay", "surface", "panel", "panel-solid", "panel-translucent",
+  "overlay", "surface", "panel", "panel-solid", "panel-translucent", "focus",
 ]);
 
 type Roles = {
@@ -433,7 +438,9 @@ function rolePointers(built: BuiltTheme, indent = "  "): string {
 
 // One swap block per pool entry: data-accent-color="<name>" on any element
 // re-points --accent-* (hence every accent-* utility) for that subtree. Roles
-// are meaning, not identity — they get no blocks. When `scope` is given
+// are meaning, not identity — they get no blocks. Each block also re-points
+// --focus-8 so focus rings follow the scoped hue (Radix Themes does the same) —
+// the GRAY block below is the deliberate exception. When `scope` is given
 // (tenants.css), blocks are tenant-scoped so a name outside the active tenant's
 // pool is a no-op instead of a broken var chain; the second selector covers the
 // attribute sitting on <html> itself alongside data-tenant.
@@ -443,10 +450,18 @@ function swapBlocks(built: BuiltTheme, scope?: string): string {
       const sel = scope
         ? `${scope} [data-accent-color="${n}"],\n:root${scope}[data-accent-color="${n}"]`
         : `[data-accent-color="${n}"]`;
-      return `${sel} {\n${pointerLines("accent", n)}\n}`;
+      return `${sel} {\n${pointerLines("accent", n)}\n  --focus-8: var(--${n}-8);\n}`;
     })
     .join("\n\n");
 }
+
+// Gray as accent — Radix Themes' [data-accent-color='gray'] remap, 1:1 onto the
+// gray scale. Not a pool entry ("gray" is reserved): it aliases the theme's own
+// gray ramp instead of generating a scale, so it is always available. Solids
+// land on the deliberately muted gray-9 — pair them with a high-contrast
+// treatment (bg-accent-12 + text-gray-1). No --focus-8 re-point here: a gray
+// subtree keeps the surrounding accent's focus ring (Radix's own exception).
+const grayBlock = () => `[data-accent-color="gray"] {\n${pointerLines("accent", "gray")}\n}`;
 
 function themeInline(built: BuiltTheme): string {
   const names = [
@@ -454,6 +469,7 @@ function themeInline(built: BuiltTheme): string {
     ...[...built.aliases.keys()].flatMap((role) => SCALE_SUFFIXES.map((s) => `${role}-${s}`)),
     ...bwNames,
     ...SPECIALS.light.map(([name]) => name),
+    "focus-8",
     "background",
   ];
   return names.map((name) => `  --color-${name}: var(--${name});`).join("\n");
@@ -487,6 +503,9 @@ ${rolePointers(built)}
 
   /* panel & scrim specials — Radix Themes recipe; the dark side rides the theme gray */
 ${specialLines("light")}
+
+  /* focus ring — follows the accent; pool swap blocks re-point it, gray does NOT */
+  --focus-8: var(--accent-8);
 }
 
 .dark {
@@ -494,9 +513,13 @@ ${specialLines("light")}
 ${declarations(built, "dark")}
 
 ${specialLines("dark")}
+
+  --focus-8: var(--accent-8);
 }
 
 ${swapBlocks(built)}
+
+${grayBlock()}
 
 @theme inline {
 ${themeInline(built)}

@@ -94,7 +94,7 @@ export const buttonStyles = tv({
   slots: {
     root: [
       "inline-flex items-center justify-center gap-2 rounded-default font-medium",
-      "transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-8",
+      "transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-8",
       "disabled:pointer-events-none disabled:opacity-50",
     ],
   },
@@ -110,13 +110,26 @@ export const buttonStyles = tv({
       md: { root: "h-10 px-4 text-sm" },
       lg: { root: "h-12 px-6 text-base" },
     },
+    // Radix Themes' highContrast: promote solids to step 12, texts to step 12.
+    highContrast: { true: {} },
   },
+  compoundVariants: [
+    {
+      variant: "solid",
+      highContrast: true,
+      class: { root: "bg-accent-12 text-gray-1 hover:bg-accent-12 hover:brightness-110 hover:contrast-[.88] hover:saturate-[1.1]" },
+    },
+    { variant: "outline", highContrast: true, class: { root: "text-accent-12" } },
+    { variant: "ghost", highContrast: true, class: { root: "text-accent-12" } },
+  ],
   defaultVariants: {
     variant: "solid",
     size: "md",
   },
 });
 ```
+
+Focus rings use `outline-focus-8` — `--focus-8` follows the accent and is re-pointed by pool swap blocks, but deliberately **not** by the gray swap, so neutralized subtrees keep the brand focus ring (Radix Themes' exception).
 
 ### Add variants
 
@@ -148,7 +161,7 @@ solid:   "bg-accent-9 text-accent-contrast hover:bg-accent-10"   // primary butt
 soft:    "bg-accent-3 text-accent-11 hover:bg-accent-4"          // tinted button
 outline: "border border-gray-7 text-gray-12 hover:bg-gray-3"
 ghost:   "text-gray-12 hover:bg-gray-3"
-input:   "border border-gray-7 bg-gray-1 placeholder:text-gray-9 focus-visible:outline-accent-8"
+input:   "border border-gray-7 bg-gray-1 placeholder:text-gray-9 focus-visible:outline-focus-8"
 card:    "bg-gray-2 text-gray-12 border border-gray-6"
 muted:   "text-gray-11"
 ```
@@ -165,6 +178,16 @@ Generated themes can carry an **accent pool**: the generator's `accents` map hol
 ```
 
 Semantic roles stay meaning, not identity: `semantics: { danger: "red", premium: "jade" }` aliases a role onto a pool scale (zero extra scales) or seeds a private one from a color; roles never swap via the attribute. Style *stateful feedback* (alert, callout, destructive buttons) against role tokens (`bg-danger-9`); style *categorical identity* (badges, avatars, tags, section theming) against `accent-*` + the attribute.
+
+### Gray as accent + high contrast (neutral buttons)
+
+`data-accent-color="gray"` is **always available** — `default.css` and every generated theme ship Radix Themes' gray remap (all 26 `accent-*` tokens → the theme's `gray-*` ramp; `"gray"` is reserved as a pool key). It neutralizes any accent-built slot per subtree or per element. Gray-9 solids are deliberately muted (below AA in light mode), so pair solid fills with `highContrast` — Radix's own remedy and the pattern its Button docs demo:
+
+```tsx
+<Button.Root variant="solid" data-accent-color="gray" highContrast>Save</Button.Root>  {/* near-black neutral, 16:1 */}
+<Button.Root variant="ghost" data-accent-color="gray">Cancel</Button.Root>             {/* quiet gray chrome */}
+<Button.Root variant="solid">Upgrade</Button.Root>                                     {/* the brand accent — spend it sparingly */}
+```
 
 ### One-off overrides
 

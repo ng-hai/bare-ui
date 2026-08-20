@@ -218,6 +218,39 @@ describe("panel & scrim specials", () => {
   });
 });
 
+describe("gray accent & focus ring", () => {
+  it("emits the Radix gray remap block in every standalone theme", () => {
+    const gray = block(css, '[data-accent-color="gray"]');
+    expect(gray).toContain("--accent-9: var(--gray-9);");
+    expect(gray).toContain("--accent-contrast: var(--gray-contrast);");
+    expect(gray).toContain("--accent-surface: var(--gray-surface);");
+  });
+
+  it("re-points --focus-8 in pool swap blocks but not in the gray block", () => {
+    expect(block(css, '[data-accent-color="jade"]')).toContain("--focus-8: var(--jade-8);");
+    expect(block(css, '[data-accent-color="gray"]')).not.toContain("--focus-8");
+  });
+
+  it("declares --focus-8 per mode and registers its utility", () => {
+    expect(block(css, ":root")).toContain("--focus-8: var(--accent-8);");
+    expect(block(css, ".dark")).toContain("--focus-8: var(--accent-8);");
+    expect(block(css, "@theme inline")).toContain("--color-focus-8: var(--focus-8);");
+  });
+
+  it("keeps the gray block and per-mode focus declarations out of tenants.css", () => {
+    // Both layer in from the neutral default.css; tenant swap blocks still
+    // re-point focus to their scoped hue.
+    expect(tenants).not.toContain('[data-accent-color="gray"]');
+    expect(block(tenants, ':root[data-tenant="acme"]')).not.toContain("--focus-8");
+    expect(tenants).toContain("--focus-8: var(--jade-8);");
+  });
+
+  it("reserves gray and focus as pool and role names", () => {
+    expect(() => buildTheme({ name: "t", accents: { gray: "#8b8d98" } })).toThrow(/reserved/);
+    expect(() => buildTheme({ name: "t", accents: { focus: "#2563eb" } })).toThrow(/reserved/);
+  });
+});
+
 describe("renderTenantsCss", () => {
   it("scopes values + pointers per tenant, dark values separately", () => {
     const base = block(tenants, ':root[data-tenant="acme"]');
