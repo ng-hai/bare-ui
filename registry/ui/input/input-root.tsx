@@ -1,7 +1,7 @@
 import { Input as InputPrimitive } from "@base-ui/react/input";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { inputStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type InputVariantProps = VariantProps<typeof inputStyles>;
 const splitProps = createPropSplitter(inputStyles);

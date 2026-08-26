@@ -2,7 +2,7 @@ import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { checkboxStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type CheckboxStyles = ReturnType<typeof checkboxStyles>;
 type CheckboxVariantProps = VariantProps<typeof checkboxStyles>;

@@ -2,7 +2,7 @@ import { OTPField as OTPFieldPrimitive } from "@base-ui/react/otp-field";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { otpFieldStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type OTPFieldStyles = ReturnType<typeof otpFieldStyles>;
 type OTPFieldVariantProps = VariantProps<typeof otpFieldStyles>;

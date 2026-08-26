@@ -2,7 +2,7 @@ import { Combobox as ComboboxPrimitive } from "@base-ui/react/combobox";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { comboboxStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type ComboboxStyles = ReturnType<typeof comboboxStyles>;
 type ComboboxVariantProps = VariantProps<typeof comboboxStyles>;

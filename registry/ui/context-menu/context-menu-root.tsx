@@ -2,7 +2,7 @@ import { ContextMenu as ContextMenuPrimitive } from "@base-ui/react/context-menu
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { contextMenuStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type ContextMenuStyles = ReturnType<typeof contextMenuStyles>;
 type ContextMenuVariantProps = VariantProps<typeof contextMenuStyles>;

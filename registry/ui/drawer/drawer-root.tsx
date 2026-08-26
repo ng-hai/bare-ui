@@ -2,7 +2,7 @@ import { Drawer as DrawerPrimitive } from "@base-ui/react/drawer";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { drawerStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type DrawerStyles = ReturnType<typeof drawerStyles>;
 type DrawerVariantProps = VariantProps<typeof drawerStyles>;

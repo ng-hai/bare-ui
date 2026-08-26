@@ -2,7 +2,7 @@ import { Select as SelectPrimitive } from "@base-ui/react/select";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { selectStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type SelectStyles = ReturnType<typeof selectStyles>;
 type SelectVariantProps = VariantProps<typeof selectStyles>;

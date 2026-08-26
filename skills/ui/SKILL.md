@@ -1,6 +1,6 @@
 ---
 name: ui
-description: Use when installing, styling, or extending ui components. Triggers: `shadcn add ng-hai/ui/<name>` (GitHub registry); `components/ui/<name>/` with `<name>-root.tsx` + per-part files + `styles.ts` (`tv({ slots })`) + `index.parts.ts`; imports from `@/lib/tv.config`, `@/lib/create-style-context`, or `@/lib/split-variant-props`; `data-slot`/`useStyles`/`StyleContext` usage; preset injection via `styles` prop.
+description: Use when installing, styling, or extending ui components. Triggers: `shadcn add ng-hai/ui/<name>` (GitHub registry); `components/ui/<name>/` with `<name>-root.tsx` + per-part files + `styles.ts` (`tv({ slots })`) + `index.parts.ts`; imports from `@/lib/tv-config`, `@/lib/create-style-context`, or `@/lib/split-variant-props`; `data-slot`/`useStyles`/`StyleContext` usage; preset injection via `styles` prop.
 ---
 
 # ui
@@ -76,7 +76,7 @@ Open `styles.ts` and add Tailwind classes to the slot arrays. Each slot maps to 
 **Before (unstyled):**
 
 ```ts
-import { tv } from "@/lib/tv.config";
+import { tv } from "@/lib/tv-config";
 
 export const buttonStyles = tv({
   slots: {
@@ -88,7 +88,7 @@ export const buttonStyles = tv({
 **After (styled with variants):**
 
 ```ts
-import { tv } from "@/lib/tv.config";
+import { tv } from "@/lib/tv-config";
 
 export const buttonStyles = tv({
   slots: {
@@ -133,7 +133,7 @@ Focus rings use `outline-focus-8` — `--focus-8` follows the accent and is re-p
 
 ### Add variants
 
-Add a `variants` block and `defaultVariants` to the `tv()` call. `createPropSplitter` in the root component discovers new variant keys at runtime — no changes to `.tsx` files needed. Variant props become available on the root component automatically. Use `VariantProps<typeof componentStyles>` from `@/lib/tv.config` to type variant props in root components:
+Add a `variants` block and `defaultVariants` to the `tv()` call. `createPropSplitter` in the root component discovers new variant keys at runtime — no changes to `.tsx` files needed. Variant props become available on the root component automatically. Use `VariantProps<typeof componentStyles>` from `@/lib/tv-config` to type variant props in root components:
 
 ```tsx
 <Button.Root variant="outline" size="lg">Click me</Button.Root>
@@ -353,7 +353,7 @@ These are invariants. Never break them when modifying ui components.
 - **Always set `data-slot`.** Every rendered primitive must have `data-slot="<component-name>"` or `data-slot="<component>-<part>"`. Consumers use these as CSS selector hooks.
 - **Keep the `styles` prop.** Root components accept an optional `styles` prop for preset injection. Never remove it.
 - **Keep barrel exports in sync.** If you add or remove a part, update `index.parts.ts`. The `index.ts` file re-exports from `index.parts.ts` and rarely needs changes.
-- **Don't modify shared libs.** `lib/tv.config.ts`, `lib/create-style-context.ts`, and `lib/split-variant-props.ts` are shared infrastructure. Don't edit them when working on a specific component.
+- **Don't modify shared libs.** `lib/tv-config.ts`, `lib/create-style-context.ts`, and `lib/split-variant-props.ts` are shared infrastructure. Don't edit them when working on a specific component.
 - **Use Base UI primitives.** Components wrap `@base-ui/react` primitives for behavior and ARIA. Refer to [base-ui.com](https://base-ui.com) for the primitive API.
 
 ## Installing from the registry

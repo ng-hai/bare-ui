@@ -1,4 +1,4 @@
-import { tv } from "@/registry/lib/tv.config";
+import { tv } from "@/registry/lib/tv-config";
 
 export const separatorStyles = tv({
   slots: {

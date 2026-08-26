@@ -2,7 +2,7 @@ import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { accordionStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type AccordionStyles = ReturnType<typeof accordionStyles>;
 type AccordionVariantProps = VariantProps<typeof accordionStyles>;

@@ -1,7 +1,7 @@
 import { Toggle as TogglePrimitive } from "@base-ui/react/toggle";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { toggleStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type ToggleVariantProps = VariantProps<typeof toggleStyles>;
 const splitProps = createPropSplitter(toggleStyles);

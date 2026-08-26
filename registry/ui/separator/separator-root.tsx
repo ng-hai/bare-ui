@@ -1,7 +1,7 @@
 import { Separator as SeparatorPrimitive } from "@base-ui/react/separator";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { separatorStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type SeparatorVariantProps = VariantProps<typeof separatorStyles>;
 const splitProps = createPropSplitter(separatorStyles);

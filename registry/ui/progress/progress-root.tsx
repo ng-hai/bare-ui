@@ -2,7 +2,7 @@ import { Progress as ProgressPrimitive } from "@base-ui/react/progress";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { progressStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type ProgressStyles = ReturnType<typeof progressStyles>;
 type ProgressVariantProps = VariantProps<typeof progressStyles>;

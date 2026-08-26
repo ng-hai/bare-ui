@@ -2,7 +2,7 @@ import { Fieldset as FieldsetPrimitive } from "@base-ui/react/fieldset";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { fieldsetStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type FieldsetStyles = ReturnType<typeof fieldsetStyles>;
 type FieldsetVariantProps = VariantProps<typeof fieldsetStyles>;

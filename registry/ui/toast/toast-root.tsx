@@ -2,7 +2,7 @@ import { Toast as ToastPrimitive } from "@base-ui/react/toast";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { toastStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type ToastStyles = ReturnType<typeof toastStyles>;
 type ToastVariantProps = VariantProps<typeof toastStyles>;

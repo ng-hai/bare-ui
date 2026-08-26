@@ -2,7 +2,7 @@ import { Meter as MeterPrimitive } from "@base-ui/react/meter";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { meterStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type MeterStyles = ReturnType<typeof meterStyles>;
 type MeterVariantProps = VariantProps<typeof meterStyles>;

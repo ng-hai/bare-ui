@@ -2,7 +2,7 @@ import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { menuStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type MenuStyles = ReturnType<typeof menuStyles>;
 type MenuVariantProps = VariantProps<typeof menuStyles>;

@@ -2,7 +2,7 @@ import { NumberField as NumberFieldPrimitive } from "@base-ui/react/number-field
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { numberFieldStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type NumberFieldStyles = ReturnType<typeof numberFieldStyles>;
 type NumberFieldVariantProps = VariantProps<typeof numberFieldStyles>;

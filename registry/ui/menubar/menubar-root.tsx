@@ -1,7 +1,7 @@
 import { Menubar as MenubarPrimitive } from "@base-ui/react/menubar";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { menubarStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type MenubarVariantProps = VariantProps<typeof menubarStyles>;
 const splitProps = createPropSplitter(menubarStyles);

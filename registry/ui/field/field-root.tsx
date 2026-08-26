@@ -2,7 +2,7 @@ import { Field as FieldPrimitive } from "@base-ui/react/field";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { fieldStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type FieldStyles = ReturnType<typeof fieldStyles>;
 type FieldVariantProps = VariantProps<typeof fieldStyles>;

@@ -2,7 +2,7 @@ import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { switchStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type SwitchStyles = ReturnType<typeof switchStyles>;
 type SwitchVariantProps = VariantProps<typeof switchStyles>;

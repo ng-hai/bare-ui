@@ -2,7 +2,7 @@ import { PreviewCard as PreviewCardPrimitive } from "@base-ui/react/preview-card
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { previewCardStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type PreviewCardStyles = ReturnType<typeof previewCardStyles>;
 type PreviewCardVariantProps = VariantProps<typeof previewCardStyles>;

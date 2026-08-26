@@ -2,7 +2,7 @@ import type { ComponentProps } from "react";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { panelStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type PanelStyles = ReturnType<typeof panelStyles>;
 type PanelVariantProps = VariantProps<typeof panelStyles>;

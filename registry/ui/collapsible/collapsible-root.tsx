@@ -2,7 +2,7 @@ import { Collapsible as CollapsiblePrimitive } from "@base-ui/react/collapsible"
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { collapsibleStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type CollapsibleStyles = ReturnType<typeof collapsibleStyles>;
 type CollapsibleVariantProps = VariantProps<typeof collapsibleStyles>;

@@ -2,7 +2,7 @@ import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { dialogStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type DialogStyles = ReturnType<typeof dialogStyles>;
 type DialogVariantProps = VariantProps<typeof dialogStyles>;

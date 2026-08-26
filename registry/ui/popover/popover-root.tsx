@@ -2,7 +2,7 @@ import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { popoverStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type PopoverStyles = ReturnType<typeof popoverStyles>;
 type PopoverVariantProps = VariantProps<typeof popoverStyles>;

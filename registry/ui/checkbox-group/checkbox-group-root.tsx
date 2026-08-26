@@ -1,7 +1,7 @@
 import { CheckboxGroup as CheckboxGroupPrimitive } from "@base-ui/react/checkbox-group";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { checkboxGroupStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type CheckboxGroupVariantProps = VariantProps<typeof checkboxGroupStyles>;
 const splitProps = createPropSplitter(checkboxGroupStyles);

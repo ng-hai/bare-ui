@@ -2,7 +2,7 @@ import { Slider as SliderPrimitive } from "@base-ui/react/slider";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { sliderStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type SliderStyles = ReturnType<typeof sliderStyles>;
 type SliderVariantProps = VariantProps<typeof sliderStyles>;

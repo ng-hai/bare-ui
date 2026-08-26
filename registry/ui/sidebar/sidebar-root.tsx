@@ -2,7 +2,7 @@ import type { ComponentProps } from "react";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { sidebarStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type SidebarStyles = ReturnType<typeof sidebarStyles>;
 type SidebarVariantProps = VariantProps<typeof sidebarStyles>;

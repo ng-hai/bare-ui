@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { tv } from "./tv.config";
+import { tv } from "./tv-config";
 
 describe("tv config", () => {
   it("returns a function with variantKeys property", () => {

@@ -12,7 +12,7 @@
       "dependencies": ["tailwind-variants@^3.2.0", "tailwind-merge@^3.0.0"],
       "files": [
         {
-          "path": "registry/lib/tv.config.ts",
+          "path": "registry/lib/tv-config.ts",
           "type": "registry:lib"
         }
       ]

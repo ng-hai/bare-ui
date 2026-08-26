@@ -2,7 +2,7 @@ import { Tabs as TabsPrimitive } from "@base-ui/react/tabs";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { tabsStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type TabsStyles = ReturnType<typeof tabsStyles>;
 type TabsVariantProps = VariantProps<typeof tabsStyles>;

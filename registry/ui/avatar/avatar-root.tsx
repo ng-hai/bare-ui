@@ -2,7 +2,7 @@ import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { avatarStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type AvatarStyles = ReturnType<typeof avatarStyles>;
 type AvatarVariantProps = VariantProps<typeof avatarStyles>;

@@ -2,7 +2,7 @@ import { Toolbar as ToolbarPrimitive } from "@base-ui/react/toolbar";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { toolbarStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type ToolbarStyles = ReturnType<typeof toolbarStyles>;
 type ToolbarVariantProps = VariantProps<typeof toolbarStyles>;

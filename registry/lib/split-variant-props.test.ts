@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { tv } from "@/registry/lib/tv.config";
+import { tv } from "@/registry/lib/tv-config";
 import { createPropSplitter } from "./split-variant-props";
 
 const styles = tv({

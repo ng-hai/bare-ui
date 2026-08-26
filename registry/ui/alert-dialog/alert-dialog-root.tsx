@@ -2,7 +2,7 @@ import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-dialog
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { alertDialogStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type AlertDialogStyles = ReturnType<typeof alertDialogStyles>;
 type AlertDialogVariantProps = VariantProps<typeof alertDialogStyles>;

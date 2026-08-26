@@ -2,7 +2,7 @@ import { Autocomplete as AutocompletePrimitive } from "@base-ui/react/autocomple
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { autocompleteStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type AutocompleteStyles = ReturnType<typeof autocompleteStyles>;
 type AutocompleteVariantProps = VariantProps<typeof autocompleteStyles>;

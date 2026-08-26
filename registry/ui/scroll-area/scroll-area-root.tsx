@@ -2,7 +2,7 @@ import { ScrollArea as ScrollAreaPrimitive } from "@base-ui/react/scroll-area";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { scrollAreaStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type ScrollAreaStyles = ReturnType<typeof scrollAreaStyles>;
 type ScrollAreaVariantProps = VariantProps<typeof scrollAreaStyles>;

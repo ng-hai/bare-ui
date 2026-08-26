@@ -2,7 +2,7 @@ import { NavigationMenu as NavigationMenuPrimitive } from "@base-ui/react/naviga
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { navigationMenuStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type NavigationMenuStyles = ReturnType<typeof navigationMenuStyles>;
 type NavigationMenuVariantProps = VariantProps<typeof navigationMenuStyles>;

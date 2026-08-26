@@ -1,7 +1,7 @@
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { buttonStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv.config";
+import type { VariantProps } from "@/registry/lib/tv-config";
 
 type ButtonVariantProps = VariantProps<typeof buttonStyles>;
 const splitProps = createPropSplitter(buttonStyles);
