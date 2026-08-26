@@ -1,0 +1,22 @@
+# ui
+
+> A shadcn GitHub registry of unstyled React components built on @base-ui/react. Install with `pnpm dlx shadcn@latest add ng-hai/ui/<name>` — the CLI reads registry.json and the source files straight from this repo's `main` branch; there is no hosted JSON, no npm package, and no version tags. Pin installs with `#<full-commit-sha>`; refs are not inherited by dependencies, so pin those explicitly too.
+
+Components are unstyled: behavior and ARIA come from Base UI, styling is left to the consumer via empty tailwind-variants slots in each component's `styles.ts`. Every rendered part sets a `data-slot` attribute for CSS hooks. Shared libs (`tv-config`, `split-variant-props`, `create-style-context`) are pulled in automatically as registry dependencies. The `theme` preset is optional and never a dependency.
+
+## Docs
+
+- [README](https://raw.githubusercontent.com/ng-hai/ui/main/README.md): install, styling, per-instance overrides, Claude Code skill setup
+- [Registry catalog](https://raw.githubusercontent.com/ng-hai/ui/main/registry.json): every installable item with its files and dependencies
+- [Component conventions](https://raw.githubusercontent.com/ng-hai/ui/main/CLAUDE.md): the five-layer architecture and its invariants
+- [Contributing](https://raw.githubusercontent.com/ng-hai/ui/main/CONTRIBUTING.md): distribution model and pre-commit checks
+- [Claude Code skill](https://raw.githubusercontent.com/ng-hai/ui/main/skills/ui/SKILL.md): agent rules for adding, extending, and styling components
+
+## Components
+
+accordion, alert-dialog, autocomplete, avatar, button, checkbox, checkbox-group, collapsible, combobox, context-menu, dialog, drawer, field, fieldset, form, input, menu, menubar, meter, navigation-menu, number-field, otp-field, panel, popover, preview-card, progress, radio, scroll-area, select, separator, sidebar, slider, switch, table, tabs, toast, toggle, toggle-group, toolbar, tooltip
+
+## Optional
+
+- theme (registry:file): Radix-style 12-step token contract + Tailwind `@theme` wiring, installed to `styles/ui-theme.css`
+- theme-generator (registry:file): CLI that generates the token CSS for a custom brand palette, installed to `scripts/`

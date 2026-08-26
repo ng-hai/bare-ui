@@ -22,6 +22,7 @@ Theme docs — how presets ship as `registry:file` items, the Radix 12-step toke
 pnpm registry:validate # shadcn build to a throwaway cache dir → parse registry.json, check every referenced file resolves
 pnpm typecheck         # tsc --noEmit (uses the local tsc, not PATH)
 pnpm test              # vitest run
+pnpm registry:smoke    # end-to-end: shadcn add from GitHub into a temp scaffold + tsc — tests what's on main, NOT the working tree
 ```
 
 There is no build step, no lint script, and no dev server. Run `pnpm registry:validate` any time `registry.json` or any file it references changes — it runs `shadcn build` into a throwaway, git-ignored cache dir (`node_modules/.cache/ui-registry`), which parses the registry and verifies every `files[].path` resolves. The output is never committed (the repo still ships no `public/r` artifact). Always run `pnpm typecheck`, not `pnpm tsc …` — the latter falls back to whatever `tsc` is on `PATH` (often an older global install) and will report phantom errors.
@@ -42,7 +43,7 @@ There are no version tags to cut and no `public/r` artifact to keep in sync. Con
 Every component follows the same layering, and Claude should preserve it when adding new components:
 
 1. **Primitive** — `@base-ui/react/<component>` provides behavior/ARIA.
-2. **Styles (`styles.ts`)** — a `tv({ slots, variants })` call from `@/registry/lib/tv.config`. Slot arrays are empty strings — consumers fill them in after install. Slot names define the public surface (`root`, `trigger`, `popup`, etc.).
+2. **Styles (`styles.ts`)** — a `tv({ slots, variants })` call from `@/registry/lib/tv-config`. Slot arrays are empty strings — consumers fill them in after install. Slot names define the public surface (`root`, `trigger`, `popup`, etc.).
 3. **Root (`<name>-root.tsx`)** — imports the primitive `Root`, runs `createPropSplitter(styles)` to separate TV variant props from HTML props, resolves styles via `styles ?? componentStyles(variantProps)`, and renders `<Primitive.Root className={s.root({ class: className })} data-slot="<name>" />`. For multi-part components it wraps children in `<StyleContext value={s}>` from `createStyleContext<StylesType>("Name")`.
 4. **Parts (`<name>-<part>.tsx`, one file per part)** — each sibling part lives in its own file named `<name>-<part>.tsx` (e.g. `select-trigger.tsx`, `dialog-popup.tsx`), calls `useStyles()` from the root's style context, and applies the matching slot, e.g. `className={styles.trigger({ class: className })}`. All parts must set `data-slot` for consumer CSS hooks. Don't combine multiple parts into a single `<name>-parts.tsx` file.
 5. **Barrels**
@@ -58,6 +59,7 @@ Every component — including single-part ones like `button` and `input` — fol
 - **Multi-part components use `createStyleContext`, not prop drilling.** `checkbox-root.tsx` and `select-root.tsx` are the reference implementations; the root exports `useStyles` as `use<Name>Styles` for siblings.
 - **Bare components must stay unstyled.** `styles.ts` slot arrays should be `[""]` or empty. Consumers fill them in after install.
 - **`styles` prop escape hatch.** Root accepts an optional `styles?: ReturnType<typeof componentStyles>` so consumers can inject a preset without recomputing variants — preserve this.
+- **No dots in shipped filenames.** The shadcn CLI's import rewriter mishandles dotted module names — an aliased import of `tv.config` was rewritten to `@/components/tv.config` while the file itself landed in `lib/`, breaking every fresh install. Shipped files use kebab-case (`tv-config.ts`); `index.parts.ts` is safe only because it's imported relatively, never through an alias.
 
 ## Adding or modifying a component
 

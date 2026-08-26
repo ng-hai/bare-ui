@@ -12,22 +12,31 @@ This repo is a [GitHub registry](https://ui.shadcn.com/docs/registry/github). Th
 pnpm dlx shadcn@latest add ng-hai/ui/button
 ```
 
-The first two path segments (`ng-hai/ui`) are the GitHub owner and repo; the rest (`button`) is the registry item. This copies the component source into `components/ui/button/` and the shared helpers (`tv.config.ts`, `split-variant-props.ts`, and — for multi-part components — `create-style-context.ts`) into `lib/`. Transitive dependencies (`ng-hai/ui/tv-config`, `ng-hai/ui/split-variant-props`, etc.) resolve automatically from the same repo.
+The first two path segments (`ng-hai/ui`) are the GitHub owner and repo; the rest (`button`) is the registry item. This copies the component source into `components/ui/button/` and the shared helpers (`tv-config.ts`, `split-variant-props.ts`, and — for multi-part components — `create-style-context.ts`) into `lib/`. Transitive dependencies (`ng-hai/ui/tv-config`, `ng-hai/ui/split-variant-props`, etc.) resolve automatically from the same repo.
 
 > GitHub registries require a recent `shadcn` CLI (the `owner/repo/item` form landed in the 4.x line). Using `shadcn@latest` as above always works.
 
-Available components: `accordion`, `alert-dialog`, `autocomplete`, `avatar`, `button`, `checkbox`, `checkbox-group`, `collapsible`, `combobox`, `context-menu`, `dialog`, `drawer`, `field`, `fieldset`, `form`, `input`, `menu`, `menubar`, `meter`, `navigation-menu`, `number-field`, `otp-field`, `popover`, `preview-card`, `progress`, `radio`, `scroll-area`, `select`, `separator`, `slider`, `switch`, `tabs`, `toast`, `toggle`, `toggle-group`, `toolbar`, `tooltip`. The shared libs each component needs (`tv-config`, `split-variant-props`, `create-style-context`) are pulled in automatically as dependencies. The `theme` preset is **not** a dependency — components ship unstyled and reference no tokens. It's an *optional* starting palette (a Radix-style token contract + the Tailwind `@theme` wiring our styling examples use); install it with `shadcn add ng-hai/ui/theme`, or skip it and style the components with your own tokens.
+Available components: `accordion`, `alert-dialog`, `autocomplete`, `avatar`, `button`, `checkbox`, `checkbox-group`, `collapsible`, `combobox`, `context-menu`, `dialog`, `drawer`, `field`, `fieldset`, `form`, `input`, `menu`, `menubar`, `meter`, `navigation-menu`, `number-field`, `otp-field`, `panel`, `popover`, `preview-card`, `progress`, `radio`, `scroll-area`, `select`, `separator`, `sidebar`, `slider`, `switch`, `table`, `tabs`, `toast`, `toggle`, `toggle-group`, `toolbar`, `tooltip`. The shared libs each component needs (`tv-config`, `split-variant-props`, `create-style-context`) are pulled in automatically as dependencies. The `theme` preset is **not** a dependency — components ship unstyled and reference no tokens. It's an *optional* starting palette (a Radix-style token contract + the Tailwind `@theme` wiring our styling examples use); install it with `shadcn add ng-hai/ui/theme`, or skip it and style the components with your own tokens.
 
 ### Pin to a specific version (optional)
 
-A bare `ng-hai/ui/button` tracks the repo's default branch (`main`) — every merge is immediately installable. To lock an install to an exact point in history, append `#<ref>`, where `<ref>` is a branch or commit SHA:
+A bare `ng-hai/ui/button` tracks the repo's default branch (`main`) — every merge is immediately installable. To lock an install to an exact point in history, append `#<ref>`, where `<ref>` is a branch or commit SHA — prefer the full 40-character SHA, which is immutable and unambiguous:
 
 ```bash
-pnpm dlx shadcn@latest add ng-hai/ui/button#c0ffee2   # pin to a commit
-pnpm dlx shadcn@latest add ng-hai/ui/button#main      # explicit default branch
+pnpm dlx shadcn@latest add ng-hai/ui/button#<full-commit-sha>
+pnpm dlx shadcn@latest add ng-hai/ui/button#main   # explicit default branch
 ```
 
-Commit SHAs are immutable, so pinning to one gives a fully reproducible install. Transitive dependencies resolve at the same ref, so the whole component tree stays consistent. Commit the resulting source into your repo — that, not a version string, is your record of what you installed.
+One caveat, per the [shadcn docs](https://ui.shadcn.com/docs/registry/github): **refs are not inherited across dependencies.** Pinning `button#<sha>` pins button's own files, but its registry dependencies (`ng-hai/ui/tv-config`, etc.) still resolve from `main`. For a fully frozen install, list the shared libs explicitly at the same ref:
+
+```bash
+pnpm dlx shadcn@latest add \
+  "ng-hai/ui/button#<sha>" \
+  "ng-hai/ui/tv-config#<sha>" \
+  "ng-hai/ui/split-variant-props#<sha>"
+```
+
+You can inspect exactly what a ref resolves to before installing with `pnpm dlx shadcn@latest view ng-hai/ui/button#<sha>`. In practice the strongest record is the one you already keep: the CLI copies the source into your repo — commit it, and that commit, not a version string, is what you installed.
 
 ## Use it
 
@@ -79,7 +88,7 @@ Each installed component folder contains a `styles.ts` file with a `tv({ slots, 
 
 ```ts
 // components/ui/button/styles.ts
-import { tv } from "@/lib/tv.config";
+import { tv } from "@/lib/tv-config";
 
 export const buttonStyles = tv({
   slots: {
@@ -138,7 +147,7 @@ const large = buttonStyles({ size: "lg" });
 **Extend** by creating a new TV instance off the existing one — add slots, add variants, or append classes — then call it and pass the result:
 
 ```tsx
-import { tv } from "@/lib/tv.config";
+import { tv } from "@/lib/tv-config";
 import { Button, buttonStyles } from "@/components/ui/button";
 
 const danger = tv({
