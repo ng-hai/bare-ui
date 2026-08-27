@@ -110,18 +110,7 @@ export const buttonStyles = tv({
       md: { root: "h-10 px-4 text-sm" },
       lg: { root: "h-12 px-6 text-base" },
     },
-    // Radix Themes' highContrast: promote solids to step 12, texts to step 12.
-    highContrast: { true: {} },
   },
-  compoundVariants: [
-    {
-      variant: "solid",
-      highContrast: true,
-      class: { root: "bg-accent-12 text-gray-1 hover:bg-accent-12 hover:brightness-110 hover:contrast-[.88] hover:saturate-[1.1]" },
-    },
-    { variant: "outline", highContrast: true, class: { root: "text-accent-12" } },
-    { variant: "ghost", highContrast: true, class: { root: "text-accent-12" } },
-  ],
   defaultVariants: {
     variant: "solid",
     size: "md",
@@ -179,14 +168,14 @@ Generated themes can carry an **accent pool**: the generator's `accents` map hol
 
 Semantic roles stay meaning, not identity: `semantics: { danger: "red", premium: "jade" }` aliases a role onto a pool scale (zero extra scales) or seeds a private one from a color; roles never swap via the attribute. Style *stateful feedback* (alert, callout, destructive buttons) against role tokens (`bg-danger-9`); style *categorical identity* (badges, avatars, tags, section theming) against `accent-*` + the attribute.
 
-### Gray as accent + high contrast (neutral buttons)
+### Gray as accent (neutral buttons)
 
-`data-accent-color="gray"` is **always available** — `default.css` and every generated theme ship Radix Themes' gray remap (all 26 `accent-*` tokens → the theme's `gray-*` ramp; `"gray"` is reserved as a pool key). It neutralizes any accent-built slot per subtree or per element. Gray-9 solids are deliberately muted (below AA in light mode), so pair solid fills with `highContrast` — Radix's own remedy and the pattern its Button docs demo:
+`data-accent-color="gray"` is **always available** — `default.css` and every generated theme ship Radix Themes' gray remap (`accent-*` tokens → the theme's `gray-*` ramp; `"gray"` is reserved as a pool key). It neutralizes any accent-built slot per subtree or per element. Gray-9 solids are deliberately muted (below AA in light mode), so the swap block bakes in Radix's high-contrast treatment: `accent-9` → `gray-12`, `accent-10` → `--gray-12-hover`, `accent-contrast` → `gray-1` (alphas and all other steps stay 1:1). A solid built from `bg-accent-9 text-accent-contrast hover:bg-accent-10` therefore renders as a near-black (light) / near-white (dark) neutral at ~16:1 with no extra classes:
 
 ```tsx
-<Button.Root variant="solid" data-accent-color="gray" highContrast>Save</Button.Root>  {/* near-black neutral, 16:1 */}
-<Button.Root variant="ghost" data-accent-color="gray">Cancel</Button.Root>             {/* quiet gray chrome */}
-<Button.Root variant="solid">Upgrade</Button.Root>                                     {/* the brand accent — spend it sparingly */}
+<Button.Root variant="solid" data-accent-color="gray">Save</Button.Root>  {/* high-contrast neutral, 16:1 */}
+<Button.Root variant="ghost" data-accent-color="gray">Cancel</Button.Root> {/* quiet gray chrome */}
+<Button.Root variant="solid">Upgrade</Button.Root>                         {/* the brand accent — spend it sparingly */}
 ```
 
 ### One-off overrides

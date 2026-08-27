@@ -34,8 +34,10 @@
  *
  * `data-accent-color="gray"` (always available — see the swap block below)
  * re-points every accent-* token at the gray scale, Radix Themes style, so an
- * accent-built slot renders neutral. Gray-9 solids are deliberately muted —
- * give solid fills the high-contrast treatment (`bg-accent-12 text-gray-1`).
+ * accent-built slot renders neutral. Gray-9 solids are deliberately muted, so
+ * the swap bakes in the high-contrast treatment: accent-9 → gray-12, accent-10
+ * → --gray-12-hover, accent-contrast → gray-1 — solid fills stay legible with
+ * no extra classes.
  * Focus rings use `--focus-8` (`outline-focus-8`), which follows the accent but
  * is NOT re-pointed by the gray swap: neutral subtrees keep the brand ring.
  *
@@ -74,6 +76,7 @@
   --gray-a12: oklch(0.0733 0.0304 260.32 / 0.8824);
   --gray-contrast: oklch(1 0 0);
   --gray-surface: oklch(1 0 0 / 0.8);
+  --gray-12-hover: oklch(0.3062 0.009 276.84);
 
   --accent-1: oklch(0.9911 0 0);
   --accent-2: oklch(0.9821 0 0);
@@ -278,6 +281,7 @@
   --gray-a12: oklch(0.9946 0.0026 286.35 / 0.9373);
   --gray-contrast: oklch(1 0 0);
   --gray-surface: oklch(0 0 0 / 0.05);
+  --gray-12-hover: oklch(1 0 0);
 
   --accent-1: oklch(0.1776 0 0);
   --accent-2: oklch(0.209 0 0);
@@ -424,11 +428,14 @@
   --focus-8: var(--accent-8);
 }
 
-/* Gray as accent — Radix Themes' [data-accent-color='gray'] remap, 1:1 onto the
-   gray scale (styles/tokens/color.css). Always available: every theme carries
-   gray/*. Solids land on the deliberately muted gray-9 — pair them with a
-   high-contrast treatment (bg-accent-12 + text-gray-1). No --focus-8 re-point
-   here, so a gray subtree keeps the surrounding accent's focus ring. */
+/* Gray as accent — Radix Themes' [data-accent-color='gray'] remap with the
+   high-contrast treatment baked in. Always available: every theme carries
+   gray/*. Gray-9 solids are deliberately muted, so the solid steps take
+   Radix's highContrast values instead of the 1:1 remap: 9 → gray-12, 10 →
+   --gray-12-hover (Radix's HC hover filter flattened to a per-mode value),
+   contrast → gray-1 — `bg-accent-9 text-accent-contrast` stays legible when
+   neutralized. Everything else, alphas included, stays 1:1. No --focus-8
+   re-point here, so a gray subtree keeps the surrounding accent's focus ring. */
 [data-accent-color="gray"] {
   --accent-1: var(--gray-1);
   --accent-2: var(--gray-2);
@@ -438,8 +445,8 @@
   --accent-6: var(--gray-6);
   --accent-7: var(--gray-7);
   --accent-8: var(--gray-8);
-  --accent-9: var(--gray-9);
-  --accent-10: var(--gray-10);
+  --accent-9: var(--gray-12);
+  --accent-10: var(--gray-12-hover);
   --accent-11: var(--gray-11);
   --accent-12: var(--gray-12);
   --accent-a1: var(--gray-a1);
@@ -454,7 +461,7 @@
   --accent-a10: var(--gray-a10);
   --accent-a11: var(--gray-a11);
   --accent-a12: var(--gray-a12);
-  --accent-contrast: var(--gray-contrast);
+  --accent-contrast: var(--gray-1);
   --accent-surface: var(--gray-surface);
 }
 
@@ -485,6 +492,7 @@
   --color-gray-a12: var(--gray-a12);
   --color-gray-contrast: var(--gray-contrast);
   --color-gray-surface: var(--gray-surface);
+  --color-gray-12-hover: var(--gray-12-hover);
   --color-accent-1: var(--accent-1);
   --color-accent-2: var(--accent-2);
   --color-accent-3: var(--accent-3);

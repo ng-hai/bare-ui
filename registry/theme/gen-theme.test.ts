@@ -221,9 +221,27 @@ describe("panel & scrim specials", () => {
 describe("gray accent & focus ring", () => {
   it("emits the Radix gray remap block in every standalone theme", () => {
     const gray = block(css, '[data-accent-color="gray"]');
-    expect(gray).toContain("--accent-9: var(--gray-9);");
-    expect(gray).toContain("--accent-contrast: var(--gray-contrast);");
+    expect(gray).toContain("--accent-1: var(--gray-1);");
+    expect(gray).toContain("--accent-8: var(--gray-8);");
     expect(gray).toContain("--accent-surface: var(--gray-surface);");
+  });
+
+  it("bakes the high-contrast treatment into the gray remap solid steps", () => {
+    const gray = block(css, '[data-accent-color="gray"]');
+    expect(gray).toContain("--accent-9: var(--gray-12);");
+    expect(gray).toContain("--accent-10: var(--gray-12-hover);");
+    expect(gray).toContain("--accent-contrast: var(--gray-1);");
+    // Alphas stay 1:1 — only the solid steps get the high-contrast values.
+    expect(gray).toContain("--accent-a9: var(--gray-a9);");
+    expect(gray).toContain("--accent-a10: var(--gray-a10);");
+  });
+
+  it("emits gray-12-hover per mode (Radix's HC hover filter, flattened)", () => {
+    expect(built.valueNames).toContain("gray-12-hover");
+    // The dark filter overshoots on a near-white gray-12 and clips to white.
+    expect(built.dark.get("gray-12-hover")).toMatch(/^#f{3}(?:f{3})?$/i);
+    expect(built.light.get("gray-12-hover")).not.toBe(built.dark.get("gray-12-hover"));
+    expect(block(css, "@theme inline")).toContain("--color-gray-12-hover: var(--gray-12-hover);");
   });
 
   it("re-points --focus-8 in pool swap blocks but not in the gray block", () => {

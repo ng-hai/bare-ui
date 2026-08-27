@@ -42,9 +42,15 @@
  * special names are therefore reserved.
  *
  * Every theme also emits Radix Themes' `[data-accent-color="gray"]` remap —
- * gray-as-accent, 1:1 onto the theme's gray ramp — and a `--focus-8` focus
- * token that follows the accent: pool swap blocks re-point it, the gray block
- * deliberately does not (a neutral subtree keeps the brand focus ring).
+ * gray-as-accent, onto the theme's gray ramp with the high-contrast treatment
+ * baked in: solids ride the near-black/near-white gray-12 (`accent-9` →
+ * `gray-12`, `accent-10` → `--gray-12-hover`, a per-mode value flattened from
+ * Radix's solid high-contrast hover filter, `accent-contrast` → `gray-1`),
+ * everything else 1:1 — so `bg-accent-9 text-accent-contrast` stays legible
+ * when neutralized instead of landing on the washed-out gray-9. Plus a
+ * `--focus-8` focus token that follows the accent: pool swap blocks re-point
+ * it, the gray block deliberately does not (a neutral subtree keeps the brand
+ * focus ring).
  *
  * `semantics` maps role names to either an `accents` KEY (alias — the role's
  * tokens become pointers to that pool scale; zero extra generation) or a color
@@ -294,6 +300,23 @@ function resolveChrome(cfg: ThemeConfig, a: Appearance) {
   };
 }
 
+// Radix Themes' solid high-contrast hover (base-button.css), flattened to a
+// value — a token can't carry a CSS filter. The filter ops run in sRGB:
+// contrast, saturate (Rec. 709 luma), brightness, then clamp. Applied to
+// gray-12 per mode; the dark filter overshoots on a near-white gray-12 and
+// clips to pure white — that's Radix's own hover, not an error.
+const HC_HOVER_FILTER: Record<Appearance, [contrast: number, saturate: number, brightness: number]> = {
+  light: [0.88, 1.1, 1.1],
+  dark: [0.88, 1.3, 1.18],
+};
+function grayHcHover(gray12: string, a: Appearance): string {
+  const [contrast, saturate, brightness] = HC_HOVER_FILTER[a];
+  const rgb = new Color(gray12).to("srgb").coords.map((c) => ((c ?? 0) - 0.5) * contrast + 0.5);
+  const luma = 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
+  const [r, g, b] = rgb.map((c) => Math.min(1, Math.max(0, (luma + saturate * (c - luma)) * brightness)));
+  return new Color("srgb", [r, g, b]).toString({ format: "hex" });
+}
+
 // ── build ────────────────────────────────────────────────────────────────────
 export type BuiltTheme = {
   cfg: ThemeConfig;
@@ -331,6 +354,8 @@ function buildModeTokens(cfg: ThemeConfig, roles: Roles, appearance: Appearance)
   main.grayScaleAlpha.forEach((hex, i) => t.set(`gray-a${i + 1}`, hex));
   t.set("gray-contrast", run(gray).accentContrast);
   t.set("gray-surface", main.graySurface);
+  // Hover for the gray-as-accent high-contrast solid (see grayBlock).
+  t.set("gray-12-hover", grayHcHover(main.grayScale[11], appearance));
   // the pool: default accent from the main run, the rest one run each.
   emit(poolNames[0], main);
   for (const n of poolNames.slice(1)) emit(n, run(pick(cfg.accents[n], appearance)));
@@ -417,7 +442,7 @@ function declarations(built: BuiltTheme, mode: Appearance, indent = "  "): strin
   const lines: string[] = [];
   let prev = "";
   for (const name of built.valueNames) {
-    const group = name.replace(/-(?:a?\d+|contrast|surface)$/, "");
+    const group = name.replace(/-(?:a?\d+(?:-hover)?|contrast|surface)$/, "");
     if (prev && group !== prev) lines.push("");
     lines.push(`${indent}--${name}: ${oklch(tokens.get(name)!)};`);
     prev = group;
@@ -455,13 +480,23 @@ function swapBlocks(built: BuiltTheme, scope?: string): string {
     .join("\n\n");
 }
 
-// Gray as accent — Radix Themes' [data-accent-color='gray'] remap, 1:1 onto the
-// gray scale. Not a pool entry ("gray" is reserved): it aliases the theme's own
-// gray ramp instead of generating a scale, so it is always available. Solids
-// land on the deliberately muted gray-9 — pair them with a high-contrast
-// treatment (bg-accent-12 + text-gray-1). No --focus-8 re-point here: a gray
+// Gray as accent — Radix Themes' [data-accent-color='gray'] remap with the
+// high-contrast treatment baked in. Not a pool entry ("gray" is reserved): it
+// aliases the theme's own gray ramp instead of generating a scale, so it is
+// always available. Gray-9 solids are deliberately muted, so the solid steps
+// take Radix's highContrast values instead of the 1:1 remap: 9 → gray-12,
+// 10 → the flattened hover (see grayHcHover), contrast → gray-1. Everything
+// else — alphas included — stays 1:1. No --focus-8 re-point here: a gray
 // subtree keeps the surrounding accent's focus ring (Radix's own exception).
-const grayBlock = () => `[data-accent-color="gray"] {\n${pointerLines("accent", "gray")}\n}`;
+const GRAY_HC = new Map([
+  ["9", "gray-12"],
+  ["10", "gray-12-hover"],
+  ["contrast", "gray-1"],
+]);
+const grayBlock = () => {
+  const lines = SCALE_SUFFIXES.map((s) => `  --accent-${s}: var(--${GRAY_HC.get(s) ?? `gray-${s}`});`).join("\n");
+  return `[data-accent-color="gray"] {\n${lines}\n}`;
+};
 
 function themeInline(built: BuiltTheme): string {
   const names = [
