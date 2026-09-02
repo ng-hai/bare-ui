@@ -93,7 +93,7 @@ import { tv } from "@/lib/tv-config";
 export const buttonStyles = tv({
   slots: {
     root: [
-      "inline-flex items-center justify-center gap-2 rounded-default font-medium",
+      "inline-flex items-center justify-center gap-2 rounded-md font-medium",
       "transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-8",
       "disabled:pointer-events-none disabled:opacity-50",
     ],
@@ -254,18 +254,12 @@ The pattern for every new part:
 - Set `data-slot="<component>-<part>"`
 - Export from `index.parts.ts` under a short name
 
-## Icon distribution
+## Icons
 
-Some components need glyphs — a chevron for `<Select.Icon>`, an X for `<Dialog.Close>`, a check for `<Checkbox.Indicator>`. Bare-ui itself ships no glyphs and declares no icon library as a dependency. This is intentional — icons are a design choice, not a behavior choice, and consumers should own that choice.
-
-There are two supported approaches. Components that need a glyph render `children` if provided and fall back to a default (null, or an inline SVG) otherwise. The consumer picks one of:
-
-### Approach 1 — peer-dep an icon library
-
-Consumer installs something like `lucide-react`, `@heroicons/react`, or `@radix-ui/react-icons` and passes icons as children at the call site:
+Some components take a glyph — a chevron for `<Select.Icon>`, an X for `<Dialog.Close>`, a check for `<Checkbox.Indicator>`. ui ships no glyphs and depends on no icon library; the icon set is the consuming app's choice. Those parts pass your children straight to the Base UI primitive, so pass the glyph at the call site. Without children, `Dialog.Close` and `Checkbox.Indicator` render empty; `Select.Icon` falls back to Base UI's plain-text `▼`:
 
 ```tsx
-import { X, ChevronDown, Check } from "lucide-react";
+import { X, ChevronDown } from "lucide-react";
 import { Dialog } from "@/components/ui/dialog";
 import { Select } from "@/components/ui/select";
 
@@ -274,76 +268,20 @@ import { Select } from "@/components/ui/select";
 <Select.Icon><ChevronDown /></Select.Icon>
 ```
 
-**When to choose this.** The consumer already has an icon library, wants a consistent set across their app, and doesn't need to edit individual glyphs. Zero friction at install time — ui has nothing to copy for icons.
-
-**Registry implications.** No `dependencies` entry for the icon library in `registry.json` — ui stays library-agnostic. Document the convention in the component's README or example block, not in the component code.
-
-### Approach 2 — copy-in icon registry
-
-Ship raw SVG files as `registry:file` items and let consumers process them with their own toolchain ([SVGR](https://react-svgr.com), [unplugin-icons](https://github.com/unplugin/unplugin-icons), [vite-plugin-svgr](https://github.com/pd4d10/vite-plugin-svgr)). Each SVG lives in `registry/icons/<name>.svg` and lands in the consumer project at a predictable path:
-
-```json
-{
-  "name": "icon-chevron-down",
-  "type": "registry:file",
-  "title": "Chevron Down Icon",
-  "description": "Raw SVG for chevron-down glyph",
-  "categories": ["icons"],
-  "files": [
-    {
-      "path": "registry/icons/chevron-down.svg",
-      "type": "registry:file",
-      "target": "assets/icons/chevron-down.svg"
-    }
-  ]
-}
-```
-
-Consumers install with `shadcn add ng-hai/ui/icon-chevron-down`, then process via their bundler. Example consumer setup with SVGR + Vite:
-
-```tsx
-// svgr turns the SVG import into a React component
-import ChevronDown from "@/assets/icons/chevron-down.svg?react";
-
-<Select.Icon><ChevronDown /></Select.Icon>
-```
-
-Or with unplugin-icons (works with any icon set, including local SVGs):
-
-```tsx
-import ChevronDown from "~icons/ui/chevron-down";
-```
-
-**When to choose this.** The consumer wants editable glyphs (path tweaks, custom strokes) without pulling a whole icon library, or wants SVGs as first-class assets (sprite sheets, inline components, both).
-
-**Registry implications.**
-- SVGs must use `currentColor` for stroke/fill so Tailwind text colors apply.
-- `type: "registry:file"` (not `registry:ui`) — these are raw assets, no TSX wrappers, no `@/` imports to rewrite.
-- Use an explicit `target` path so consumers know where the files land.
-- Group related icons under a shared `categories: ["icons"]` for discoverability.
-- Don't hardcode SVGs inside component `.tsx` files — keep glyphs in the icon registry so consumers can swap them independently.
-
-### Which to recommend
-
-Neither is universally right. Document both in the component's example block so consumers can pick:
-- **Starting a new project with an existing design system** → peer-dep (fastest).
-- **Tight visual control, custom strokes, or no icon library** → copy-in SVGs.
-- **Mixed** → peer-dep for most, copy-in for the 3–5 icons that need custom geometry.
-
-What ui must not do: bundle glyphs inside component `.tsx` files as hardcoded inline SVGs. That locks aesthetic decisions into behavior code and breaks both approaches above.
+Keep glyphs out of the component `.tsx` files themselves, so the icon set can change without touching component code.
 
 ## Rules
 
-These are invariants. Never break them when modifying ui components.
+These hold for every ui component. Registry re-adds, the preset-injection path and consumers' CSS hooks all assume them.
 
-- **All styling goes in `styles.ts`.** Never put Tailwind classes directly in `.tsx` files. The only exception is the `className` prop pass-through for consumer overrides.
-- **Never hand-pluck variant props.** The root component uses `createPropSplitter` which reads `variantKeys` at runtime. When you add variants to `styles.ts`, the root component picks them up automatically. Don't destructure variant props manually.
-- **One file per part.** Each component part lives in its own `<name>-<part>.tsx` file. Never combine multiple parts into a single file.
-- **Always set `data-slot`.** Every rendered primitive must have `data-slot="<component-name>"` or `data-slot="<component>-<part>"`. Consumers use these as CSS selector hooks.
-- **Keep the `styles` prop.** Root components accept an optional `styles` prop for preset injection. Never remove it.
-- **Keep barrel exports in sync.** If you add or remove a part, update `index.parts.ts`. The `index.ts` file re-exports from `index.parts.ts` and rarely needs changes.
-- **Don't modify shared libs.** `lib/tv-config.ts`, `lib/create-style-context.ts`, and `lib/split-variant-props.ts` are shared infrastructure. Don't edit them when working on a specific component.
-- **Use Base UI primitives.** Components wrap `@base-ui/react` primitives for behavior and ARIA. Refer to [base-ui.com](https://base-ui.com) for the primitive API.
+- Tailwind classes live in `styles.ts`, not in `.tsx` files; the `className` pass-through for consumer overrides is the one exception. A component's look is then edited in one place and survives a registry re-add.
+- Variant props are split by `createPropSplitter`, which reads `variantKeys` at runtime, so adding a variant to `styles.ts` is the whole change. Destructuring variant props by hand in the root breaks that.
+- One part per file, named `<component>-<part>.tsx`.
+- Every rendered primitive sets `data-slot="<component>"` or `data-slot="<component>-<part>"`; consumers target these from CSS.
+- Root components keep their optional `styles` prop; it is the preset-injection path.
+- Adding or removing a part means updating `index.parts.ts`. `index.ts` re-exports it and rarely changes.
+- `lib/tv-config.ts`, `lib/create-style-context.ts` and `lib/split-variant-props.ts` are shared infrastructure; component work leaves them alone.
+- Behaviour and ARIA come from `@base-ui/react` primitives; the primitive API is at [base-ui.com](https://base-ui.com).
 
 ## Installing from the registry
 
@@ -355,7 +293,7 @@ pnpm dlx shadcn@latest add ng-hai/ui/button
 
 The first two path segments (`ng-hai/ui`) are the GitHub owner and repo; the rest (`button`) is the registry item. Transitive deps (`ng-hai/ui/tv-config`, `ng-hai/ui/split-variant-props`, `ng-hai/ui/create-style-context`) resolve automatically from the same repo. The CLI reads `registry.json` and the source files directly — there is no pre-built JSON, no `public/r`, and no `components.json` registry entry to configure.
 
-> Requires a recent `shadcn` CLI; the `owner/repo/item` form landed in the 4.x line. Use `shadcn@latest`.
+> Use `shadcn@latest`; older CLIs do not understand the `owner/repo/item` form.
 
 ### Pin to a ref
 

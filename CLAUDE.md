@@ -59,6 +59,7 @@ Every component — including single-part ones like `button` and `input` — fol
 - **Multi-part components use `createStyleContext`, not prop drilling.** `checkbox-root.tsx` and `select-root.tsx` are the reference implementations; the root exports `useStyles` as `use<Name>Styles` for siblings.
 - **Bare components must stay unstyled.** `styles.ts` slot arrays should be `[""]` or empty. Consumers fill them in after install.
 - **`styles` prop escape hatch.** Root accepts an optional `styles?: ReturnType<typeof componentStyles>` so consumers can inject a preset without recomputing variants — preserve this.
+- **No glyphs in component code.** Parts that take an icon (`Select.Icon`, `Dialog.Close`, `Checkbox.Indicator`) pass `children` straight through to the primitive and ship no default SVG, and `registry.json` declares no icon library. The icon set is the consumer's choice, so don't hardcode inline SVGs in `.tsx` files.
 - **No dots in shipped filenames.** The shadcn CLI's import rewriter mishandles dotted module names — an aliased import of `tv.config` was rewritten to `@/components/tv.config` while the file itself landed in `lib/`, breaking every fresh install. Shipped files use kebab-case (`tv-config.ts`); `index.parts.ts` is safe only because it's imported relatively, never through an alias.
 
 ## Adding or modifying a component

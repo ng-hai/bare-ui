@@ -14,7 +14,7 @@ pnpm dlx shadcn@latest add ng-hai/ui/button
 
 The first two path segments (`ng-hai/ui`) are the GitHub owner and repo; the rest (`button`) is the registry item. This copies the component source into `components/ui/button/` and the shared helpers (`tv-config.ts`, `split-variant-props.ts`, and — for multi-part components — `create-style-context.ts`) into `lib/`. Transitive dependencies (`ng-hai/ui/tv-config`, `ng-hai/ui/split-variant-props`, etc.) resolve automatically from the same repo.
 
-> GitHub registries require a recent `shadcn` CLI (the `owner/repo/item` form landed in the 4.x line). Using `shadcn@latest` as above always works.
+> Use `shadcn@latest`; older CLIs do not understand the `owner/repo/item` form.
 
 Available components: `accordion`, `alert-dialog`, `autocomplete`, `avatar`, `button`, `checkbox`, `checkbox-group`, `collapsible`, `combobox`, `context-menu`, `dialog`, `drawer`, `field`, `fieldset`, `form`, `input`, `menu`, `menubar`, `meter`, `navigation-menu`, `number-field`, `otp-field`, `panel`, `popover`, `preview-card`, `progress`, `radio`, `scroll-area`, `select`, `separator`, `sidebar`, `slider`, `switch`, `table`, `tabs`, `toast`, `toggle`, `toggle-group`, `toolbar`, `tooltip`. The shared libs each component needs (`tv-config`, `split-variant-props`, `create-style-context`) are pulled in automatically as dependencies. The `theme` preset is **not** a dependency — components ship unstyled and reference no tokens. It's an *optional* starting palette (a Radix-style token contract + the Tailwind `@theme` wiring our styling examples use); install it with `shadcn add ng-hai/ui/theme`, or skip it and style the components with your own tokens.
 
