@@ -141,12 +141,14 @@
       "name": "input",
       "type": "registry:ui",
       "title": "Input",
-      "description": "Unstyled input component built on Base UI",
+      "description": "Unstyled input with group and addon parts, built on Base UI",
       "categories": ["form"],
       "registryDependencies": ["ng-hai/ui/split-variant-props", "ng-hai/ui/tv-config"],
       "dependencies": ["@base-ui/react@^1.7.0"],
       "files": [
         { "path": "registry/ui/input/input-root.tsx", "type": "registry:ui" },
+        { "path": "registry/ui/input/input-group.tsx", "type": "registry:ui" },
+        { "path": "registry/ui/input/input-addon.tsx", "type": "registry:ui" },
         { "path": "registry/ui/input/styles.ts", "type": "registry:ui" },
         { "path": "registry/ui/input/index.parts.ts", "type": "registry:ui" },
         { "path": "registry/ui/input/index.ts", "type": "registry:ui" }
