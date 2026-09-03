@@ -1,27 +1,17 @@
 import type { ComponentProps } from "react";
-import { createStyleContext } from "@/registry/lib/create-style-context";
-import { createPropSplitter } from "@/registry/lib/split-variant-props";
-import { sidebarStyles } from "./styles";
-import type { VariantProps } from "@/registry/lib/tv-config";
+import { useSidebar, useSidebarStyles } from "./sidebar-provider";
 
-type SidebarStyles = ReturnType<typeof sidebarStyles>;
-type SidebarVariantProps = VariantProps<typeof sidebarStyles>;
+interface SidebarRootProps extends ComponentProps<"aside"> {}
 
-const { StyleContext, useStyles } = createStyleContext<SidebarStyles>("Sidebar");
-const splitProps = createPropSplitter(sidebarStyles);
-
-export { useStyles as useSidebarStyles };
-
-interface SidebarRootProps extends ComponentProps<"aside">, SidebarVariantProps {
-  styles?: SidebarStyles;
-}
-
-export function SidebarRoot(props: SidebarRootProps) {
-  const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
-  const s = styles ?? sidebarStyles(variantProps);
+export function SidebarRoot({ className, ...props }: SidebarRootProps) {
+  const styles = useSidebarStyles();
+  const { open } = useSidebar();
   return (
-    <StyleContext value={s}>
-      <aside {...htmlProps} className={s.root({ class: className })} data-slot="sidebar" />
-    </StyleContext>
+    <aside
+      {...props}
+      className={styles.root({ class: className })}
+      data-slot="sidebar"
+      data-state={open ? "expanded" : "collapsed"}
+    />
   );
 }

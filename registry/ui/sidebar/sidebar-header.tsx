@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { useSidebarStyles } from "./sidebar-root";
+import { useSidebarStyles } from "./sidebar-provider";
 
 interface SidebarHeaderProps extends ComponentProps<"div"> {}
 

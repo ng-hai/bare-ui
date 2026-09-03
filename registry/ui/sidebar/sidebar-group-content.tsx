@@ -1,5 +1,5 @@
 import { Collapsible as CollapsiblePrimitive } from "@base-ui/react/collapsible";
-import { useSidebarStyles } from "./sidebar-root";
+import { useSidebarStyles } from "./sidebar-provider";
 
 interface SidebarGroupContentProps extends CollapsiblePrimitive.Panel.Props {
   className?: string;
