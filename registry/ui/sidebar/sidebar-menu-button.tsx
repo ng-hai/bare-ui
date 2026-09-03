@@ -6,7 +6,9 @@ interface SidebarMenuButtonProps extends useRender.ComponentProps<"button"> {
   active?: boolean;
 }
 
-export function SidebarMenuButton({ className, active, render = <button type="button" />, ...props }: SidebarMenuButtonProps) {
+const defaultRender = <button type="button" />;
+
+export function SidebarMenuButton({ className, active, render = defaultRender, ...props }: SidebarMenuButtonProps) {
   const styles = useSidebarStyles();
   return useRender({
     render,

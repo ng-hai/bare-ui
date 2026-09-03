@@ -3,7 +3,9 @@ import { useSidebarStyles } from "./sidebar-provider";
 
 interface SidebarMenuActionProps extends useRender.ComponentProps<"button"> {}
 
-export function SidebarMenuAction({ className, render = <button type="button" />, ...props }: SidebarMenuActionProps) {
+const defaultRender = <button type="button" />;
+
+export function SidebarMenuAction({ className, render = defaultRender, ...props }: SidebarMenuActionProps) {
   const styles = useSidebarStyles();
   return useRender({
     render,

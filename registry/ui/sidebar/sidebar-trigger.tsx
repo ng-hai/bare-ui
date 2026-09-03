@@ -4,7 +4,9 @@ import { useSidebar, useSidebarStyles } from "./sidebar-provider";
 
 interface SidebarTriggerProps extends useRender.ComponentProps<"button"> {}
 
-export function SidebarTrigger({ className, render = <button type="button" />, ...props }: SidebarTriggerProps) {
+const defaultRender = <button type="button" />;
+
+export function SidebarTrigger({ className, render = defaultRender, ...props }: SidebarTriggerProps) {
   const styles = useSidebarStyles();
   const { open, toggle } = useSidebar();
   return useRender({

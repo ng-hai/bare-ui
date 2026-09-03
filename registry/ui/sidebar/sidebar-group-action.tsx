@@ -3,7 +3,9 @@ import { useSidebarStyles } from "./sidebar-provider";
 
 interface SidebarGroupActionProps extends useRender.ComponentProps<"button"> {}
 
-export function SidebarGroupAction({ className, render = <button type="button" />, ...props }: SidebarGroupActionProps) {
+const defaultRender = <button type="button" />;
+
+export function SidebarGroupAction({ className, render = defaultRender, ...props }: SidebarGroupActionProps) {
   const styles = useSidebarStyles();
   return useRender({
     render,
