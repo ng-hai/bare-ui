@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useState, type ComponentProps } from "react";
+import { createContext, useCallback, useContext, useMemo, useState, type ComponentProps } from "react";
 import { createStyleContext } from "@/registry/lib/create-style-context";
 import { createPropSplitter } from "@/registry/lib/split-variant-props";
 import { sidebarStyles } from "./styles";
@@ -37,6 +37,7 @@ export function SidebarProvider(props: SidebarProviderProps) {
   const [variantProps, { className, styles, open: openProp, defaultOpen = true, onOpenChange, ...htmlProps }] =
     splitProps(props);
   const s = styles ?? sidebarStyles(variantProps);
+  const providerClass = s.provider({ class: className });
 
   const [uncontrolled, setUncontrolled] = useState(defaultOpen);
   const open = openProp ?? uncontrolled;
@@ -48,13 +49,14 @@ export function SidebarProvider(props: SidebarProviderProps) {
     [openProp, onOpenChange],
   );
   const toggle = useCallback(() => setOpen(!open), [open, setOpen]);
+  const state = useMemo(() => ({ open, setOpen, toggle }), [open, setOpen, toggle]);
 
   return (
     <StyleContext value={s}>
-      <SidebarContext value={{ open, setOpen, toggle }}>
+      <SidebarContext value={state}>
         <div
           {...htmlProps}
-          className={s.provider({ class: className })}
+          className={providerClass}
           data-slot="sidebar-provider"
           data-state={open ? "expanded" : "collapsed"}
         />
