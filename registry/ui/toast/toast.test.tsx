@@ -10,9 +10,6 @@ import { describeSlots } from "@/registry/lib/testing-utils";
  * rendered directly. This harness creates a toast via useToastManager and
  * renders Toast.Root so child parts (Title, Description, Close, Action,
  * Content) can access the Toast.Root StyleContext.
- *
- * The ui Portal/Viewport wrappers also call useToastStyles(), so they
- * too must be rendered inside Toast.Root in tests.
  */
 function ToastHarness({ children }: { children: ReactNode }) {
   const manager = ToastPrimitive.useToastManager();
@@ -35,10 +32,24 @@ const withHarness = (children: ReactNode) => (
   </Toast.Provider>
 );
 
+const withProvider = (children: ReactNode) => <Toast.Provider>{children}</Toast.Provider>;
+
 describe("Toast", () => {
   describe("Provider", () => {
     it("is exported", () => {
       expect(Toast.Provider).toBeDefined();
+    });
+
+    it("renders the documented tree — Portal and Viewport outside Toast.Root", () => {
+      cleanup();
+      render(
+        <Toast.Provider>
+          <Toast.Portal>
+            <Toast.Viewport />
+          </Toast.Portal>
+        </Toast.Provider>,
+      );
+      expect(document.querySelector('[data-slot="toast-viewport"]')).toBeInTheDocument();
     });
   });
 
@@ -167,11 +178,11 @@ describe("Toast", () => {
       Arrow: { slot: "toast-arrow", skipRender: true },
       Portal: {
         slot: "toast-portal",
-        wrapper: withHarness,
+        wrapper: withProvider,
       },
       Viewport: {
         slot: "toast-viewport",
-        wrapper: withHarness,
+        wrapper: withProvider,
       },
       Content: {
         slot: "toast-content",
