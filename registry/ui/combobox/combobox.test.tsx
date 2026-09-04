@@ -112,4 +112,29 @@ describe("Combobox", () => {
       expect(document.querySelector("[trigger]")).toBeNull();
     });
   });
+
+  describe("Empty", () => {
+    it("renders nothing styled while items match", () => {
+      render(
+        <Combobox.Root open items={["a"]}>
+          <Combobox.Empty className="p-4">No results</Combobox.Empty>
+        </Combobox.Root>,
+      );
+      const region = document.querySelector('[role="status"]')!;
+      expect(region).toBeInTheDocument();
+      expect(region).toBeEmptyDOMElement();
+      expect(document.querySelector('[data-slot="combobox-empty"]')).toBeNull();
+    });
+
+    it("renders the styled slot when the list is empty", () => {
+      render(
+        <Combobox.Root open items={[]}>
+          <Combobox.Empty className="p-4">No results</Combobox.Empty>
+        </Combobox.Root>,
+      );
+      const el = document.querySelector('[data-slot="combobox-empty"]');
+      expect(el).toHaveClass("p-4");
+      expect(el).toHaveTextContent("No results");
+    });
+  });
 });
