@@ -128,6 +128,29 @@ Add a `variants` block and `defaultVariants` to the `tv()` call. `createPropSpli
 <Button.Root variant="outline" size="lg">Click me</Button.Root>
 ```
 
+#### Combobox: `trigger` mode
+
+`Combobox.Trigger` plays two roles in Base UI: an **icon** button next to `Combobox.Input` (inside `Combobox.InputGroup`), or a select-like **field** wrapping `Combobox.Value` when the input lives in the popup. Both render the same `trigger` slot, so the registry ships a `trigger` root variant (`"icon"` default, `"field"`) with empty classes. Fill in each mode in `styles.ts` and pick it on the root:
+
+```ts
+variants: {
+  trigger: {
+    icon: { trigger: "size-8 rounded-md text-gray-11 hover:bg-gray-3" },
+    field: { trigger: "flex h-10 w-full items-center justify-between rounded-md border border-gray-7 px-3" },
+  },
+},
+```
+
+```tsx
+<Combobox.Root trigger="field" items={items}>
+  <Combobox.Trigger>
+    <Combobox.Value />
+    <Combobox.Icon><ChevronDown /></Combobox.Icon>
+  </Combobox.Trigger>
+  <Combobox.Portal>…<Combobox.Input /> inside the popup…</Combobox.Portal>
+</Combobox.Root>
+```
+
 ### Design tokens — the Radix 12-step contract
 
 The token contract is **not** the shadcn `--primary`/`--secondary`/`--muted` set. It follows [Radix Colors](https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale): two tiers of 12-step scales — **base**: `gray` (neutral chrome) + `accent` (brand); **status**: `danger` / `warning` / `success` / `info` (feedback) — each shipping a **solid** ramp (`1`–`12`) and an **alpha** ramp (`a1`–`a12`), in light (`:root`) and dark (`.dark`). Each step has a fixed role:

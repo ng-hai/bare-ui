@@ -1,5 +1,6 @@
-import { describe } from "vitest";
-import { Combobox } from "./index";
+import { describe, expect, it } from "vitest";
+import { render } from "@testing-library/react";
+import { Combobox, comboboxStyles } from "./index";
 import { describeSlots } from "@/registry/lib/testing-utils";
 
 describe("Combobox", () => {
@@ -93,5 +94,22 @@ describe("Combobox", () => {
     wrapper: (children) => (
       <Combobox.Root open>{children}</Combobox.Root>
     ),
+  });
+
+  describe("trigger variant", () => {
+    it("exposes icon and field modes on Root", () => {
+      expect(comboboxStyles.variantKeys).toContain("trigger");
+      expect(comboboxStyles.variants.trigger).toEqual({ icon: { trigger: "" }, field: { trigger: "" } });
+      expect(comboboxStyles.defaultVariants).toEqual({ trigger: "icon" });
+    });
+
+    it("does not leak the variant prop to the DOM", () => {
+      render(
+        <Combobox.Root trigger="field">
+          <Combobox.Trigger />
+        </Combobox.Root>,
+      );
+      expect(document.querySelector("[trigger]")).toBeNull();
+    });
   });
 });
