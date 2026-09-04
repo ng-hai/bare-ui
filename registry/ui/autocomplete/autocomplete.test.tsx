@@ -1,4 +1,5 @@
-import { describe } from "vitest";
+import { describe, expect, it } from "vitest";
+import { cleanup, render } from "@testing-library/react";
 import { Autocomplete } from "./index";
 import { describeSlots } from "@/registry/lib/testing-utils";
 
@@ -65,5 +66,32 @@ describe("Autocomplete", () => {
     wrapper: (children) => (
       <Autocomplete.Root open>{children}</Autocomplete.Root>
     ),
+  });
+
+  describe("Empty", () => {
+    it("renders nothing styled while items match", () => {
+      cleanup();
+      render(
+        <Autocomplete.Root open items={["a"]}>
+          <Autocomplete.Empty className="p-4">No results</Autocomplete.Empty>
+        </Autocomplete.Root>,
+      );
+      const region = document.querySelector('[role="status"]')!;
+      expect(region).toBeInTheDocument();
+      expect(region).toBeEmptyDOMElement();
+      expect(document.querySelector('[data-slot="autocomplete-empty"]')).toBeNull();
+    });
+
+    it("renders the styled slot when the list is empty", () => {
+      cleanup();
+      render(
+        <Autocomplete.Root open items={[]}>
+          <Autocomplete.Empty className="p-4">No results</Autocomplete.Empty>
+        </Autocomplete.Root>,
+      );
+      const el = document.querySelector('[data-slot="autocomplete-empty"]');
+      expect(el).toHaveClass("p-4");
+      expect(el).toHaveTextContent("No results");
+    });
   });
 });

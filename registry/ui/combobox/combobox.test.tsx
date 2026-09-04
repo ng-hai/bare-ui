@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { render } from "@testing-library/react";
+import { cleanup, render } from "@testing-library/react";
 import { Combobox, comboboxStyles } from "./index";
 import { describeSlots } from "@/registry/lib/testing-utils";
 
@@ -110,6 +110,33 @@ describe("Combobox", () => {
         </Combobox.Root>,
       );
       expect(document.querySelector("[trigger]")).toBeNull();
+    });
+  });
+
+  describe("Empty", () => {
+    it("renders nothing styled while items match", () => {
+      cleanup();
+      render(
+        <Combobox.Root open items={["a"]}>
+          <Combobox.Empty className="p-4">No results</Combobox.Empty>
+        </Combobox.Root>,
+      );
+      const region = document.querySelector('[role="status"]')!;
+      expect(region).toBeInTheDocument();
+      expect(region).toBeEmptyDOMElement();
+      expect(document.querySelector('[data-slot="combobox-empty"]')).toBeNull();
+    });
+
+    it("renders the styled slot when the list is empty", () => {
+      cleanup();
+      render(
+        <Combobox.Root open items={[]}>
+          <Combobox.Empty className="p-4">No results</Combobox.Empty>
+        </Combobox.Root>,
+      );
+      const el = document.querySelector('[data-slot="combobox-empty"]');
+      expect(el).toHaveClass("p-4");
+      expect(el).toHaveTextContent("No results");
     });
   });
 });
