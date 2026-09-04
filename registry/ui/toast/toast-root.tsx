@@ -10,7 +10,7 @@ type ToastVariantProps = VariantProps<typeof toastStyles>;
 const { StyleContext, useStyles } = createStyleContext<ToastStyles>("Toast");
 const splitProps = createPropSplitter(toastStyles);
 
-export { useStyles as useToastStyles };
+export { StyleContext as ToastStyleContext, useStyles as useToastStyles };
 
 interface ToastRootProps extends ToastPrimitive.Root.Props, ToastVariantProps {
   className?: string;
