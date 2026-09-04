@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { render } from "@testing-library/react";
+import { cleanup, render } from "@testing-library/react";
 import { Autocomplete } from "./index";
 import { describeSlots } from "@/registry/lib/testing-utils";
 
@@ -70,6 +70,7 @@ describe("Autocomplete", () => {
 
   describe("Empty", () => {
     it("renders nothing styled while items match", () => {
+      cleanup();
       render(
         <Autocomplete.Root open items={["a"]}>
           <Autocomplete.Empty className="p-4">No results</Autocomplete.Empty>
@@ -82,6 +83,7 @@ describe("Autocomplete", () => {
     });
 
     it("renders the styled slot when the list is empty", () => {
+      cleanup();
       render(
         <Autocomplete.Root open items={[]}>
           <Autocomplete.Empty className="p-4">No results</Autocomplete.Empty>

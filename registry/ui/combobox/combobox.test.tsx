@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { render } from "@testing-library/react";
+import { cleanup, render } from "@testing-library/react";
 import { Combobox, comboboxStyles } from "./index";
 import { describeSlots } from "@/registry/lib/testing-utils";
 
@@ -115,6 +115,7 @@ describe("Combobox", () => {
 
   describe("Empty", () => {
     it("renders nothing styled while items match", () => {
+      cleanup();
       render(
         <Combobox.Root open items={["a"]}>
           <Combobox.Empty className="p-4">No results</Combobox.Empty>
@@ -127,6 +128,7 @@ describe("Combobox", () => {
     });
 
     it("renders the styled slot when the list is empty", () => {
+      cleanup();
       render(
         <Combobox.Root open items={[]}>
           <Combobox.Empty className="p-4">No results</Combobox.Empty>
