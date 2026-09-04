@@ -25,4 +25,16 @@ export const comboboxStyles = tv({
     empty: [""],
     status: [""],
   },
+  variants: {
+    // Combobox.Trigger renders either an icon button beside Combobox.Input
+    // (inside InputGroup) or a select-like field wrapping Combobox.Value
+    // when the input lives in the popup. Style each mode here.
+    trigger: {
+      icon: { trigger: "" },
+      field: { trigger: "" },
+    },
+  },
+  defaultVariants: {
+    trigger: "icon",
+  },
 });
