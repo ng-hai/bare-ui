@@ -14,5 +14,14 @@ interface ButtonRootProps extends ButtonPrimitive.Props, ButtonVariantProps {
 export function ButtonRoot(props: ButtonRootProps) {
   const [variantProps, { className, styles, ...htmlProps }] = splitProps(props);
   const s = styles ?? buttonStyles(variantProps);
-  return <ButtonPrimitive {...htmlProps} className={s.root({ class: className })} data-slot="button" />;
+  // Figma pins Button's Palette mode to Gray (the Radix high-contrast neutral).
+  // Set before {...htmlProps} so a consumer's data-accent-color wins.
+  return (
+    <ButtonPrimitive
+      data-accent-color="gray"
+      {...htmlProps}
+      className={s.root({ class: className })}
+      data-slot="button"
+    />
+  );
 }
