@@ -170,12 +170,14 @@ Semantic roles stay meaning, not identity: `semantics: { danger: "red", premium:
 
 ### Gray as accent (neutral buttons)
 
+**Buttons are gray by default.** `Button.Root` sets `data-accent-color="gray"` before spreading props (Figma pins the Button's Palette mode to Gray), so a bare button renders as the high-contrast neutral. Pass `data-accent-color="<pool key>"` to opt a button into the brand or any pool hue — the consumer's value wins.
+
 `data-accent-color="gray"` is **always available** — `default.css` and every generated theme ship Radix Themes' gray remap (`accent-*` tokens → the theme's `gray-*` ramp; `"gray"` is reserved as a pool key). It neutralizes any accent-built slot per subtree or per element. Gray-9 solids are deliberately muted (below AA in light mode), so the swap block bakes in Radix's high-contrast treatment: `accent-9` → `gray-12`, `accent-10` → `--gray-12-hover`, `accent-contrast` → `gray-1` (alphas and all other steps stay 1:1). A solid built from `bg-accent-9 text-accent-contrast hover:bg-accent-10` therefore renders as a near-black (light) / near-white (dark) neutral at ~16:1 with no extra classes:
 
 ```tsx
-<Button.Root variant="solid" data-accent-color="gray">Save</Button.Root>  {/* high-contrast neutral, 16:1 */}
-<Button.Root variant="ghost" data-accent-color="gray">Cancel</Button.Root> {/* quiet gray chrome */}
-<Button.Root variant="solid">Upgrade</Button.Root>                         {/* the brand accent — spend it sparingly */}
+<Button.Root variant="solid">Save</Button.Root>                            {/* gray by default: high-contrast neutral, 16:1 */}
+<Button.Root variant="ghost">Cancel</Button.Root>                          {/* quiet gray chrome */}
+<Button.Root variant="solid" data-accent-color="jade">Upgrade</Button.Root> {/* opt into a pool hue — spend the brand sparingly */}
 ```
 
 ### One-off overrides
