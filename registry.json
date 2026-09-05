@@ -108,7 +108,7 @@
       "description": "Build-time CLI script (no npm publish — installed straight from this GitHub registry, lands in scripts/). Turns brand seeds into Radix-style 12-step token sets from an accent POOL: each named `accents` entry becomes a full scale (--<name>-*, bg-<name>-9 utilities) plus a [data-accent-color=\"<name>\"] swap block that re-points --accent-* per subtree; the first key is the default accent. Semantic roles (danger/warning/success/info + custom) alias a pool scale by key or seed a private one. Pins step 9 to each seed, auto-pairs a tinted gray to the default accent, supports per-mode (light/dark) seeds, and emits per-tenant default.css drop-ins and a [data-tenant]-scoped tenants.css for the theme-brand lib, with a WCAG self-check that warns (not fails) on misses. Self-contained: ships its own vendored copy of the generate-radix-colors engine, so run it with `tsx scripts/gen-theme.ts`. Ships no themes of its own — the config is your fill-in slot.",
       "categories": ["theme"],
       "registryDependencies": ["ng-hai/ui/theme", "ng-hai/ui/theme-brand"],
-      "devDependencies": ["@radix-ui/colors@^3.0.0", "colorjs.io@^0.6.1", "bezier-easing@^2.1.0", "tsx@^4.0.0"],
+      "devDependencies": ["@radix-ui/colors@^3.0.0", "colorjs.io@^0.7.0", "bezier-easing@^3.0.0", "tsx@^4.23.0"],
       "files": [
         {
           "path": "registry/theme/generate-radix-colors.ts",

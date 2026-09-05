@@ -164,7 +164,7 @@ The token contract is **not** the shadcn `--primary`/`--secondary`/`--muted` set
 | 5 | active / selected | 11 | low-contrast text |
 | 6 | subtle border / separator | 12 | high-contrast text |
 
-Plus specials: `--<scale>-contrast` (legible text on step 9, for `accent` + every status scale), `--<scale>-surface` (translucent panels), `--background` (page), `--overlay` (scrims). All are exposed to Tailwind via `@theme inline`, so utilities like `bg-accent-9`, `text-gray-11`, `border-gray-6`, `bg-accent-a3`, `text-accent-contrast`, `bg-danger-3` exist.
+Plus specials: `--<scale>-contrast` (legible text on step 9, for `gray`, `accent` and every status scale), `--<scale>-surface` (translucent panels), `--background` (page), and the panel/scrim pointers `--panel-solid` / `--panel-translucent` / `--surface` / `--overlay`. All are exposed to Tailwind via `@theme inline`, so utilities like `bg-accent-9`, `text-gray-11`, `border-gray-6`, `bg-accent-a3`, `text-accent-contrast`, `bg-danger-3` exist.
 
 Pick by role, not by guessing a shade:
 
@@ -193,7 +193,7 @@ Semantic roles stay meaning, not identity: `semantics: { danger: "red", premium:
 
 ### Gray as accent (neutral buttons)
 
-**Buttons are gray by default.** `Button.Root` sets `data-accent-color="gray"` before spreading props (Figma pins the Button's Palette mode to Gray), so a bare button renders as the high-contrast neutral. Pass `data-accent-color="<pool key>"` to opt a button into the brand or any pool hue — the consumer's value wins.
+**Buttons are gray by default.** `Button.Root` sets `data-accent-color="gray"` before spreading props, so a bare button renders as the high-contrast neutral. Pass `data-accent-color="<pool key>"` to opt a button into the brand or any pool hue — the consumer's value wins.
 
 `data-accent-color="gray"` is **always available** — `default.css` and every generated theme ship Radix Themes' gray remap (`accent-*` tokens → the theme's `gray-*` ramp; `"gray"` is reserved as a pool key). It neutralizes any accent-built slot per subtree or per element. Gray-9 solids are deliberately muted (below AA in light mode), so the swap block bakes in Radix's high-contrast treatment: `accent-9` → `gray-12`, `accent-10` → `--gray-12-hover`, `accent-contrast` → `gray-1` (alphas and all other steps stay 1:1). A solid built from `bg-accent-9 text-accent-contrast hover:bg-accent-10` therefore renders as a near-black (light) / near-white (dark) neutral at ~16:1 with no extra classes:
 
