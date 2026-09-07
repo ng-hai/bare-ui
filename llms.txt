@@ -14,7 +14,7 @@ Components are unstyled: behavior and ARIA come from Base UI, styling is left to
 
 ## Components
 
-accordion, alert-dialog, autocomplete, avatar, button, checkbox, checkbox-group, collapsible, combobox, context-menu, dialog, drawer, field, fieldset, form, input, menu, menubar, meter, navigation-menu, number-field, otp-field, panel, popover, preview-card, progress, radio, scroll-area, select, separator, sidebar, slider, switch, table, tabs, toast, toggle, toggle-group, toolbar, tooltip
+accordion, alert, alert-dialog, autocomplete, avatar, button, checkbox, checkbox-group, collapsible, combobox, context-menu, dialog, drawer, field, fieldset, form, input, menu, menubar, meter, navigation-menu, number-field, otp-field, panel, popover, preview-card, progress, radio, scroll-area, select, separator, sidebar, slider, switch, table, tabs, toast, toggle, toggle-group, toolbar, tooltip
 
 ## Optional
 
