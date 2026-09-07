@@ -793,7 +793,7 @@
       "name": "alert",
       "type": "registry:ui",
       "title": "Alert",
-      "description": "Unstyled inline alert with icon, content, title, description and action; a status or alert live region",
+      "description": "Unstyled inline alert with icon, content, title, description, action and close; a status or alert live region",
       "categories": ["display", "feedback"],
       "registryDependencies": ["ng-hai/ui/create-style-context", "ng-hai/ui/split-variant-props", "ng-hai/ui/tv-config"],
       "files": [
@@ -803,6 +803,7 @@
         { "path": "registry/ui/alert/alert-title.tsx", "type": "registry:ui" },
         { "path": "registry/ui/alert/alert-description.tsx", "type": "registry:ui" },
         { "path": "registry/ui/alert/alert-action.tsx", "type": "registry:ui" },
+        { "path": "registry/ui/alert/alert-close.tsx", "type": "registry:ui" },
         { "path": "registry/ui/alert/styles.ts", "type": "registry:ui" },
         { "path": "registry/ui/alert/index.parts.ts", "type": "registry:ui" },
         { "path": "registry/ui/alert/index.ts", "type": "registry:ui" }

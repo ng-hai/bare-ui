@@ -8,5 +8,6 @@ export const alertStyles = tv({
     title: [""],
     description: [""],
     action: [""],
+    close: [""],
   },
 });

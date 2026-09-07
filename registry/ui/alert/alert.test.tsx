@@ -32,6 +32,15 @@ describe("Alert", () => {
     expect(container.querySelector('[data-slot="alert-icon"]')).toHaveAttribute("aria-hidden");
   });
 
+  it("renders Close as a non-submitting button", () => {
+    const { container } = render(
+      <Alert.Root>
+        <Alert.Close aria-label="Dismiss" />
+      </Alert.Root>,
+    );
+    expect(container.querySelector('[data-slot="alert-close"]')).toHaveAttribute("type", "button");
+  });
+
   describeSlots(
     Alert,
     {
@@ -41,6 +50,7 @@ describe("Alert", () => {
       Title: { slot: "alert-title" },
       Description: { slot: "alert-description" },
       Action: { slot: "alert-action" },
+      Close: { slot: "alert-close" },
     },
     { wrapper: (children) => <Alert.Root>{children}</Alert.Root> },
   );
